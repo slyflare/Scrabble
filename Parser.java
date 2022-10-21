@@ -6,9 +6,11 @@ import java.util.Scanner;
  * */
 public class Parser {
     private Scanner scanner;
+    private File WordBank;
 
     public Parser(){
         this.scanner = new Scanner(System.in);
+        this.WordBank = new File("WordBank");
     }
 
     public ArrayList<String> getCommand() {
@@ -26,4 +28,14 @@ public class Parser {
 
         return command;
     }
+
+    private boolean wordCheck(ArrayList<String> command){
+        if(command.get(0).length() != 1){
+            //temp
+            return false;
+        }
+        
+        return false;
+    }
+
 }
