@@ -22,9 +22,7 @@ public class Scrabble {
         this.letterBag = new ArrayList<>();
         createLetterBag();
         for(Player p : players) { //give first seven letters to each player
-            for(int i = 0; i < 7; i++) {
-                p.addLetterTile(getLetterTile());
-            }
+            addLetterTiles(p, 7);
         }
     }
 
@@ -97,6 +95,12 @@ public class Scrabble {
         else {
             System.out.println("Letter bag empty");
             return new LetterTile("EmptyBag", 0);
+        }
+    }
+
+    public void addLetterTiles(Player player, int numLetters) {
+        for(int i = 0; i < numLetters; i++) {
+            player.addLetterTile(getLetterTile());
         }
     }
 
