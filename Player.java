@@ -6,8 +6,9 @@ public class Player{
     int score;
     private String name;
     private ArrayList<LetterTile> letters;
-    public Player()
+    public Player(String name)
     {
+        this.name = name;
         this.letters = new ArrayList<>(7);
     }
 

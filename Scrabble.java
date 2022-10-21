@@ -17,8 +17,8 @@ public class Scrabble {
         this.board = new Board();
         this.p = new Parser();
         this.players = new ArrayList<>();
-        players.add();
-        players.add();
+        players.add(new Player("Player 1"));
+        players.add(new Player("Player 2"));
         this.letterBag = new ArrayList<>();
         createLetterBag();
     }
@@ -96,7 +96,12 @@ public class Scrabble {
     }
 
     /**
-     * Calculate and return the points earned by the word that was placed
+     * Calculate and return the points earned by the word that was placed -
+     * Rules:
+     * Using all 7 letters results in a 50 point bonus - "bingo"
+     * Letter premiums are calculated before word premiums
+     * Premium squares apply only on first use
+     * Multiple word premiums do stack
      * @return points earned by word placement
      */
     public int scoredPoints() {
