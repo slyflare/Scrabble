@@ -21,6 +21,11 @@ public class Scrabble {
         players.add(new Player("Player 2"));
         this.letterBag = new ArrayList<>();
         createLetterBag();
+        for(Player p : players) { //give first seven letters to each player
+            for(int i = 0; i < 7; i++) {
+                p.addLetterTile(getLetterTile());
+            }
+        }
     }
 
     /**

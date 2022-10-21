@@ -29,5 +29,7 @@ public class Player{
         this.score = scoreVal;
         return scoreVal;
     }
-
+    public void addLetterTile(LetterTile t) {
+        this.letters.add(t);
+    }
 }
