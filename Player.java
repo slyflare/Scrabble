@@ -36,4 +36,11 @@ public class Player{
     public void addScore(int score) {
         this.score += score;
     }
+    public String printHand() {
+        String s ="";
+        for(LetterTile l : letters) {
+            s += l.getLetter() + "(" + l.getNum() + ") ";
+        }
+        return s;
+    }
 }

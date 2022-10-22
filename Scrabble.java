@@ -61,46 +61,14 @@ public class Scrabble {
      */
     public void createLetterBag() {
         int i;
-        for (i = 0; i < 12; i++) {
-            this.letterBag.add(new LetterTile("E", 1));
+        char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
+                'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+        int[] numTiles = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
+        for(i = 0; i < 26; i++) {
+            for(int j = 0; j < numTiles[i]; j++) {
+                this.letterBag.add(new LetterTile(letters[i]));
+            }
         }
-        for (i = 0; i < 9; i++) {
-            letterBag.add(new LetterTile("A", 1));
-            letterBag.add(new LetterTile("I", 1));
-        }
-        for (i = 0; i < 8; i++) {
-            letterBag.add(new LetterTile("O", 1));
-        }
-        for (i = 0; i < 6; i++) {
-            letterBag.add(new LetterTile("N", 1));
-            letterBag.add(new LetterTile("R", 1));
-            letterBag.add(new LetterTile("T", 1));
-        }
-        for (i = 0; i < 4; i++) {
-            letterBag.add(new LetterTile("L", 1));
-            letterBag.add(new LetterTile("S", 1));
-            letterBag.add(new LetterTile("U", 1));
-            letterBag.add(new LetterTile("D", 2));
-        }
-        for (i = 0; i < 3; i++) {
-            letterBag.add(new LetterTile("G", 2));
-        }
-        for (i = 0; i < 2; i++) {
-            letterBag.add(new LetterTile("B", 3));
-            letterBag.add(new LetterTile("C", 3));
-            letterBag.add(new LetterTile("M", 3));
-            letterBag.add(new LetterTile("P", 3));
-            letterBag.add(new LetterTile("F", 4));
-            letterBag.add(new LetterTile("H", 4));
-            letterBag.add(new LetterTile("V", 4));
-            letterBag.add(new LetterTile("W", 4));
-            letterBag.add(new LetterTile("Y", 4));
-        }
-        letterBag.add(new LetterTile("K", 5));
-        letterBag.add(new LetterTile("J", 8));
-        letterBag.add(new LetterTile("X", 8));
-        letterBag.add(new LetterTile("Q", 10));
-        letterBag.add(new LetterTile("Z", 10));
     }
 
     /**
@@ -115,7 +83,7 @@ public class Scrabble {
         }
         else {
             System.out.println("Letter bag empty");
-            return new LetterTile("EmptyBag", 0);
+            return new LetterTile('1', 0);
         }
     }
 
@@ -136,8 +104,13 @@ public class Scrabble {
      */
     public int scoredPoints(ArrayList<String> command) {
         //score of word + score of all other words created by placement
-
-        return 0;
+        int sum = 0;
+        String word = command.get(1);
+        int n = word.length();
+        for(int i = 0; i < n; i++) {
+            sum += (new LetterTile(word.charAt(i))).getNum();
+        }
+        return sum;
     }
 
     /**
@@ -169,6 +142,7 @@ public class Scrabble {
             currentPlayer = players.get(i);
             System.out.println("Its " + currentPlayer.getName() + "'s turn!");
             board.printBoard();
+            System.out.println("Your hand: " + currentPlayer.printHand());
             ArrayList<String> command = parser.getCommand();    //get command
             //command has to be valid
             if(command.get(0).compareTo("ERROR") == 0){
