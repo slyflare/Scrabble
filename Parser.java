@@ -1,4 +1,3 @@
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
@@ -6,18 +5,17 @@ import java.util.Scanner;
  * */
 public class Parser {
     private Scanner scanner;
-    private File WordBank;
 
     public Parser(){
         this.scanner = new Scanner(System.in);
-        this.WordBank = new File("WordBank");
     }
 
     public ArrayList<String> getCommand() {
         String inputLine;
         ArrayList<String> command = new ArrayList<String>();
 
-        System.out.print("> ");     // print prompt
+        System.out.println("Enter command. ('PLACE 1 1 DOWN B (A) D' or 'QUIT')");
+        System.out.print("> ");
 
         inputLine = scanner.nextLine();
         
@@ -26,16 +24,17 @@ public class Parser {
             command.add(tokenizer.next());
         }
 
+        if(!commandCheck(command)){
+            command.add(0, "ERROR");
+            System.out.println("Invalid Command.");
+            return command;
+        }
+
         return command;
     }
 
-    private boolean wordCheck(ArrayList<String> command){
-        if(command.get(0).length() != 1){
-            //temp
-            return false;
-        }
-        
-        return false;
+    private boolean commandCheck(ArrayList<String> command){
+        return command.get(0).compareTo("PLACE") == 0 || command.get(0).compareTo("QUIT") == 0;
     }
 
 }

@@ -1,5 +1,8 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Scanner;
 
 /**
  * Scrabble class creates the game, players, letterBag, Parser, board
@@ -10,6 +13,7 @@ public class Scrabble {
     private Parser parser;
     private ArrayList<LetterTile> letterBag;
     private Player currentPlayer;
+    private ArrayList<String> WordBank;
 
     /**
      * Constructor for class scrabble
@@ -26,6 +30,21 @@ public class Scrabble {
             addLetterTiles(p, 7);
             p.SetScore(0);
         }
+
+        //Load WordBank
+        this.WordBank = new ArrayList<String>();
+        File file = new File("WordBank");
+
+        Scanner tokenizer = null;
+        try {
+            tokenizer = new Scanner(file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        while (tokenizer.hasNextLine()) {
+            this.WordBank.add(tokenizer.nextLine());
+        }
+
     }
 
     /**
@@ -122,6 +141,25 @@ public class Scrabble {
     }
 
     /**
+     * Checks word legality.
+     * */
+    private boolean wordCheck(ArrayList<String> command) {
+        StringBuilder word = new StringBuilder();
+        for(int i = 4; i < command.size() - 1; i++){
+            word.append(command.get(i).replace("(", "").replace(")", ""));
+        }
+        return WordBank.contains(word.toString());
+    }
+
+    /**
+     * Checks if letters are in the players hand.
+     */
+    private boolean handCheck(ArrayList<String> command) {
+        
+        return false;
+    }
+
+    /**
      * Play the game
      */
     public void play() {
@@ -133,6 +171,22 @@ public class Scrabble {
             board.printBoard();
             ArrayList<String> command = parser.getCommand();    //get command
             //command has to be valid
+            if(command.get(0).compareTo("ERROR") == 0){
+                continue;
+            }
+            //QUIT
+            if(command.get(0).compareTo("QUIT") == 0){
+                running = false;
+            }
+            //PLACE
+            if(command.get(0).compareTo("PLACE") == 0){
+                if (!handCheck(command)){
+                    System.out.println("You do not have the letters in your hand");
+                }
+                if (!wordCheck(command)){
+                    System.out.println("Letters do not form a legal word");
+                }
+            }
             board.updateBoard(command);                         //Add letters to the board
             currentPlayer.addScore(scoredPoints(command));      //Update player score
 
@@ -141,8 +195,6 @@ public class Scrabble {
         }
 
     }
-
-
 
     public static void main(String[] args) {
         Scrabble s = new Scrabble();
