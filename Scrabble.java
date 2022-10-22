@@ -33,7 +33,7 @@ public class Scrabble {
 
         //Load WordBank
         this.WordBank = new ArrayList<String>();
-        File file = new File("WordBank");
+        File file = new File("WordBank.txt");
 
         Scanner tokenizer = null;
         try {
@@ -151,6 +151,7 @@ public class Scrabble {
             //QUIT
             if(command.get(0).compareTo("QUIT") == 0){
                 running = false;
+                continue;
             }
             //PLACE
             if(command.get(0).compareTo("PLACE") == 0){
