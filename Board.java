@@ -9,7 +9,7 @@ public class Board {
 
     public Board(){
         this.board();
-        this.updateBoard();
+        //this.updateBoard();
 
 
     }
@@ -24,7 +24,7 @@ public class Board {
         }
     }
 
-    public void updateBoard() {
+    public void updateBoard(ArrayList<String> command) {
 
 
     }

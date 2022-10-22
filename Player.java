@@ -32,4 +32,7 @@ public class Player{
     public void addLetterTile(LetterTile t) {
         this.letters.add(t);
     }
+    public void addScore(int score) {
+        this.score += score;
+    }
 }

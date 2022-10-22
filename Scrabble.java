@@ -7,15 +7,16 @@ import java.util.Random;
 public class Scrabble {
     private Board board;
     private ArrayList<Player> players;
-    private Parser p;
+    private Parser parser;
     private ArrayList<LetterTile> letterBag;
+    private Player currentPlayer;
 
     /**
      * Constructor for class scrabble
      */
     public Scrabble() {
         this.board = new Board();
-        this.p = new Parser();
+        this.parser = new Parser();
         this.players = new ArrayList<>();
         players.add(new Player("Player 1"));
         players.add(new Player("Player 2"));
@@ -23,6 +24,7 @@ public class Scrabble {
         createLetterBag();
         for(Player p : players) { //give first seven letters to each player
             addLetterTiles(p, 7);
+            p.SetScore(0);
         }
     }
 
@@ -113,7 +115,7 @@ public class Scrabble {
      * Multiple word premiums do stack
      * @return points earned by word placement
      */
-    public int scoredPoints() {
+    public int scoredPoints(ArrayList<String> command) {
         //score of word + score of all other words created by placement
 
         return 0;
@@ -123,18 +125,30 @@ public class Scrabble {
      * Play the game
      */
     public void play() {
+        boolean running = true;
+        int i = 0;
+        while(running) {
+            currentPlayer = players.get(i);
+            System.out.println("Its " + currentPlayer.getName() + "'s turn!");
+            board.printBoard();
+            ArrayList<String> command = parser.getCommand();    //get command
+            //command has to be valid
+            board.updateBoard(command);                         //Add letters to the board
+            currentPlayer.addScore(scoredPoints(command));      //Update player score
+
+            i = (i + 1) % players.size();                       //Switch to next player
+
+        }
 
     }
-    /*
+
+
+
     public static void main(String[] args) {
         Scrabble s = new Scrabble();
-        for (LetterTile t : s.letterBag) {
-            System.out.println(t.getLetter() + " " + t.getNum());
-        }
-        LetterTile x = s.getLetterTile();
-        System.out.println("random: " + x.getLetter() + " " + x.getNum());
+        s.play();
 
     }
 
-    */
+
 }
