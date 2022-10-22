@@ -3,8 +3,9 @@ import java.util.HashMap;
 public class LetterTile {
     private char letter;
     private int num;
-    private HashMap<Character, Integer> map;
+    private static HashMap<Character, Integer> map;
     public LetterTile(char letter) {
+        map = new HashMap<>();
         createMap();
         this.letter = letter;
         this.num = map.get(letter);
