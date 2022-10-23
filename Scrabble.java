@@ -105,7 +105,7 @@ public class Scrabble {
     public int scoredPoints(ArrayList<String> command) {
         //score of word + score of all other words created by placement
         int sum = 0;
-        String word = command.get(1);
+        String word = command.get(3);
         int n = word.length();
         for(int i = 0; i < n; i++) {
             sum += (new LetterTile(word.charAt(i))).getNum();
