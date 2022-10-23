@@ -166,24 +166,26 @@ public class Scrabble {
                 if (!handCheck(command, currentPlayer)){
                     System.out.println("You do not have the letters in your hand");
                 }
-                if (!wordCheck(command)){
+                else if (!wordCheck(command)){
                     System.out.println("Letters do not form a legal word");
                 }
-            }
-            board.updateBoard(command);                         //Add letters to the board
-            currentPlayer.addScore(scoredPoints(command));      //Update player score
-            //remove letter tiles from player
-            int numAlreadyPlaced = 0;
-            for(int j = 4; j < command.size(); j++) {
-                if(!command.get(j).startsWith("(")) {
-                    currentPlayer.removeLetterTile(command.get(j).charAt(0));
+                else { //place the word
+                    board.updateBoard(command);                         //Add letters to the board
+                    currentPlayer.addScore(scoredPoints(command));      //Update player score
+                    //remove letter tiles from player
+                    int numAlreadyPlaced = 0;
+                    for(int j = 4; j < command.size(); j++) {
+                        if(!command.get(j).startsWith("(")) {
+                            currentPlayer.removeLetterTile(command.get(j).charAt(0));
+                        }
+                        else{
+                            numAlreadyPlaced++;
+                        }
+                    }
+                    addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
+                    i = (i + 1) % players.size();                       //Switch to next player
                 }
-                else{
-                    numAlreadyPlaced++;
-                }
             }
-            addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
-            i = (i + 1) % players.size();                       //Switch to next player
         }
     }
 
