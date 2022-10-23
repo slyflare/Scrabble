@@ -10,6 +10,10 @@ As mentioned the current implementation of this project is completely text-based
 Valid commands:
 > "PLACE (row) (column) (letters with spaces inbetween)" - *places a word* 
 
+> "PASS" - *passes turn*
+
+> "DRAW (letter in hand) (letter in hand) ... " - *get new letter(s) from the bag*
+
 > "QUIT" - *exits game*
 
 To use a letter already on the board place parentheses around the letter you enter with the PLACE command. For example, placing BAD down from 1,1 and reusing an 'a' that is already on the board, PLACE 1 1 DOWN B (A) D
