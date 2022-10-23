@@ -135,9 +135,8 @@ public class Scrabble {
     /**
      * Checks if letters are in the players hand.
      */
-    private boolean handCheck(ArrayList<String> command) {
-        
-        return false;
+    private boolean handCheck(ArrayList<String> command, Player p) {
+        return p.hasLetters(command);
     }
 
     /**
@@ -164,7 +163,7 @@ public class Scrabble {
             }
             //PLACE
             if(command.get(0).compareTo("PLACE") == 0){
-                if (!handCheck(command)){
+                if (!handCheck(command, currentPlayer)){
                     System.out.println("You do not have the letters in your hand");
                 }
                 if (!wordCheck(command)){
@@ -182,19 +181,15 @@ public class Scrabble {
                 else{
                     numAlreadyPlaced++;
                 }
-
             }
             addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
             i = (i + 1) % players.size();                       //Switch to next player
-
         }
-
     }
 
     public static void main(String[] args) {
         Scrabble s = new Scrabble();
         s.play();
-
     }
 
 

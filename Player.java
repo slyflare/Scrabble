@@ -50,4 +50,26 @@ public class Player{
         }
         return s;
     }
+
+    /**
+     * Check if the hand of letters contains all required letters for a word to be placed
+     * @param command the command word to be tested
+     * @return true if the hand contains all the letters, false otherwise
+     */
+    public boolean hasLetters(ArrayList<String> command) {
+        boolean has = false;
+        for(int i = 4; i < command.size(); i++) {
+            for(LetterTile t : letters) {
+                if(Character.compare(t.getLetter(), command.get(i).charAt(0)) == 0) {
+                    has = true;
+                }
+                else if(Character.compare(command.get(i).charAt(0), '(') == 0) {
+                    has = true;
+                }
+            }
+            if(has == false) {return false;}
+            has = false;
+        }
+        return true;
+    }
 }
