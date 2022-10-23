@@ -1,5 +1,5 @@
 # SYSC-3110-Scrabble
-By Ashwita Ala, Matthew Gaudet, Riya Rawat, Vimal Gunasegaran
+By Ashwitha Ala, Matthew Gaudet, Riya Rawat, Vimal Gunasegaran
 
 ## Project Description:
 This is a reproduced simplified version of the classic boardgame Scrabble coded in Java. The project is part of a group evaluation for the SYSC 3110 Software Development Project course. The current implementation of the project is text-based however the ultimate goal is create a complete game with good GUI and competent AI opponents.
