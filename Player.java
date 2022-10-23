@@ -32,13 +32,14 @@ public class Player{
     public void addLetterTile(LetterTile t) {
         this.letters.add(t);
     }
-    public void removeLetterTile(char c){
+    public boolean removeLetterTile(char c){
         for(LetterTile t : letters) {
             if(Character.compare(t.getLetter(), c) == 0) {
                 this.letters.remove(t);
-                return;
+                return true;
             }
         }
+        return false;
     }
     public void addScore(int score) {
         this.score += score;

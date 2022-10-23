@@ -14,7 +14,7 @@ public class Parser {
         String inputLine;
         ArrayList<String> command = new ArrayList<String>();
 
-        System.out.println("Enter command. ('PLACE 1 1 DOWN B (A) D' or 'QUIT')");
+        System.out.println("Enter command. ('PLACE 1 1 DOWN B (A) D' or 'QUIT' or 'PASS' or 'DRAW A')");
         System.out.print("> ");
 
         inputLine = scanner.nextLine();
@@ -34,7 +34,8 @@ public class Parser {
     }
 
     private boolean commandCheck(ArrayList<String> command){
-        return command.get(0).compareTo("PLACE") == 0 || command.get(0).compareTo("QUIT") == 0;
+        return command.get(0).compareTo("PLACE") == 0 || command.get(0).compareTo("QUIT") == 0 ||
+                command.get(0).compareTo("PASS") == 0 || command.get(0).compareTo("DRAW") == 0;
     }
 
 }

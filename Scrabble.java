@@ -161,6 +161,29 @@ public class Scrabble {
                 running = false;
                 continue;
             }
+            //PASS
+            if(command.get(0).compareTo("PASS") == 0) {
+                i = (i + 1) % players.size();     //Switch to next player
+                continue;
+            }
+            //DRAW
+            int errors = 0;
+            if(command.get(0).compareTo("DRAW") == 0) {
+                if(!(letterBag.size() > 7)) {
+                    System.out.println("Not enough tiles in bag");
+                    continue;
+                }
+                for(int k = 1; k < command.size(); k++) {
+                    if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
+                        System.out.println("Letter not in hand");
+                        errors++;
+                    }
+                }
+                addLetterTiles(currentPlayer, command.size() - 1 - errors);
+                if(errors < 1) {
+                    i = (i + 1) % players.size();     //Switch to next player
+                }
+            }
             //PLACE
             if(command.get(0).compareTo("PLACE") == 0){
                 if (!handCheck(command, currentPlayer)){
