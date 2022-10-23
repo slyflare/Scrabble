@@ -18,12 +18,13 @@ public class Scrabble {
     /**
      * Constructor for class scrabble
      */
-    public Scrabble() {
+    public Scrabble(int numPlayers) {
         this.board = new Board();
         this.parser = new Parser();
         this.players = new ArrayList<>();
-        players.add(new Player("Player 1"));
-        players.add(new Player("Player 2"));
+        for(int i = 1; i < numPlayers + 1; i++) {
+            players.add(new Player("Player " + i));
+        }
         this.letterBag = new ArrayList<>();
         createLetterBag();
         for(Player p : players) { //give first seven letters to each player
@@ -213,7 +214,7 @@ public class Scrabble {
     }
 
     public static void main(String[] args) {
-        Scrabble s = new Scrabble();
+        Scrabble s = new Scrabble(2); //must be between 2-4 players
         s.play();
     }
 
