@@ -105,11 +105,19 @@ public class Scrabble {
     public int scoredPoints(ArrayList<String> command) {
         //score of word + score of all other words created by placement
         int sum = 0;
-        String word = command.get(3);
-        int n = word.length();
-        for(int i = 0; i < n; i++) {
-            sum += (new LetterTile(word.charAt(i))).getNum();
+        int count = 0;
+        for(int i = 4; i < command.size(); i++) {
+            if(!command.get(i).startsWith("(")) {
+                sum += (new LetterTile(command.get(i).charAt(0))).getNum();
+                count++;
+            }
+            else {
+                sum += (new LetterTile(command.get(i).charAt(1))).getNum();
+            }
+
         }
+        if(count == 7) {sum += 50;} //place all 7 = 50 points
+        System.out.println("SCORE: " + sum);
         return sum;
     }
 
@@ -144,6 +152,7 @@ public class Scrabble {
             board.printBoard();
             System.out.println("Your hand: " + currentPlayer.printHand());
             ArrayList<String> command = parser.getCommand();    //get command
+            int numLetters = command.size() - 4;
             //command has to be valid
             if(command.get(0).compareTo("ERROR") == 0){
                 continue;
@@ -164,7 +173,18 @@ public class Scrabble {
             }
             board.updateBoard(command);                         //Add letters to the board
             currentPlayer.addScore(scoredPoints(command));      //Update player score
+            //remove letter tiles from player
+            int numAlreadyPlaced = 0;
+            for(int j = 4; j < command.size(); j++) {
+                if(!command.get(j).startsWith("(")) {
+                    currentPlayer.removeLetterTile(command.get(j).charAt(0));
+                }
+                else{
+                    numAlreadyPlaced++;
+                }
 
+            }
+            addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
             i = (i + 1) % players.size();                       //Switch to next player
 
         }
