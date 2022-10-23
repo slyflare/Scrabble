@@ -126,10 +126,10 @@ public class Scrabble {
      * */
     private boolean wordCheck(ArrayList<String> command) {
         StringBuilder word = new StringBuilder();
-        for(int i = 4; i < command.size() - 1; i++){
+        for(int i = 4; i < command.size(); i++){
             word.append(command.get(i).replace("(", "").replace(")", ""));
         }
-        return WordBank.contains(word.toString());
+        return WordBank.contains(word.toString().toLowerCase());
     }
 
     /**
