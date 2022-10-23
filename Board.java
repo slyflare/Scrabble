@@ -33,7 +33,7 @@ public class Board {
         int x = Integer.parseInt(command.get(1));
         int y = Integer.parseInt(command.get(2));
         int len = command.size() - 4;
-        for(int i = 0; i < len; i++) {
+        for(int i = 0; i < len; i++) { //check if placement is valid
             if(command.get(3).compareTo("RIGHT") == 0) {
                 if(Character.compare(board[x - 1][y + i - 1], ' ') == 0 ||
                         Character.compare(command.get(i+4).charAt(0), '(') == 0 &&
@@ -51,7 +51,7 @@ public class Board {
                 else{return false;}
             }
         }
-        for(int i = 0; i < len; i++) {
+        for(int i = 0; i < len; i++) { //place word
             if(command.get(3).compareTo("RIGHT") == 0) {
                 if(Character.compare(command.get(i + 4).charAt(0), '(') == 0) {
                     board[x - 1][y + i - 1] = command.get(i + 4).charAt(1);

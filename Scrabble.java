@@ -88,6 +88,11 @@ public class Scrabble {
         }
     }
 
+    /**
+     * Adds random letterTiles to the player
+     * @param player the player to add the letters to
+     * @param numLetters the number of letters to give to the player
+     */
     public void addLetterTiles(Player player, int numLetters) {
         for(int i = 0; i < numLetters; i++) {
             player.addLetterTile(getLetterTile());
@@ -150,7 +155,11 @@ public class Scrabble {
             currentPlayer = players.get(i);
             System.out.println("Its " + currentPlayer.getName() + "'s turn!");
             board.printBoard();
-            System.out.println("Your hand: " + currentPlayer.printHand());
+            System.out.println("Scores: ");
+            for(Player p : players) {
+                System.out.print(p.getName() + ": " + p.GetScore() + " ");
+            }
+            System.out.println("\nYour hand: " + currentPlayer.printHand());
             ArrayList<String> command = parser.getCommand();    //get command
             int numLetters = command.size() - 4;
             //command has to be valid
@@ -178,6 +187,9 @@ public class Scrabble {
                     if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
                         System.out.println("Letter not in hand");
                         errors++;
+                    }
+                    else { //add letter back to letterBag
+                        letterBag.add(new LetterTile(command.get(k).charAt(0)));
                     }
                 }
                 addLetterTiles(currentPlayer, command.size() - 1 - errors);
