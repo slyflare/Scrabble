@@ -43,7 +43,6 @@ public class Board {
                 if(Character.compare(board[x - 1][y + i - 1], ' ') == 0 ||
                         Character.compare(command.get(i+4).charAt(0), '(') == 0 &&
                         Character.compare(command.get(i+4).charAt(1), board[x - 1][y + i - 1]) == 0){
-                    //board[x - 1][y + i - 1] = command.get(i + 4).charAt(0);
                 }
                 else {return false;}
             }
@@ -51,7 +50,6 @@ public class Board {
                     Character.compare(command.get(i+4).charAt(0), '(') == 0 &&
                     Character.compare(command.get(i+4).charAt(1), board[x + i - 1][y - 1]) == 0) {
                 if(Character.compare(board[x - 1][y + i - 1], ' ') == 0) {
-                    //board[x + i - 1][y - 1] = command.get(i + 4).charAt(0);
                 }
                 else{return false;}
             }
@@ -97,16 +95,7 @@ public class Board {
                 { output = output + "-------------------------------------------------------------"+'\n';
                 }
             }
-
-
         }
         System.out.println(output);
-
     }
-
-    public static void main(String[] args){
-        Board b = new Board();
-        b.printBoard();
-    }
-
 }
