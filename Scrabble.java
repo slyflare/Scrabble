@@ -174,7 +174,7 @@ public class Scrabble {
             }
             //DRAW
             if(command.get(0).compareTo("DRAW") == 0){
-                //do something.
+                addLetterTiles(currentPlayer, Integer.parseInt(command.get(1)));
                 continue;
             }
             //PLACE
