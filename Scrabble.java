@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * Scrabble class creates the game, players, letterBag, Parser, board
+ * @author Matthew
  */
 public class Scrabble {
     private Board board;
@@ -17,6 +18,7 @@ public class Scrabble {
 
     /**
      * Constructor for class scrabble
+     * @author Matthew
      */
     public Scrabble(int numPlayers) {
         this.board = new Board();
@@ -59,6 +61,7 @@ public class Scrabble {
      * 5 points: K ×1
      * 8 points: J ×1, X ×1
      * 10 points: Q ×1, Z ×1
+     * @author Matthew
      */
     public void createLetterBag() {
         int i;
@@ -74,6 +77,7 @@ public class Scrabble {
 
     /**
      * Removes and returns a random LetterTile from the letter bag
+     * @author Matthew
      * @return LetterTile from the letterBag
      */
     public LetterTile getLetterTile() {
@@ -90,6 +94,7 @@ public class Scrabble {
 
     /**
      * Adds random letterTiles to the player
+     * @author Matthew
      * @param player the player to add the letters to
      * @param numLetters the number of letters to give to the player
      */
@@ -106,6 +111,7 @@ public class Scrabble {
      * Letter premiums are calculated before word premiums
      * Premium squares apply only on first use
      * Multiple word premiums do stack
+     * @author Matthew
      * @return points earned by word placement
      */
     public int scoredPoints(ArrayList<String> command) {
@@ -129,6 +135,7 @@ public class Scrabble {
 
     /**
      * Checks word legality.
+     * @author Vimal
      * */
     private boolean wordCheck(ArrayList<String> command) {
         StringBuilder word = new StringBuilder();
@@ -140,6 +147,7 @@ public class Scrabble {
 
     /**
      * Checks if letters are in the players hand.
+     * @author Matthew
      */
     private boolean handCheck(ArrayList<String> command, Player p) {
         return p.hasLetters(command);
@@ -147,6 +155,7 @@ public class Scrabble {
 
     /**
      * Play the game
+     * @author Matthew
      */
     public void play() {
         boolean running = true;
