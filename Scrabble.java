@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 /**
  * Scrabble class creates the game, players, letterBag, Parser, board
+ * @author Matthew
  */
 public class Scrabble {
     private Board board;
@@ -17,14 +18,14 @@ public class Scrabble {
 
     /**
      * Constructor for class scrabble
+     * @author Matthew
      */
-    public Scrabble(int numPlayers) {
+    public Scrabble() {
         this.board = new Board();
         this.parser = new Parser();
         this.players = new ArrayList<>();
-        for(int i = 1; i < numPlayers + 1; i++) {
-            players.add(new Player("Player " + i));
-        }
+        players.add(new Player("Player 1"));
+        players.add(new Player("Player 2"));
         this.letterBag = new ArrayList<>();
         createLetterBag();
         for(Player p : players) { //give first seven letters to each player
@@ -32,7 +33,10 @@ public class Scrabble {
             p.SetScore(0);
         }
 
-        //Load WordBank
+        /**
+         * Load WordBank
+         * @author Vimal
+         * */
         this.WordBank = new ArrayList<String>();
         File file = new File("WordBank.txt");
 
@@ -59,6 +63,7 @@ public class Scrabble {
      * 5 points: K ×1
      * 8 points: J ×1, X ×1
      * 10 points: Q ×1, Z ×1
+     * @author Matthew
      */
     public void createLetterBag() {
         int i;
@@ -75,6 +80,7 @@ public class Scrabble {
     /**
      * Removes and returns a random LetterTile from the letter bag
      * @return LetterTile from the letterBag
+     * @author Matthew
      */
     public LetterTile getLetterTile() {
         if(letterBag.size() > 0) {
@@ -89,10 +95,9 @@ public class Scrabble {
     }
 
     /**
-     * Adds random letterTiles to the player
-     * @param player the player to add the letters to
-     * @param numLetters the number of letters to give to the player
-     */
+     * Gives player a number of LetterTiles.
+     * @author Matthew
+     * */
     public void addLetterTiles(Player player, int numLetters) {
         for(int i = 0; i < numLetters; i++) {
             player.addLetterTile(getLetterTile());
@@ -106,47 +111,43 @@ public class Scrabble {
      * Letter premiums are calculated before word premiums
      * Premium squares apply only on first use
      * Multiple word premiums do stack
+     * @author Matthew
      * @return points earned by word placement
      */
     public int scoredPoints(ArrayList<String> command) {
         //score of word + score of all other words created by placement
         int sum = 0;
-        int count = 0;
-        for(int i = 4; i < command.size(); i++) {
-            if(!command.get(i).startsWith("(")) {
-                sum += (new LetterTile(command.get(i).charAt(0))).getNum();
-                count++;
-            }
-            else {
-                sum += (new LetterTile(command.get(i).charAt(1))).getNum();
-            }
-
+        String word = command.get(1);
+        int n = word.length();
+        for(int i = 0; i < n; i++) {
+            sum += (new LetterTile(word.charAt(i))).getNum();
         }
-        if(count == 7) {sum += 50;} //place all 7 = 50 points
-        System.out.println("SCORE: " + sum);
         return sum;
     }
 
     /**
      * Checks word legality.
+     * @author Vimal
      * */
     private boolean wordCheck(ArrayList<String> command) {
         StringBuilder word = new StringBuilder();
-        for(int i = 4; i < command.size(); i++){
+        for(int i = 4; i < command.size() - 1; i++){
             word.append(command.get(i).replace("(", "").replace(")", ""));
         }
-        return WordBank.contains(word.toString().toLowerCase());
+        return WordBank.contains(word.toString());
     }
 
     /**
      * Checks if letters are in the players hand.
+     * @author Matthew
      */
-    private boolean handCheck(ArrayList<String> command, Player p) {
-        return p.hasLetters(command);
+    private boolean handCheck(ArrayList<String> command) {
+        return currentPlayer.hasLetters(command);
     }
 
     /**
      * Play the game
+     * @author Matthew
      */
     public void play() {
         boolean running = true;
@@ -155,13 +156,8 @@ public class Scrabble {
             currentPlayer = players.get(i);
             System.out.println("Its " + currentPlayer.getName() + "'s turn!");
             board.printBoard();
-            System.out.println("Scores: ");
-            for(Player p : players) {
-                System.out.print(p.getName() + ": " + p.GetScore() + " ");
-            }
-            System.out.println("\nYour hand: " + currentPlayer.printHand());
+            System.out.println("Your hand: " + currentPlayer.printHand());
             ArrayList<String> command = parser.getCommand();    //get command
-            int numLetters = command.size() - 4;
             //command has to be valid
             if(command.get(0).compareTo("ERROR") == 0){
                 continue;
@@ -172,63 +168,37 @@ public class Scrabble {
                 continue;
             }
             //PASS
-            if(command.get(0).compareTo("PASS") == 0) {
-                i = (i + 1) % players.size();     //Switch to next player
+            if(command.get(0).compareTo("PASS") == 0){
+                i = (i + 1) % players.size();
                 continue;
             }
             //DRAW
-            int errors = 0;
-            if(command.get(0).compareTo("DRAW") == 0) {
-                if(!(letterBag.size() > 7)) {
-                    System.out.println("Not enough tiles in bag");
-                    continue;
-                }
-                for(int k = 1; k < command.size(); k++) {
-                    if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
-                        System.out.println("Letter not in hand");
-                        errors++;
-                    }
-                    else { //add letter back to letterBag
-                        letterBag.add(new LetterTile(command.get(k).charAt(0)));
-                    }
-                }
-                addLetterTiles(currentPlayer, command.size() - 1 - errors);
-                if(errors < 1) {
-                    i = (i + 1) % players.size();     //Switch to next player
-                }
+            if(command.get(0).compareTo("DRAW") == 0){
+                //do something.
+                continue;
             }
             //PLACE
             if(command.get(0).compareTo("PLACE") == 0){
-                if (!handCheck(command, currentPlayer)){
+                if (!handCheck(command)){
                     System.out.println("You do not have the letters in your hand");
                 }
-                else if (!wordCheck(command)){
+                if (!wordCheck(command)){
                     System.out.println("Letters do not form a legal word");
                 }
-                else { //place the word
-                    if(board.updateBoard(command)) {                         //Add letters to the board
-                        currentPlayer.addScore(scoredPoints(command));      //Update player score
-                        //remove letter tiles from player
-                        int numAlreadyPlaced = 0;
-                        for (int j = 4; j < command.size(); j++) {
-                            if (!command.get(j).startsWith("(")) {
-                                currentPlayer.removeLetterTile(command.get(j).charAt(0));
-                            } else {
-                                numAlreadyPlaced++;
-                            }
-                        }
-                        addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
-                        i = (i + 1) % players.size();                       //Switch to next player
-                    }
-                    else {System.out.println("Invalid placement");}
-                }
             }
+            board.updateBoard(command);                         //Add letters to the board
+            currentPlayer.addScore(scoredPoints(command));      //Update player score
+
+            i = (i + 1) % players.size();                       //Switch to next player
+
         }
+
     }
 
     public static void main(String[] args) {
-        Scrabble s = new Scrabble(2); //must be between 2-4 players
+        Scrabble s = new Scrabble();
         s.play();
+
     }
 
 

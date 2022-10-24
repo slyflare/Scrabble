@@ -1,5 +1,9 @@
 import java.util.HashMap;
 
+/**
+ * LetterTile Class
+ * @author Matthew
+ * */
 public class LetterTile {
     private char letter;
     private int num;

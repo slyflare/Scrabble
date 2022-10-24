@@ -1,6 +1,9 @@
-
 import java.util.*;
 import java.io.*;
+/**
+ * Board class responsible for keeping board state
+ * @author Riya
+ * */
 public class Board {
    private char[][] board;
    private int row;
@@ -13,8 +16,9 @@ public class Board {
 
 
     }
-    /**Initialising the scrabble board with 15 numbered rows and 15 alphabetized
-     columns */
+    /**Initialising the scrabble board with 15 numbered rows and 15 alphabetized columns.
+     * @author Riya
+     */
     private void board() {
         this.board = new char[15][15];
         for (int i = 0; i < 15; i++) {
@@ -28,6 +32,7 @@ public class Board {
      * Puts the words on the board
      * @param command the command containing the word to place
      * @return true if the word is placed, false if placement is invalid
+     * @author Matthew
      */
     public boolean updateBoard(ArrayList<String> command) {
         int x = Integer.parseInt(command.get(1));
@@ -72,6 +77,10 @@ public class Board {
         return true;
     }
 
+    /**
+     * Prints out the current board.
+     * @author Riya
+     * */
     public void printBoard(){
         String output = "";
         for ( int  row = 0;  row < 15; row++){

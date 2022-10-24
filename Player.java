@@ -1,6 +1,7 @@
 import java.util.*;
 /**
  * Player class
+ * @author Ashwitha
  */
 public class Player{
     int score;
@@ -54,6 +55,7 @@ public class Player{
 
     /**
      * Check if the hand of letters contains all required letters for a word to be placed
+     * @author Matthew
      * @param command the command word to be tested
      * @return true if the hand contains all the letters, false otherwise
      */
