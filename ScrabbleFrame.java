@@ -25,6 +25,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JPanel gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(15, 15));
         this.add(gridPanel, BorderLayout.CENTER);
+
+        ScrabbleController controller = new ScrabbleController(scrabble);
+
         for(int i = 0; i < boardSizeX; i++) {
             for(int j = 0; j < boardSizeY; j++) {
                 JButton b = new JButton("");
@@ -66,14 +69,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         resetButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.RESET));
         optionPanel.add(Box.createVerticalGlue());
 
-        this.setSize(700, 600);
+        this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
     }
     @Override
     public void update(ScrabbleEvent e) {
-        if(e.getCurrentLetter() != null) {
+        if(e.getCommand() == Scrabble.Command.PLACE && e.getCurrentLetter() != null) {
             String label = e.getCurrentLetter().toString();
             board[e.getX()][e.getY()].setText(label);
         }

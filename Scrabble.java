@@ -207,7 +207,6 @@ public class Scrabble {
     private void place(int x, int y) {
         if (currentLetter != null) {
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
-            currentLetter = null;
         }
     }
 
@@ -257,7 +256,7 @@ public class Scrabble {
 
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement, this.command));
+            v.update(new ScrabbleEvent(this, x, y, board, currentPlayer, currentLetter, this.command));
         }
 
         System.out.println(currentLetter);

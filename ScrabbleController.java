@@ -10,12 +10,17 @@ import java.util.Scanner;
 public class ScrabbleController implements ActionListener {
     private Scrabble scrabble;
 
-    public ScrabbleController(){
-        this.scrabble = new Scrabble(2);
+    public ScrabbleController(Scrabble scrabble){
+        this.scrabble = scrabble;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //idk
+        String[] input = e.getActionCommand().split(" ");
+        int x = Integer.parseInt(input[0]);
+        int y = Integer.parseInt(input[1]);
+        int index = Integer.parseInt(input[2]);
+        Scrabble.Command c = Scrabble.Command.valueOf(input[3]);
+        scrabble.play(x,y,index,c);
     }
 }
