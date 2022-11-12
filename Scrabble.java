@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -11,10 +12,12 @@ import java.util.Scanner;
 public class Scrabble {
     private Board board;
     private ArrayList<Player> players;
-    private Parser parser;
     private ArrayList<LetterTile> letterBag;
     private Player currentPlayer;
     private ArrayList<String> WordBank;
+    private int playerIndex;
+    private ArrayList<String> playerWord;
+    private HashMap<Integer, Integer> playerPlacement;
 
     /**
      * Constructor for class scrabble
@@ -22,8 +25,10 @@ public class Scrabble {
      */
     public Scrabble(int numPlayers) {
         this.board = new Board();
-        this.parser = new Parser();
         this.players = new ArrayList<>();
+        this.playerIndex = 0;
+        this.playerWord = new ArrayList<>();
+        this.playerPlacement = new HashMap<>();
         for(int i = 1; i < numPlayers + 1; i++) {
             players.add(new Player("Player " + i));
         }
@@ -153,15 +158,42 @@ public class Scrabble {
         return p.hasLetters(command);
     }
 
-    /**
-     * Play the game
-     * @author Matthew
-     */
+    public void draw() {
+        /*
+        old code just in case
+
+        if(!(letterBag.size() > 7)) {
+            System.out.println("Not enough tiles in bag");
+            continue;
+        }
+        for(int k = 1; k < command.size(); k++) {
+            if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
+                System.out.println("Letter not in hand");
+                errors++;
+            }
+            else { //add letter back to letterBag
+                letterBag.add(new LetterTile(command.get(k).charAt(0)));
+            }
+        }
+        addLetterTiles(currentPlayer, command.size() - 1 - errors);
+        if(errors < 1) {
+            i = (i + 1) % players.size();     //Switch to next player
+        }
+        */
+    }
+
+    public void pass() {
+        playerIndex++;
+        currentPlayer = players.get(playerIndex);
+    }
+
+    public void place(int x, int y) {
+        playerPlacement.put(x,y);
+    }
+
+    //will delete eventually
     public void play() {
-        boolean running = true;
-        int i = 0;
-        while(running) {
-            currentPlayer = players.get(i);
+            currentPlayer = players.get(0);
             System.out.println("Its " + currentPlayer.getName() + "'s turn!");
             board.printBoard();
             System.out.println("Scores: ");
@@ -169,28 +201,16 @@ public class Scrabble {
                 System.out.print(p.getName() + ": " + p.GetScore() + " ");
             }
             System.out.println("\nYour hand: " + currentPlayer.printHand());
-            ArrayList<String> command = parser.getCommand();    //get command
+            ArrayList<String> command = new ArrayList<>();    //get command
             int numLetters = command.size() - 4;
             //command has to be valid
             if(command.get(0).compareTo("ERROR") == 0){
-                continue;
-            }
-            //QUIT
-            if(command.get(0).compareTo("QUIT") == 0){
-                running = false;
-                continue;
-            }
-            //PASS
-            if(command.get(0).compareTo("PASS") == 0) {
-                i = (i + 1) % players.size();     //Switch to next player
-                continue;
             }
             //DRAW
             int errors = 0;
             if(command.get(0).compareTo("DRAW") == 0) {
                 if(!(letterBag.size() > 7)) {
                     System.out.println("Not enough tiles in bag");
-                    continue;
                 }
                 for(int k = 1; k < command.size(); k++) {
                     if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
@@ -203,7 +223,6 @@ public class Scrabble {
                 }
                 addLetterTiles(currentPlayer, command.size() - 1 - errors);
                 if(errors < 1) {
-                    i = (i + 1) % players.size();     //Switch to next player
                 }
             }
             //PLACE
@@ -227,12 +246,22 @@ public class Scrabble {
                             }
                         }
                         addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
-                        i = (i + 1) % players.size();                       //Switch to next player
                     }
                     else {System.out.println("Invalid placement");}
                 }
             }
-        }
+    }
+
+    public void submit() {
+
+
+        playerIndex++;
+        currentPlayer = players.get(playerIndex);
+    }
+
+    public void reset() {
+        playerWord.clear();
+        playerPlacement.clear();
     }
 
     public static void main(String[] args) {

@@ -31,7 +31,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 JButton b = new JButton("");
                 board[i][j] = b;
                 gridPanel.add(b);
-                b.addActionListener(e->scrabble.play()); //edit once play is changed
+                int finalI = i;
+                int finalJ = j;
+                b.addActionListener(e->scrabble.place(finalI, finalJ));
             }
         }
 
@@ -53,15 +55,15 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JButton drawButton = new JButton("Draw");
         optionPanel.add(drawButton);
         drawButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, drawButton.getMinimumSize().height));
-        //drawButton.addActionListener();
+        drawButton.addActionListener(e->scrabble.draw());
         JButton passButton = new JButton("Pass");
         passButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, passButton.getMinimumSize().height));
         optionPanel.add(passButton);
-        //passButton.addActionListener();
+        passButton.addActionListener(e->scrabble.pass());
         JButton resetButton = new JButton("Reset");
         resetButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
         optionPanel.add(resetButton);
-        //resetButton.addActionListener();
+        resetButton.addActionListener(e->scrabble.reset());
         optionPanel.add(Box.createVerticalGlue());
 
         this.setSize(700, 600);
