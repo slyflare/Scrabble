@@ -9,54 +9,56 @@ import java.util.Collection;
 public class ScrabbleTest {
     @Test
     public void pointsScored() {
-        Scrabble test = new Scrabble(2);
+        Scrabble test1 = new Scrabble(2);
         for(int i=0;i<7;i++){
-            test.getCurrentPlayer().getLetters().remove(i);
+            test1.getCurrentPlayer().getLetters().remove(i);
         }
-        test.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('B',3));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('C',3));
-
-        test.play(7,7,1, Scrabble.Command.SELECT);
-        test.play(7,7,1, Scrabble.Command.PLACE);
-
-        test.play(7,8,2, Scrabble.Command.SELECT);
-        test.play(7,8,2, Scrabble.Command.PLACE);
-
-        test.play(7,9,6, Scrabble.Command.SELECT);
-        test.play(7,9,6, Scrabble.Command.PLACE);
-
-        test.play(7,10,0, Scrabble.Command.SELECT);
-        test.play(7,10,0, Scrabble.Command.PLACE);
-
-        test.play(7,7,5, Scrabble.Command.SELECT);
-        test.play(7,7,5, Scrabble.Command.PLACE);
-        test.play(7,7,5, Scrabble.Command.PASS);
+        //test word 'Dices'
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('B',3));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('C',3));
+        //D
+        test1.play(7,7,1, Scrabble.Command.SELECT);
+        test1.play(7,7,1, Scrabble.Command.PLACE);
+        //I
+        test1.play(7,8,2, Scrabble.Command.SELECT);
+        test1.play(7,8,2, Scrabble.Command.PLACE);
+        //C
+        test1.play(7,9,6, Scrabble.Command.SELECT);
+        test1.play(7,9,6, Scrabble.Command.PLACE);
+        //E
+        test1.play(7,10,0, Scrabble.Command.SELECT);
+        test1.play(7,10,0, Scrabble.Command.PLACE);
+        //S
+        test1.play(7,7,5, Scrabble.Command.SELECT);
+        test1.play(7,7,5, Scrabble.Command.PLACE);
+        test1.play(7,7,5, Scrabble.Command.PASS);
 
         for(int i=0;i<7;i++){
-            test.getCurrentPlayer().getLetters().remove(i);
+            test1.getCurrentPlayer().getLetters().remove(i);
         }
-        test.getCurrentPlayer().addLetterTile(new LetterTile('W',4));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('G',2));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
-
-        test.play(7,7,6, Scrabble.Command.SELECT);
-        test.play(7,7,6, Scrabble.Command.PLACE);
-
-        test.play(7,8,4, Scrabble.Command.SELECT);
-        test.play(7,8,4, Scrabble.Command.PLACE);
-
-        test.play(7,7,6, Scrabble.Command.SELECT);
-        test.play(7,7,6, Scrabble.Command.PLACE);
-        test.play(7,7,6, Scrabble.Command.PASS);
+        //test word 'Sad'
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('W',4));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('G',2));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
+        //S
+        test1.play(7,7,6, Scrabble.Command.SELECT);
+        test1.play(7,7,6, Scrabble.Command.PLACE);
+        //A
+        test1.play(7,8,4, Scrabble.Command.SELECT);
+        test1.play(7,8,4, Scrabble.Command.PLACE);
+        //D
+        test1.play(7,7,6, Scrabble.Command.SELECT);
+        test1.play(7,7,6, Scrabble.Command.PLACE);
+        test1.play(7,7,6, Scrabble.Command.PASS);
 
 
 
@@ -71,33 +73,65 @@ public class ScrabbleTest {
 
     @Test
     public void checkWord(){
-        Scrabble test = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2);
         for(int i = 0; i < 7; i++){
-            test.getCurrentPlayer().getLetters().remove(i);
+            test2.getCurrentPlayer().getLetters().remove(i);
         }
-        test.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('B',3));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
-        test.getCurrentPlayer().addLetterTile(new LetterTile('C',3));
+        //Test word 'Ashes'
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
+        //A
+        test2.play(7,7,3, Scrabble.Command.SELECT);
+        test2.play(7,7,3, Scrabble.Command.PLACE);
 
-        test.play(7,7,1, Scrabble.Command.SELECT);
-        test.play(7,7,1, Scrabble.Command.PLACE);
+        //S
+        test2.play(7,8,0, Scrabble.Command.SELECT);
+        test2.play(7,8,0, Scrabble.Command.PLACE);
 
-        test.play(7,8,2, Scrabble.Command.SELECT);
-        test.play(7,8,2, Scrabble.Command.PLACE);
+        //H
+        test2.play(7,9,3, Scrabble.Command.SELECT);
+        test2.play(7,9,3, Scrabble.Command.PLACE);
+        //E
+        test2.play(7,10,6, Scrabble.Command.SELECT);
+        test2.play(7,10,6, Scrabble.Command.PLACE);
+        //S
+        test2.play(7,7,5, Scrabble.Command.SELECT);
+        test2.play(7,7,5, Scrabble.Command.PLACE);
+        test2.play(7,7,5, Scrabble.Command.PASS);
 
-        test.play(7,9,6, Scrabble.Command.SELECT);
-        test.play(7,9,6, Scrabble.Command.PLACE);
+        for(int i=0;i<7;i++){
+            test2.getCurrentPlayer().getLetters().remove(i);
+        }
+        //test word 'Diary'
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('R',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('G',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
 
-        test.play(7,10,0, Scrabble.Command.SELECT);
-        test.play(7,10,0, Scrabble.Command.PLACE);
-
-        test.play(7,7,5, Scrabble.Command.SELECT);
-        test.play(7,7,5, Scrabble.Command.PLACE);
-        test.play(7,7,5, Scrabble.Command.PASS);
+        //D
+        test2.play(5,7,2, Scrabble.Command.SELECT);
+        test2.play(5,7,2, Scrabble.Command.PLACE);
+        //I
+        test2.play(6,7,3, Scrabble.Command.SELECT);
+        test2.play(6,7,3, Scrabble.Command.PLACE);
+        //A
+        test2.play(7,7,0, Scrabble.Command.SELECT);
+        test2.play(7,7,0, Scrabble.Command.PLACE);
+        //R
+        test2.play(8,7,1, Scrabble.Command.SELECT);
+        test2.play(8,7,1, Scrabble.Command.PLACE);
+        //Y
+        test2.play(9,7,5, Scrabble.Command.SELECT);
+        test2.play(9,7,5, Scrabble.Command.PLACE);
+        test2.play(7,7,5, Scrabble.Command.PASS);
 
 
     }
