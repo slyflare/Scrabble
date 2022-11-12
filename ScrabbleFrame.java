@@ -7,7 +7,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private static final int boardSizeX = 15;
     private static final int boardSizeY = 15;
 
-
     public ScrabbleFrame() {
         super("Scrabble");
 
