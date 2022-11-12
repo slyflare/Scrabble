@@ -31,7 +31,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 JButton b = new JButton("");
                 board[i][j] = b;
                 gridPanel.add(b);
-                //b.addActionListener(controller);
+                b.addActionListener(e->scrabble.play()); //edit once play is changed
             }
         }
 
@@ -40,7 +40,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             JButton b = new JButton("A");
             hand[i] = b;
             handPanel.add(b);
-            //b.addActionListener(controller);
+            //b.addActionListener(controller); //edit once formWord has been added
 
         }
         optionPanel.add(Box.createVerticalGlue());
