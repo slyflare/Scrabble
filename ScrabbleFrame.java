@@ -80,6 +80,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             String label = e.getCurrentLetter().toString();
             board[e.getX()][e.getY()].setText(label);
         }
+
+
     }
 
     public static void main(String[] args) {

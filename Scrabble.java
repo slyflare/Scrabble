@@ -259,6 +259,11 @@ public class Scrabble {
             v.update(new ScrabbleEvent(this, x, y, board, currentPlayer, currentLetter, this.command));
         }
 
+        //prevents copying letters
+        if(command == Command.PLACE){
+            currentLetter = null;
+        }
+
         System.out.println(currentLetter);
     }
 }
