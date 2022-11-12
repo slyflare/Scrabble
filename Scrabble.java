@@ -263,7 +263,5 @@ public class Scrabble {
         if(command == Command.PLACE){
             currentLetter = null;
         }
-
-        System.out.println(currentLetter);
     }
 }

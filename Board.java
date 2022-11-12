@@ -98,4 +98,8 @@ public class Board {
         }
         System.out.println(output);
     }
+
+    public char[][] getBoard() {
+        return board;
+    }
 }
