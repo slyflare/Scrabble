@@ -28,17 +28,19 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         this.add(gridPanel, BorderLayout.CENTER);
         for(int i = 0; i < boardSizeX; i++) {
             for(int j = 0; j < boardSizeY; j++) {
-                board[i][j] = new JButton("");
-                gridPanel.add(board[i][j]);
-                //board[i][j].addActionListener(controller);
+                JButton b = new JButton("");
+                board[i][j] = b;
+                gridPanel.add(b);
+                //b.addActionListener(controller);
             }
         }
 
         this.add(handPanel, BorderLayout.SOUTH);
         for(int i = 0; i < 7; i++) {
-            hand[i] = new JButton("");
-            handPanel.add(hand[i]);
-            //hand[i].addActionListener(controller);
+            JButton b = new JButton("A");
+            hand[i] = b;
+            handPanel.add(b);
+            //b.addActionListener(controller);
 
         }
         optionPanel.add(Box.createVerticalGlue());
@@ -68,7 +70,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     }
     @Override
     public void update(ScrabbleEvent e) {
-        
+
     }
 
     public static void main(String[] args) {
