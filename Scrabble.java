@@ -256,7 +256,7 @@ public class Scrabble {
 
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, board, currentPlayer, currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, x, y, board, getCurrentPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters

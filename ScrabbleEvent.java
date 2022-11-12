@@ -7,10 +7,10 @@ public class ScrabbleEvent extends EventObject {
     private int x;
     private int y;
     private Board board;
-    private int currentPlayer;
+    private Player currentPlayer;
     private Character currentLetter;
     private Scrabble.Command command;
-    public ScrabbleEvent(Scrabble scrabble, int x, int y, Board board, int currentPlayer, Character currentLetter,
+    public ScrabbleEvent(Scrabble scrabble, int x, int y, Board board, Player currentPlayer, Character currentLetter,
                         Scrabble.Command command) {
         super(scrabble);
         this.x = x;
@@ -29,7 +29,7 @@ public class ScrabbleEvent extends EventObject {
         return y;
     }
 
-    public int getCurrentPlayer() {
+    public Player getCurrentPlayer() {
         return currentPlayer;
     }
 
