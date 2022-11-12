@@ -81,7 +81,25 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             board[e.getX()][e.getY()].setText(label);
         }
 
+        if(e.getCommand() == Scrabble.Command.RESET){
+            for(int i = 0; i < boardSizeX; i++) {
+                for(int j = 0; j < boardSizeY; j++) {
+                    board[e.getX()][e.getY()].setText(String.valueOf(e.getBoard().getBoard()[e.getX()][e.getY()]));
+                }
+            }
+        }
 
+        if(e.getCommand() == Scrabble.Command.PASS){
+            for(int i = 0; i < 7; i++) {
+                hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
+            }
+        }
+
+        if(e.getCommand() == Scrabble.Command.DRAW){
+            for(int i = 0; i < 7; i++) {
+                hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
+            }
+        }
     }
 
     public static void main(String[] args) {
