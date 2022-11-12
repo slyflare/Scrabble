@@ -14,6 +14,8 @@ public class Scrabble {
     private Character currentLetter;
     private ArrayList<String> WordBank;
     private HashMap<ArrayList<Integer>,Character> playerPlacement;
+    public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET}
+    private Command command;
     private List<ScrabbleView> views;
 
     /**
@@ -26,6 +28,7 @@ public class Scrabble {
         this.currentPlayer = 0;
         this.currentLetter = null;
         this.playerPlacement = new HashMap<>();
+        this.command = Command.RESET;
         this.views = new ArrayList<>();
         for(int i = 1; i < numPlayers + 1; i++) {
             players.add(new Player("Player " + i));
@@ -164,7 +167,7 @@ public class Scrabble {
         return p.hasLetters(command);
     }
 
-    public void draw() {
+    private void draw() {
         /*
         old code just in case
 
@@ -188,7 +191,7 @@ public class Scrabble {
         */
     }
 
-    public void pass() {
+    private void pass() {
         if(currentLetter != null){
             currentLetter = null;
         }
@@ -199,96 +202,20 @@ public class Scrabble {
         else {
             currentPlayer++;
         }
-
-        for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
-        }
     }
 
-    public void place(int x, int y) {
+    private void place(int x, int y) {
         if (currentLetter != null) {
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
             currentLetter = null;
         }
-
-        for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, board, currentPlayer, currentLetter, playerPlacement));
-        }
     }
 
-    public void selectLetter(int i) {
+    private void selectLetter(int i) {
         currentLetter = players.get(currentPlayer).getLetters().get(i).getLetter();
-
-        for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
-        }
     }
 
-    //will delete eventually
-    public void play() {
-        /*
-            System.out.println("Its " + currentPlayer.getName() + "'s turn!");
-            board.printBoard();
-            System.out.println("Scores: ");
-            for(Player p : players) {
-                System.out.print(p.getName() + ": " + p.GetScore() + " ");
-            }
-            System.out.println("\nYour hand: " + currentPlayer.printHand());
-            ArrayList<String> command = new ArrayList<>();    //get command
-            int numLetters = command.size() - 4;
-            //command has to be valid
-            if(command.get(0).compareTo("ERROR") == 0){
-            }
-            //DRAW
-            int errors = 0;
-            if(command.get(0).compareTo("DRAW") == 0) {
-                if(!(letterBag.size() > 7)) {
-                    System.out.println("Not enough tiles in bag");
-                }
-                for(int k = 1; k < command.size(); k++) {
-                    if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
-                        System.out.println("Letter not in hand");
-                        errors++;
-                    }
-                    else { //add letter back to letterBag
-                        letterBag.add(new LetterTile(command.get(k).charAt(0)));
-                    }
-                }
-                addLetterTiles(currentPlayer, command.size() - 1 - errors);
-                if(errors < 1) {
-                }
-            }
-            //PLACE
-            if(command.get(0).compareTo("PLACE") == 0){
-                if (!handCheck(command, currentPlayer)){
-                    System.out.println("You do not have the letters in your hand");
-                }
-                else if (!wordCheck(command)){
-                    System.out.println("Letters do not form a legal word");
-                }
-                else { //place the word
-                    if(board.updateBoard(command)) {                         //Add letters to the board
-                        currentPlayer.addScore(scoredPoints(command));      //Update player score
-                        //remove letter tiles from player
-                        int numAlreadyPlaced = 0;
-                        for (int j = 4; j < command.size(); j++) {
-                            if (!command.get(j).startsWith("(")) {
-                                currentPlayer.removeLetterTile(command.get(j).charAt(0));
-                            } else {
-                                numAlreadyPlaced++;
-                            }
-                        }
-                        addLetterTiles(currentPlayer, numLetters - numAlreadyPlaced);
-                    }
-                    else {System.out.println("Invalid placement");}
-                }
-            }
-         */
-    }
-
-    public void submit() {
-
-
+    private void submit() {
         if(currentLetter != null){
             currentLetter = null;
         }
@@ -299,17 +226,40 @@ public class Scrabble {
         else {
             currentPlayer++;
         }
-
-        for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
-        }
     }
 
-    public void reset() {
+    private void reset() {
         currentLetter = null;
         playerPlacement.clear();
-        for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
+    }
+
+    public void play(int x, int y, int index, Command command) {
+        this.command = command;
+
+        if(command == Command.DRAW){
+            draw();
         }
+        if(command == Command.PASS){
+            pass();
+        }
+        if(command == Command.SELECT){
+            selectLetter(index);
+        }
+        if(command == Command.RESET){
+            reset();
+        }
+        if(command == Command.PLACE){
+            place(x, y);
+        }
+        if(command == Command.SUBMIT){
+            submit();
+        }
+
+
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement, this.command));
+        }
+
+        System.out.println(currentLetter);
     }
 }

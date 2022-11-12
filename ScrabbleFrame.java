@@ -14,7 +14,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         Scrabble scrabble = new Scrabble(2);
         scrabble.addScrabbleView(this);
 
-
         this.board = new JButton[boardSizeX][boardSizeY];
         this.hand = new JButton[7];
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,7 +32,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 gridPanel.add(b);
                 int finalI = i;
                 int finalJ = j;
-                b.addActionListener(e->scrabble.place(finalI, finalJ));
+                b.addActionListener(e->scrabble.play(finalI, finalJ, 0, Scrabble.Command.PLACE));
             }
         }
 
@@ -43,7 +42,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             JButton b = new JButton(String.valueOf(scrabble.getCurrentPlayer().getLetters().get(finalI).getLetter()));
             hand[i] = b;
             handPanel.add(b);
-            b.addActionListener(e->scrabble.selectLetter(finalI));
+            b.addActionListener(e->scrabble.play(0,0, finalI, Scrabble.Command.SELECT));
 
         }
         optionPanel.add(Box.createVerticalGlue());
@@ -52,19 +51,19 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JButton submitButton = new JButton("Submit");
         optionPanel.add(submitButton);
         submitButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, submitButton.getMinimumSize().height));
-        submitButton.addActionListener(e->scrabble.submit());
+        submitButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.SUBMIT));
         JButton drawButton = new JButton("Draw");
         optionPanel.add(drawButton);
         drawButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, drawButton.getMinimumSize().height));
-        drawButton.addActionListener(e->scrabble.draw());
+        drawButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.DRAW));
         JButton passButton = new JButton("Pass");
         passButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, passButton.getMinimumSize().height));
         optionPanel.add(passButton);
-        passButton.addActionListener(e->scrabble.pass());
+        passButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.PASS));
         JButton resetButton = new JButton("Reset");
         resetButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
         optionPanel.add(resetButton);
-        resetButton.addActionListener(e->scrabble.reset());
+        resetButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.RESET));
         optionPanel.add(Box.createVerticalGlue());
 
         this.setSize(700, 600);

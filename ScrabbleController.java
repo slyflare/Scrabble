@@ -16,6 +16,6 @@ public class ScrabbleController implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        scrabble.play(); //edit once play is updated
+        //idk
     }
 }

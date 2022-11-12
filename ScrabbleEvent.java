@@ -10,14 +10,16 @@ public class ScrabbleEvent extends EventObject {
     private int currentPlayer;
     private Character currentLetter;
     private HashMap<ArrayList<Integer>,Character> playerPlacement;
+    private Scrabble.Command command;
     public ScrabbleEvent(Scrabble scrabble, int x, int y, Board board, int currentPlayer, Character currentLetter,
-                         HashMap<ArrayList<Integer>, Character> playerPlacement) {
+                         HashMap<ArrayList<Integer>, Character> playerPlacement, Scrabble.Command command) {
         super(scrabble);
         this.x = x;
         this.y = y;
         this.board = board;
         this.currentPlayer = currentPlayer;
         this.playerPlacement = playerPlacement;
+        this.command = command;
     }
 
     public int getX() {
@@ -42,5 +44,9 @@ public class ScrabbleEvent extends EventObject {
 
     public Character getCurrentLetter() {
         return currentLetter;
+    }
+
+    public Scrabble.Command getCommand() {
+        return command;
     }
 }
