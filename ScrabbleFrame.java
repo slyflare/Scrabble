@@ -12,7 +12,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         super("Scrabble");
 
         Scrabble scrabble = new Scrabble(2);
-        //scrabble.addScrabbleView(this);
+        scrabble.addScrabbleView(this);
 
 
         this.board = new JButton[boardSizeX][boardSizeY];
@@ -39,10 +39,11 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         this.add(handPanel, BorderLayout.SOUTH);
         for(int i = 0; i < 7; i++) {
-            JButton b = new JButton("A");
+            int finalI = i;
+            JButton b = new JButton(String.valueOf(scrabble.getCurrentPlayer().getLetters().get(finalI).getLetter()));
             hand[i] = b;
             handPanel.add(b);
-            //b.addActionListener(controller); //edit once formWord has been added
+            b.addActionListener(e->scrabble.selectLetter(finalI));
 
         }
         optionPanel.add(Box.createVerticalGlue());
@@ -51,7 +52,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JButton submitButton = new JButton("Submit");
         optionPanel.add(submitButton);
         submitButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, submitButton.getMinimumSize().height));
-        //submitButton.addActionListener();
+        submitButton.addActionListener(e->scrabble.submit());
         JButton drawButton = new JButton("Draw");
         optionPanel.add(drawButton);
         drawButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, drawButton.getMinimumSize().height));
@@ -67,12 +68,16 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         optionPanel.add(Box.createVerticalGlue());
 
         this.setSize(700, 600);
+        this.setLocationRelativeTo(null);
         this.setVisible(true);
 
     }
     @Override
     public void update(ScrabbleEvent e) {
-
+        if(e.getCurrentLetter() != null) {
+            String label = e.getCurrentLetter().toString();
+            board[e.getX()][e.getY()].setText(label);
+        }
     }
 
     public static void main(String[] args) {

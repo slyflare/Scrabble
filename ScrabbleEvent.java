@@ -1,14 +1,23 @@
+import java.util.ArrayList;
 import java.util.EventObject;
+import java.util.HashMap;
+import java.util.List;
 
 public class ScrabbleEvent extends EventObject {
     private int x;
     private int y;
-    private Player currentPlayer;
-    public ScrabbleEvent(Scrabble scrabble, int x, int y, Player currentPlayer) {
+    private Board board;
+    private int currentPlayer;
+    private Character currentLetter;
+    private HashMap<ArrayList<Integer>,Character> playerPlacement;
+    public ScrabbleEvent(Scrabble scrabble, int x, int y, Board board, int currentPlayer, Character currentLetter,
+                         HashMap<ArrayList<Integer>, Character> playerPlacement) {
         super(scrabble);
         this.x = x;
         this.y = y;
+        this.board = board;
         this.currentPlayer = currentPlayer;
+        this.playerPlacement = playerPlacement;
     }
 
     public int getX() {
@@ -19,7 +28,19 @@ public class ScrabbleEvent extends EventObject {
         return y;
     }
 
-    public Player getCurrentPlayer() {
+    public int getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public HashMap<ArrayList<Integer>, Character> getPlayerPlacement() {
+        return playerPlacement;
+    }
+
+    public Character getCurrentLetter() {
+        return currentLetter;
     }
 }

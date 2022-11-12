@@ -1,9 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * Scrabble class creates the game, players, letterBag, Parser, board
@@ -13,11 +10,11 @@ public class Scrabble {
     private Board board;
     private ArrayList<Player> players;
     private ArrayList<LetterTile> letterBag;
-    private Player currentPlayer;
+    private int currentPlayer;
+    private Character currentLetter;
     private ArrayList<String> WordBank;
-    private int playerIndex;
-    private ArrayList<String> playerWord;
-    private HashMap<Integer, Integer> playerPlacement;
+    private HashMap<ArrayList<Integer>,Character> playerPlacement;
+    private List<ScrabbleView> views;
 
     /**
      * Constructor for class scrabble
@@ -26,9 +23,10 @@ public class Scrabble {
     public Scrabble(int numPlayers) {
         this.board = new Board();
         this.players = new ArrayList<>();
-        this.playerIndex = 0;
-        this.playerWord = new ArrayList<>();
+        this.currentPlayer = 0;
+        this.currentLetter = null;
         this.playerPlacement = new HashMap<>();
+        this.views = new ArrayList<>();
         for(int i = 1; i < numPlayers + 1; i++) {
             players.add(new Player("Player " + i));
         }
@@ -109,6 +107,14 @@ public class Scrabble {
         }
     }
 
+    public void addScrabbleView(ScrabbleView scrabbleView) {
+        this.views.add(scrabbleView);
+    }
+
+    public Player getCurrentPlayer(){
+        return players.get(currentPlayer);
+    }
+
     /**
      * Calculate and return the points earned by the word that was placed -
      * Rules:
@@ -183,17 +189,44 @@ public class Scrabble {
     }
 
     public void pass() {
-        playerIndex++;
-        currentPlayer = players.get(playerIndex);
+        if(currentLetter != null){
+            currentLetter = null;
+        }
+
+        if(currentPlayer == players.size() - 1) {
+            currentPlayer = 0;
+        }
+        else {
+            currentPlayer++;
+        }
+
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
+        }
     }
 
     public void place(int x, int y) {
-        playerPlacement.put(x,y);
+        if (currentLetter != null) {
+            playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
+            currentLetter = null;
+        }
+
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this, x, y, board, currentPlayer, currentLetter, playerPlacement));
+        }
+    }
+
+    public void selectLetter(int i) {
+        currentLetter = players.get(currentPlayer).getLetters().get(i).getLetter();
+
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
+        }
     }
 
     //will delete eventually
     public void play() {
-            currentPlayer = players.get(0);
+        /*
             System.out.println("Its " + currentPlayer.getName() + "'s turn!");
             board.printBoard();
             System.out.println("Scores: ");
@@ -250,24 +283,33 @@ public class Scrabble {
                     else {System.out.println("Invalid placement");}
                 }
             }
+         */
     }
 
     public void submit() {
 
 
-        playerIndex++;
-        currentPlayer = players.get(playerIndex);
+        if(currentLetter != null){
+            currentLetter = null;
+        }
+
+        if(currentPlayer == players.size() - 1) {
+            currentPlayer = 0;
+        }
+        else {
+            currentPlayer++;
+        }
+
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
+        }
     }
 
     public void reset() {
-        playerWord.clear();
+        currentLetter = null;
         playerPlacement.clear();
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this,0,0, board, currentPlayer, currentLetter, playerPlacement));
+        }
     }
-
-    public static void main(String[] args) {
-        Scrabble s = new Scrabble(2); //must be between 2-4 players
-        s.play();
-    }
-
-
 }

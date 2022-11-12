@@ -75,4 +75,7 @@ public class Player{
         }
         return true;
     }
+    public ArrayList<LetterTile> getLetters() {
+        return letters;
+    }
 }
