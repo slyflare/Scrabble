@@ -217,8 +217,11 @@ public class Scrabble {
     }
 
     private void place(int x, int y) {
-        if (currentLetter != null) {
+        if (currentLetter != null && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(x, y)))) {
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
+        }
+        else {
+            currentLetter = null;
         }
     }
 
@@ -265,7 +268,6 @@ public class Scrabble {
         if(command == Command.SUBMIT){
             submit();
         }
-
 
         for(ScrabbleView v : views){
             v.update(new ScrabbleEvent(this, x, y, board, getCurrentPlayer(), currentLetter, this.command));
