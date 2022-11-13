@@ -138,6 +138,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
         }
+        if(e.getCommand() == Scrabble.Command.SUBMIT) {
+            for(int i = 0; i < boardSizeX; i++) {
+                for(int j = 0; j < boardSizeY; j++) {
+                    board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                }
+            }
+
+        }
     }
 
     public static void main(String[] args) {

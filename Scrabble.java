@@ -276,6 +276,10 @@ public class Scrabble {
 
 
 
+        if(valid) {
+            this.board.newUpdateBoard(playerPlacement);
+        }
+
 
 
         if(currentLetter != null){

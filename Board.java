@@ -1,3 +1,4 @@
+import java.nio.charset.CharsetEncoder;
 import java.util.*;
 import java.io.*;
 /**
@@ -71,6 +72,14 @@ public class Board {
                     board[x + i - 1][y - 1] = command.get(i + 4).charAt(0);
                 }
             }
+        }
+        return true;
+    }
+    public boolean newUpdateBoard(HashMap<ArrayList<Integer>, Character> playerPlacement) {
+        for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+            int x = yx.get(0);
+            int y = yx.get(1);
+            board[x][y] = playerPlacement.get(yx);
         }
         return true;
     }
