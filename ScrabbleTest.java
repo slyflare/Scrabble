@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 import org.junit.*;
+
+import java.util.ArrayList;
 import java.util.Collection;
 
 /**
@@ -7,6 +9,10 @@ import java.util.Collection;
  * @author Riya and Ashwitha
  * */
 public class ScrabbleTest {
+
+    ArrayList = new ArrayList<String>();
+    this.letterBag = new ArrayList<>();
+
     @Test
     public void pointsScored() {
         Scrabble test1 = new Scrabble(2);
@@ -37,6 +43,9 @@ public class ScrabbleTest {
         test1.play(7,7,5, Scrabble.Command.SELECT);
         test1.play(7,7,5, Scrabble.Command.PLACE);
         test1.play(7,7,5, Scrabble.Command.PASS);
+        assertEquals("Points scored by player1:", test1.scoredPoints(),8 );
+
+
 
         for(int i=0;i<7;i++){
             test1.getCurrentPlayer().getLetters().remove(i);

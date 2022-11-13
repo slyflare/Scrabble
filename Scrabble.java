@@ -125,7 +125,7 @@ public class Scrabble {
      * Letter premiums are calculated before word premiums
      * Premium squares apply only on first use
      * Multiple word premiums do stack
-     * @author Matthew
+     * @author Matthew and Vimal
      * @return points earned by word placement
      */
     public int scoredPoints(ArrayList<String> command) {
@@ -145,6 +145,18 @@ public class Scrabble {
         if(count == 7) {sum += 50;} //place all 7 = 50 points
         System.out.println("SCORE: " + sum);
         return sum;
+    }
+
+    /**
+     * Calculates the total score of all the individual letters played in a round
+     * @author Ashwitha and Riya
+     * @return total score of letters played
+     */
+    public int calculatePoints(String word){
+        int score = 0;
+        //for(String letter)
+        // we want to create a for loop that checks the score of each individual letter played and returns the total points for the round
+        return score;
     }
 
     /**
