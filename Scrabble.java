@@ -176,27 +176,12 @@ public class Scrabble {
     }
 
     private void draw() {
-        /*
-        old code just in case
-
         if(!(letterBag.size() > 7)) {
             System.out.println("Not enough tiles in bag");
-            continue;
         }
-        for(int k = 1; k < command.size(); k++) {
-            if(!currentPlayer.removeLetterTile(command.get(k).charAt(0))) {
-                System.out.println("Letter not in hand");
-                errors++;
-            }
-            else { //add letter back to letterBag
-                letterBag.add(new LetterTile(command.get(k).charAt(0)));
-            }
+        else {
+            addLetterTiles(getCurrentPlayer(), getCurrentPlayer().getLetters().size());
         }
-        addLetterTiles(currentPlayer, command.size() - 1 - errors);
-        if(errors < 1) {
-            i = (i + 1) % players.size();     //Switch to next player
-        }
-        */
     }
 
     private void pass() {
@@ -303,6 +288,7 @@ public class Scrabble {
         currentLetter = null;
         playerPlacement.clear();
     }
+
     public ArrayList<String> getWords() {
         ArrayList<String> words = new ArrayList<>();
         //main word
@@ -310,7 +296,7 @@ public class Scrabble {
         int rightmostX = 0;
         int y = 0;
         char[] word = new char[15];
-        for(int i =0; i < 15; i++) {word[i] = ' ';}
+        for(int i = 0; i < 15; i++) {word[i] = ' ';}
         if(getWordDirection().equals("horizontal")) {
             for(ArrayList<Integer> yx : playerPlacement.keySet()) {
                 if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
@@ -388,6 +374,7 @@ public class Scrabble {
 
         return words;
     }
+
     private String getWordDirection() {
         int tempX = -1;
         int tempY = -1;

@@ -132,7 +132,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 }
             }
             //load next players hand
-            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size()-1; i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
             if(e.getCurrentPlayer().getLetters().size() < 7){
@@ -143,7 +143,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         }
 
         if(e.getCommand() == Scrabble.Command.DRAW){
-            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size()-1; i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
         }
@@ -161,7 +161,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                     }
                 }
             }
-            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size()-1; i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
             if(e.getCurrentPlayer().getLetters().size() < 7){
