@@ -19,6 +19,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         Scrabble scrabble = new Scrabble(2);
         scrabble.addScrabbleView(this);
+        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.board = new JButton[boardSizeX][boardSizeY];
         this.hand = new JButton[7];
         this.setLayout(new BorderLayout());
@@ -145,11 +146,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     if (!board[j][i].getText().equals(String.valueOf(e.getBoard().getBoard()[i][j]))) {
-                        //debug
-                        //System.out.println("buttons[" + i + "][" + j + "]: " + board[j][i].getText());
-                        //System.out.println("board:[" + i + "][" + j + "]: " + e.getBoard().getBoard()[i][j]);
+                        /* debug
+                        System.out.println("buttons[" + i + "][" + j + "]: " + board[j][i].getText());
+                        System.out.println("board:[" + i + "][" + j + "]: " + e.getBoard().getBoard()[i][j]); */
                         board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
-                        board[i][j].setEnabled(false);
+                        if(e.getBoard().getBoard()[i][j] != ' ') {
+                            board[i][j].setEnabled(false);
+                        }
                     }
                 }
             }

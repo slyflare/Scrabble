@@ -291,11 +291,13 @@ public class Scrabble {
             else {
                 currentPlayer++;
             }
+            playerPlacement.clear();
             return true;
         }
         if(currentLetter != null){
             currentLetter = null;
         }
+        playerPlacement.clear();
         return false;
     }
 
