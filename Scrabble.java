@@ -266,11 +266,13 @@ public class Scrabble {
         else {
             System.out.println("Word is NOT a straight line");
         }
-        //check builds off other word
+        //check builds off other word or off center if first word
 
         //check valid word
-
-
+        ArrayList<String> words = getWords();
+        for(String w : words) {
+            //check wordBank
+        }
 
 
 
@@ -291,6 +293,76 @@ public class Scrabble {
     private void reset() {
         currentLetter = null;
         playerPlacement.clear();
+    }
+    public ArrayList<String> getWords() {
+        ArrayList<String> words = new ArrayList<>();
+        //main word
+        int leftmostX = 14;
+        int rightmostX = 0;
+        int y = 0;
+        char[] word = new char[15];
+        for(int i =0; i < 15; i++) {word[i] = ' ';}
+        if(getWordDirection().equals("horizontal")) {
+            for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+                if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
+                if(yx.get(1) > rightmostX) { rightmostX = yx.get(1); }
+                y = yx.get(0);
+                word[yx.get(1)] = playerPlacement.get(yx);
+            }
+            int currentX = leftmostX - 1;
+            while(currentX >= 0) { //add characters to the left of the placed letters
+                if(board.getBoard()[currentX][y] != ' ') {
+                    word[currentX] = board.getBoard()[currentX][y]; //not sure if this works
+                }
+                else { currentX = -1;}
+                currentX--;
+            }
+            currentX = rightmostX + 1;
+            while(currentX <= 14) { //add characters to the right of the placed letters
+                if(board.getBoard()[currentX][y] != ' ') {
+                    word[currentX] = board.getBoard()[currentX][y]; //not sure if this works
+                }
+                else { currentX = 15;}
+                currentX++;
+            }
+            //add characters in the middle of placed letters
+            for(int i = leftmostX + 1; i < rightmostX; i++) {
+                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(y, i)))) {
+                    word[i] = board.getBoard()[i][y]; //not sure if this works
+                }
+            }
+            String s = String.valueOf(word).trim();
+            words.add(s);
+            System.out.println(words.get(0));
+
+        }
+
+        else { //vertical
+
+        }
+
+
+
+        return words;
+    }
+    private String getWordDirection() {
+        int tempX = -1;
+        int tempY = -1;
+        boolean second = false;
+        for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+            if (tempX == -1) {
+                tempY = yx.get(0);
+                tempX = yx.get(1);
+                second = true;
+            } else if (second) {
+                if (yx.get(0) == tempY) {
+                    return "horizontal";
+                } else if (yx.get(1) == tempX) {
+                    return "vertical";
+                }
+            }
+        }
+        return "error";
     }
 
     public void play(int x, int y, int index, Command command) {
