@@ -91,7 +91,11 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         if(e.getCommand() == Scrabble.Command.PASS){
             //clear anything temporary on board
-
+            for(int i = 0; i < boardSizeX; i++) {
+                for(int j = 0; j < boardSizeY; j++) {
+                    board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                }
+            }
             //load next players hand
             for(int i = 0; i < 7; i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
