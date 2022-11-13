@@ -35,7 +35,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         for(int i = 0; i < boardSizeX; i++) {
             for(int j = 0; j < boardSizeY; j++) {
-                JButton b = new JButton("");
+                JButton b = new JButton(" ");
                 Color color1 = new Color(246, 190 ,0);
                 b.setBackground(color1);
                 b.setOpaque(true);
@@ -115,7 +115,10 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //clear anything temporary on board
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
-                    board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                    if(board[i][j].isEnabled()) {
+                        board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+
+                    }
                 }
             }
         }
@@ -141,10 +144,18 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         if(e.getCommand() == Scrabble.Command.SUBMIT) {
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
-                    board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                    if (!board[j][i].getText().equals(String.valueOf(e.getBoard().getBoard()[i][j]))) {
+                        //debug
+                        //System.out.println("buttons[" + i + "][" + j + "]: " + board[j][i].getText());
+                        //System.out.println("board:[" + i + "][" + j + "]: " + e.getBoard().getBoard()[i][j]);
+                        board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                        board[i][j].setEnabled(false);
+                    }
                 }
             }
-
+            for(int i = 0; i < 7; i++) { //load next hand
+                hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
+            }
         }
     }
 

@@ -229,7 +229,7 @@ public class Scrabble {
         currentLetter = players.get(currentPlayer).getLetters().get(i).getLetter();
     }
 
-    private void submit() {
+    private boolean submit() {
         //check word is straight line
         int tempX = -1;
         int tempY = -1;
@@ -276,22 +276,27 @@ public class Scrabble {
 
 
 
+
+
+
         if(valid) {
             this.board.newUpdateBoard(playerPlacement);
+            if(currentLetter != null){
+                currentLetter = null;
+            }
+
+            if(currentPlayer == players.size() - 1) {
+                currentPlayer = 0;
+            }
+            else {
+                currentPlayer++;
+            }
+            return true;
         }
-
-
-
         if(currentLetter != null){
             currentLetter = null;
         }
-
-        if(currentPlayer == players.size() - 1) {
-            currentPlayer = 0;
-        }
-        else {
-            currentPlayer++;
-        }
+        return false;
     }
 
     private void reset() {
@@ -388,7 +393,9 @@ public class Scrabble {
             place(x, y);
         }
         if(command == Command.SUBMIT){
-            submit();
+            if(!submit()) {
+                command = Command.RESET;
+            }
         }
 
         for(ScrabbleView v : views){
