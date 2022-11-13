@@ -163,12 +163,8 @@ public class Scrabble {
      * Checks word legality.
      * @author Vimal
      * */
-    private boolean wordCheck(ArrayList<String> command) {
-        StringBuilder word = new StringBuilder();
-        for(int i = 4; i < command.size(); i++){
-            word.append(command.get(i).replace("(", "").replace(")", ""));
-        }
-        return WordBank.contains(word.toString().toLowerCase());
+    private boolean wordCheck(String word) {
+        return WordBank.contains(word.toLowerCase());
     }
 
     /**
@@ -271,16 +267,18 @@ public class Scrabble {
         //check valid word
         ArrayList<String> words = getWords();
         for(String w : words) {
-            //check wordBank
+            if(!wordCheck(w)){
+                System.out.println("Word is NOT legal");
+                reset();
+                return false;
+            }
         }
-
-
-
-
-
 
         if(valid) {
             this.board.newUpdateBoard(playerPlacement);
+            for(Character c : playerPlacement.values()) {
+                getCurrentPlayer().removeLetterTile(c);
+            }
             if(currentLetter != null){
                 currentLetter = null;
             }
@@ -430,7 +428,7 @@ public class Scrabble {
         }
         if(command == Command.SUBMIT){
             if(!submit()) {
-                command = Command.RESET;
+                this.command = Command.RESET;
             }
         }
 

@@ -61,7 +61,7 @@ public class Player{
      */
     public boolean hasLetters(ArrayList<String> command) {
         boolean has = false;
-        for(int i = 4; i < command.size(); i++) {
+        for(int i = 0; i < command.size(); i++) {
             for(LetterTile t : letters) {
                 if(Character.compare(t.getLetter(), command.get(i).charAt(0)) == 0) {
                     has = true;
