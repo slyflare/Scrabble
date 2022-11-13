@@ -230,6 +230,52 @@ public class Scrabble {
     }
 
     private void submit() {
+        //check word is straight line
+        int tempX = -1;
+        int tempY = -1;
+        boolean valid = true;
+        boolean second = false;
+        boolean horizontal = false;
+        boolean vertical = false;
+        for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+            if(tempX == -1) {
+                tempY = yx.get(0);
+                tempX = yx.get(1);
+                second = true;
+            }
+            else if(second) {
+                if(yx.get(0) == tempY) {
+                    horizontal = true;
+                }
+                else if (yx.get(1) == tempX) {
+                    vertical = true;
+                }
+                else { valid = false; }
+            }
+            else if(horizontal && !(yx.get(0) == tempY)) {
+                valid = false;
+            }
+            else if(vertical && !(yx.get(1) == tempX)) {
+                valid = false;
+            }
+        }
+
+        if(valid) {
+            System.out.println("Word is a straight line");
+        }
+        else {
+            System.out.println("Word is NOT a straight line");
+        }
+        //check builds off other word
+
+        //check valid word
+
+
+
+
+
+
+
         if(currentLetter != null){
             currentLetter = null;
         }
