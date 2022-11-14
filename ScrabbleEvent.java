@@ -3,6 +3,11 @@ import java.util.EventObject;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * ScrabbleEvent class responsible for keeping track of each change in the model
+ * @author Vimal
+ *
+ * */
 public class ScrabbleEvent extends EventObject {
     private int x;
     private int y;

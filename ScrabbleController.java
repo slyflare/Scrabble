@@ -4,7 +4,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Scanner;
 /**
- * Parser class responsible for parsing user commands.
+ * ScrabbleController class responsible for controlling GUI inputs.
  * @author Vimal
  * */
 public class ScrabbleController implements ActionListener {
