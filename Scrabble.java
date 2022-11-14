@@ -167,20 +167,12 @@ public class Scrabble {
         return WordBank.contains(word.toLowerCase());
     }
 
-    /**
-     * Checks if letters are in the players hand.
-     * @author Matthew
-     */
-    private boolean handCheck(ArrayList<String> command, Player p) {
-        return p.hasLetters(command);
-    }
-
     private void draw() {
         if(!(letterBag.size() > 7)) {
             System.out.println("Not enough tiles in bag");
         }
         else {
-            addLetterTiles(getCurrentPlayer(), getCurrentPlayer().getLetters().size());
+            addLetterTiles(getCurrentPlayer(), 7-getCurrentPlayer().getLetters().size());
         }
     }
 
@@ -328,11 +320,56 @@ public class Scrabble {
             }
             String s = String.valueOf(word).trim();
             words.add(s);
-            System.out.println(words.get(0));
 
+            for (int i = 0; i < 15; i++) {
+                word[i] = ' ';
+            }
+
+            //check verticals from each letter
+            for(int i = leftmostX + 1; i < rightmostX; i++) {
+                if(board.getBoard()[i][y-1] != ' ') {
+                    int topmostY = 14;
+                    int botmostY = 0;
+                    int x = i;
+                    for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+                        if(yx.get(0) < topmostY) { topmostY = yx.get(0); }
+                        if(yx.get(0) > botmostY) { botmostY = yx.get(0); }
+                        x = yx.get(1);
+                        word[yx.get(0)] = playerPlacement.get(yx);
+                    }
+                    int currentY = topmostY - 1;
+                    while(currentY >= 0) { //add characters to the left of the placed letters
+                        if(board.getBoard()[x][currentY] != ' ') {
+                            word[currentY] = board.getBoard()[currentY][x]; //not sure if this works
+                        }
+                        else { currentY = -1;}
+                        currentY--;
+                    }
+                    currentY = botmostY + 1;
+                    while(currentY <= 14) { //add characters to the right of the placed letters
+                        if(board.getBoard()[x][currentY] != ' ') {
+                            word[currentY] = board.getBoard()[currentY][x]; //not sure if this works
+                        }
+                        else { currentY = 15;}
+                        currentY++;
+                    }
+                    //add characters in the middle of placed letters
+                    for(int j = topmostY + 1; j < botmostY; j++) {
+                        if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(j, x)))) {
+                            word[j] = board.getBoard()[j][x]; //not sure if this works
+                        }
+                    }
+                    String sv = String.valueOf(word).trim();
+                    words.add(sv);
+                }
+            }
+
+            for (String w: words) {
+                System.out.println(w);
+            }
         }
 
-        else { //vertical (not finished)
+        else { //vertical
             int topmostY = 14;
             int botmostY = 0;
             int x = 0;
@@ -360,17 +397,55 @@ public class Scrabble {
             }
             //add characters in the middle of placed letters
             for(int i = topmostY + 1; i < botmostY; i++) {
-                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(x, i)))) {
+                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(i, x)))) {
                     word[i] = board.getBoard()[i][x]; //not sure if this works
                 }
             }
             String s = String.valueOf(word).trim();
             words.add(s);
-            System.out.println(words.get(0));
+
+            for (int i = 0; i < 15; i++) {
+                word[i] = ' ';
+            }
+
+            //check horizontals from each letter
+            for(int i = topmostY + 1; i < botmostY; i++) {
+                for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+                    if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
+                    if(yx.get(1) > rightmostX) { rightmostX = yx.get(1); }
+                    y = i;
+                    word[yx.get(1)] = playerPlacement.get(yx);
+                }
+                int currentX = leftmostX - 1;
+                while(currentX >= 0) { //add characters to the left of the placed letters
+                    if(board.getBoard()[y][currentX] != ' ') {
+                        word[currentX] = board.getBoard()[y][currentX]; //not sure if this works
+                    }
+                    else { currentX = -1;}
+                    currentX--;
+                }
+                currentX = rightmostX + 1;
+                while(currentX <= 14) { //add characters to the right of the placed letters
+                    if(board.getBoard()[y][currentX] != ' ') {
+                        word[currentX] = board.getBoard()[y][currentX]; //not sure if this works
+                    }
+                    else { currentX = 15;}
+                    currentX++;
+                }
+                //add characters in the middle of placed letters
+                for(int j = leftmostX + 1; j < rightmostX; j++) {
+                    if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(y, j)))) {
+                        word[i] = board.getBoard()[j][y]; //not sure if this works
+                    }
+                }
+                String sh = String.valueOf(word).trim();
+                words.add(sh);
+            }
+
+            for (String w: words) {
+                System.out.println(w);
+            }
         }
-
-        //add other surrounding words to the list
-
 
         return words;
     }
