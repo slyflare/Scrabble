@@ -285,6 +285,25 @@ public class Scrabble {
         playerPlacement.clear();
     }
 
+    private String getWordVertical(int x, int y) {
+        char[] word = new char[15];
+        for(int i = 0; i < 15; i++) {word[i] = ' ';}
+        char[][] b = board.getBoard();
+        word[x] = playerPlacement.get((new ArrayList<>(Arrays.asList(x, y))));
+        int i = y + 1;
+        while(b[x][i] != ' ') {
+            word[i] = b[x][i];
+            i++;
+        }
+        int j = y - 1;
+        while(b[x][j] != ' ') {
+            word[j] = b[x][j];
+            j++;
+        }
+        String s = String.valueOf(word).trim();
+        return s;
+    }
+
     public ArrayList<String> getWords() {
         ArrayList<String> words = new ArrayList<>();
         //main word
@@ -330,6 +349,16 @@ public class Scrabble {
             }
 
             //check verticals from each letter
+            for(int i = leftmostX; i < rightmostX; i++) {
+                if (board.getBoard()[i][y + 1] != ' ' || board.getBoard()[i][y - 1] != ' ') {
+                    words.add(getWordVertical(i, y));
+                }
+            }
+
+
+
+
+            /*
             for(int i = leftmostX + 1; i < rightmostX; i++) {
                 if(board.getBoard()[i][y-1] != ' ') {
                     int topmostY = 14;
@@ -366,7 +395,7 @@ public class Scrabble {
                     String sv = String.valueOf(word).trim();
                     words.add(sv);
                 }
-            }
+            } */
 
             for (String w: words) {
                 System.out.println(w);
@@ -413,6 +442,7 @@ public class Scrabble {
             }
 
             //check horizontals from each letter
+
             for(int i = topmostY + 1; i < botmostY; i++) {
                 for(ArrayList<Integer> yx : playerPlacement.keySet()) {
                     if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
