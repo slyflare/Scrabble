@@ -2,24 +2,51 @@
 By Ashwitha Ala, Matthew Gaudet, Riya Rawat, Vimal Gunasegaran
 
 ## Project Description:
-This is a reproduced simplified version of the classic boardgame Scrabble coded in Java. The project is part of a group evaluation for the SYSC 3110 Software Development Project course. The current implementation of the project is text-based however the ultimate goal is create a complete game with good GUI and competent AI opponents.
+This is a reproduced simplified version of the classic boardgame Scrabble coded in Java. The project is part of a group evaluation for the SYSC 3110 Software Development Project course. The ultimate goal of the project is to create a complete game with good GUI and competent AI opponents.
 
 ## How to Play:
-As mentioned the current implementation of this project is completely text-based. Every word placed on the board will be printed out within the console.
+The current implementation of the game has a complete GUI. To place a letter on the board, select the letter in your hand then click on the square that you wish to place it on.
 
-Valid commands:
-> "PLACE (row) (column) (letters with spaces inbetween)" - *places a word* 
+BUtton commands:
+> "RESET" - *reset your placements*
 
 > "PASS" - *passes turn*
 
-> "DRAW (letter in hand) (letter in hand) ... " - *get new letter(s) from the bag*
+> "DRAW" - *get new letter(s) from the bag*
 
-> "QUIT" - *exits game*
+> "SUBMIT" - *confirm your word to be p*
 
-To use a letter already on the board place parentheses around the letter you enter with the PLACE command. For example, placing BAD down from 1,1 and reusing an 'a' that is already on the board, PLACE 1 1 DOWN B (A) D
+## Changelist v0.50:
+Changes will be implemented in versions going up by .25, presenting each of the 4 milestones. Here are the changes for v0.50:
+- Design
+  - Implemented Model View Control design pattern into the product.
+- Replaced Parser with ScrabbleController.
+  - Extends ActionListener and is responsible for controlling GUI inputs\
+- Added ScrabbleFrame
+  - Extends JFrame and implements ScrabbleView.
+  - Is the GUI for the game.
+  - implemented update method to update GUI whenever a ScrabbleEvent occurs.
+- Added ScrabbleView
+  - Interface with an update method.
+- Added ScrabbleEvent
+  - Extends EventObject
+  - Responsible for keeping track of the most recent change in the model.
+- Refactored Scrabble
+  - Added enum for each type of command
+  - split Play() into smaller functions for each command
+    - Added Draw(), draw letters
+    - Added Submit(), performs word check then updates job
+    - Added Pass(), passes turn
+    - ADded Reset(), resets temporary word placements
+  - Play() now calls the split functions based on command input
+  - Added necessary global variables for the functions
+- Added ScrabbleTest class, responsible for the unit tests
+  - pointScored() tests point system
+  - checkWord() tests multiple word placements, vertical, horizontal, and parallel.
+- Refactored Board
+  - updateBoard() takes new parameters to reflect model refactored code.
 
 ## Changelist v0.25:
-Changes will be implemented in versions going up by .25, presenting each of the 4 milestones. Here are the changes for v0.25:
 - Added Board.java
   - Added board method, initialises blank board.
   - Added updateBoard method, updates board with places letters.
@@ -45,4 +72,4 @@ Changes will be implemented in versions going up by .25, presenting each of the 
 - Added WordBank.txt, contains all the legal words for the Scrabble game.
 
 ## Roadmap:
-In the next v0.50 we plan to add a full GUI-based version of the game where users can simply play with their mouse rather then type. The board should be able to update scores and conduct word checks based on what the user has done within the GUI.
+In the next v0.75 we plan to completely implement scoring, add special tiles, and add competent AI to play against. 
