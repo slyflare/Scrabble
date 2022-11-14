@@ -16,8 +16,9 @@ public class ScrabbleTest {
     @Test
     public void pointsScored() {
         Scrabble test1 = new Scrabble(2);
-        for(int i=0;i<7;i++){
-            test1.getCurrentPlayer().getLetters().remove(i);
+        ArrayList<LetterTile> a = test1.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test1.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
         //test word 'Dices'
         test1.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
@@ -46,9 +47,9 @@ public class ScrabbleTest {
         //assertEquals("Points scored by player1:", test1.scoredPoints(),8 );
 
 
-
-        for(int i=0;i<7;i++){
-            test1.getCurrentPlayer().getLetters().remove(i);
+        a = test1.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test1.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
         //test word 'Sad'
         test1.getCurrentPlayer().addLetterTile(new LetterTile('W',4));
@@ -70,21 +71,15 @@ public class ScrabbleTest {
         test1.play(7,7,6, Scrabble.Command.PASS);
 
 
-
-
-
-
-
-
-
-
     }
 
     @Test
     public void checkWord(){
         Scrabble test2 = new Scrabble(2);
-        for(int i = 0; i < 7; i++){
-            test2.getCurrentPlayer().getLetters().remove(i);
+
+        ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
         //Test word 'Ashes'
         test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
@@ -114,9 +109,12 @@ public class ScrabbleTest {
         test2.play(7,7,5, Scrabble.Command.PASS);
 
        // assertEquals("Word Check",Scrabble.wordCheck(), test2.)
+        
 
-        for(int i=0;i<7;i++){
-            test2.getCurrentPlayer().getLetters().remove(i);
+
+        a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
         //test word 'Diary'
         test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
