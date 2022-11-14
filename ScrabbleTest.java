@@ -42,7 +42,9 @@ public class ScrabbleTest {
         test1.play(7,10,0, Scrabble.Command.PLACE);
 
         test1.play(7,11,5, Scrabble.Command.SUBMIT);
-        assertEquals("Points scored by player1:", 8, test1.getCurrentPlayer().GetScore());
+        test1.play(7, 7, 1, Scrabble.Command.PASS);
+        assertEquals("Points scored by player1:", 7, test1.getCurrentPlayer().GetScore());
+        test1.play(7, 7, 1, Scrabble.Command.PASS);
 
 
         a = test1.getCurrentPlayer().getLetters();
@@ -78,7 +80,7 @@ public class ScrabbleTest {
         for(int j = 0; j < 7; j++) {
             test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
-        //Test word 'flash'
+        //Test word 'flash' (valid word)
         test2.getCurrentPlayer().addLetterTile(new LetterTile('L',1));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('F',4));
@@ -125,9 +127,6 @@ public class ScrabbleTest {
         //D
         test2.play(6,9,2, Scrabble.Command.SELECT);
         test2.play(6,9,2, Scrabble.Command.PLACE);
-        //A
-        test2.play(7,9,0, Scrabble.Command.SELECT);
-        test2.play(7,9,0, Scrabble.Command.PLACE);
         //R
         test2.play(8,9,1, Scrabble.Command.SELECT);
         test2.play(8,9,1, Scrabble.Command.PLACE);

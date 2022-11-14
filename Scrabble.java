@@ -154,8 +154,9 @@ public class Scrabble {
      */
     public int calculatePoints(String word){
         int score = 0;
-        //for(String letter)
-        // we want to create a for loop that checks the score of each individual letter played and returns the total points for the round
+        for(int i = 0; i < word.length(); i++) {
+            score += new LetterTile(word.charAt(i)).getNum();
+        }
         return score;
     }
 
@@ -250,7 +251,10 @@ public class Scrabble {
                 return false;
             }
         }
-
+        //add points
+        for(String w : words) {
+            getCurrentPlayer().addScore(calculatePoints(w));
+        }
         if(valid) {
             this.board.newUpdateBoard(playerPlacement);
             for(Character c : playerPlacement.values()) {
