@@ -17,11 +17,10 @@ BUtton commands:
 > "SUBMIT" - *confirm your word to be p*
 
 ## Changelist v0.50:
-Changes will be implemented in versions going up by .25, presenting each of the 4 milestones. Here are the changes for v0.50:
-- Design
-  - Implemented Model View Control design pattern into the product.
+Changes will be implemented in versions going up by .25, presenting each of the 4 milestones. In this version, we choose to implement the Model View Controller design pattern. With the MVC pattern, we are able to decouple and relegate different classes to manage the game logic, the GUI, and the GUI interactions with the logic. Here are the changes for v0.50:
+
 - Replaced Parser with ScrabbleController.
-  - Extends ActionListener and is responsible for controlling GUI inputs\
+  - Extends ActionListener and is responsible for controlling GUI inputs
 - Added ScrabbleFrame
   - Extends JFrame and implements ScrabbleView.
   - Is the GUI for the game.
