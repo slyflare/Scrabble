@@ -20,7 +20,7 @@ public class ScrabbleTest {
         for(int j = 0; j < 7; j++) {
             test1.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
-        //test word 'Dices'
+        //test word 'Dice'
         test1.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
@@ -40,36 +40,33 @@ public class ScrabbleTest {
         //E
         test1.play(7,10,0, Scrabble.Command.SELECT);
         test1.play(7,10,0, Scrabble.Command.PLACE);
-        //S
-        test1.play(7,7,5, Scrabble.Command.SELECT);
-        test1.play(7,7,5, Scrabble.Command.PLACE);
-        test1.play(7,7,5, Scrabble.Command.PASS);
-        //assertEquals("Points scored by player1:", test1.scoredPoints(),8 );
+
+        test1.play(7,11,5, Scrabble.Command.SUBMIT);
+        assertEquals("Points scored by player1:", 8, test1.getCurrentPlayer().GetScore());
 
 
         a = test1.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
             test1.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
-        //test word 'Sad'
-        test1.getCurrentPlayer().addLetterTile(new LetterTile('W',4));
+        //test word 'Met' extended from E
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('M',3));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
-        test1.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        test1.getCurrentPlayer().addLetterTile(new LetterTile('T',1));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('G',2));
         test1.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
-        //S
-        test1.play(7,7,6, Scrabble.Command.SELECT);
-        test1.play(7,7,6, Scrabble.Command.PLACE);
-        //A
-        test1.play(7,8,4, Scrabble.Command.SELECT);
-        test1.play(7,8,4, Scrabble.Command.PLACE);
-        //D
-        test1.play(7,7,6, Scrabble.Command.SELECT);
-        test1.play(7,7,6, Scrabble.Command.PLACE);
-        test1.play(7,7,6, Scrabble.Command.PASS);
+        //M
+        test1.play(6,10,0, Scrabble.Command.SELECT);
+        test1.play(6,10,0, Scrabble.Command.PLACE);
+        //T
+        test1.play(8,10,4, Scrabble.Command.SELECT);
+        test1.play(8,10,4, Scrabble.Command.PLACE);
 
+        test1.play(7,7,6, Scrabble.Command.SUBMIT);
+
+        assertEquals("Points scored by player2:", 5, test1.getCurrentPlayer().GetScore());
 
     }
 
@@ -81,42 +78,42 @@ public class ScrabbleTest {
         for(int j = 0; j < 7; j++) {
             test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
-        //Test word 'Ashes'
-        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        //Test word 'flash'
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('L',1));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('F',4));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
-        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',1));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
-        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
-        //A
-        test2.play(7,7,3, Scrabble.Command.SELECT);
-        test2.play(7,7,3, Scrabble.Command.PLACE);
+        //F
+        test2.play(7,7,2, Scrabble.Command.SELECT);
+        test2.play(7,7,2, Scrabble.Command.PLACE);
 
-        //S
+        //L
         test2.play(7,8,0, Scrabble.Command.SELECT);
         test2.play(7,8,0, Scrabble.Command.PLACE);
 
-        //H
+        //A
         test2.play(7,9,3, Scrabble.Command.SELECT);
         test2.play(7,9,3, Scrabble.Command.PLACE);
-        //E
+        //S
         test2.play(7,10,6, Scrabble.Command.SELECT);
         test2.play(7,10,6, Scrabble.Command.PLACE);
-        //S
-        test2.play(7,7,5, Scrabble.Command.SELECT);
-        test2.play(7,7,5, Scrabble.Command.PLACE);
-        test2.play(7,7,5, Scrabble.Command.PASS);
+        //H
+        test2.play(7,11,5, Scrabble.Command.SELECT);
+        test2.play(7,11,5, Scrabble.Command.PLACE);
 
-       // assertEquals("Word Check",Scrabble.wordCheck(), test2.)
-        
+
+        assertTrue("Word Check", test2.submit());
+
 
 
         a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
             test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
         }
-        //test word 'Diary'
+        //test word 'Dary' (invalid word)
         test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('R',1));
         test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
@@ -126,23 +123,18 @@ public class ScrabbleTest {
         test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
 
         //D
-        test2.play(5,7,2, Scrabble.Command.SELECT);
-        test2.play(5,7,2, Scrabble.Command.PLACE);
-        //I
-        test2.play(6,7,3, Scrabble.Command.SELECT);
-        test2.play(6,7,3, Scrabble.Command.PLACE);
+        test2.play(6,9,2, Scrabble.Command.SELECT);
+        test2.play(6,9,2, Scrabble.Command.PLACE);
         //A
-        test2.play(7,7,0, Scrabble.Command.SELECT);
-        test2.play(7,7,0, Scrabble.Command.PLACE);
+        test2.play(7,9,0, Scrabble.Command.SELECT);
+        test2.play(7,9,0, Scrabble.Command.PLACE);
         //R
-        test2.play(8,7,1, Scrabble.Command.SELECT);
-        test2.play(8,7,1, Scrabble.Command.PLACE);
+        test2.play(8,9,1, Scrabble.Command.SELECT);
+        test2.play(8,9,1, Scrabble.Command.PLACE);
         //Y
-        test2.play(9,7,5, Scrabble.Command.SELECT);
-        test2.play(9,7,5, Scrabble.Command.PLACE);
-        test2.play(7,7,5, Scrabble.Command.PASS);
+        test2.play(9,9,4, Scrabble.Command.SELECT);
+        test2.play(9,9,4, Scrabble.Command.PLACE);
 
-
+        assertFalse("Word Check", test2.submit());
     }
-
 }

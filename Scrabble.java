@@ -202,7 +202,7 @@ public class Scrabble {
         currentLetter = players.get(currentPlayer).getLetters().get(i).getLetter();
     }
 
-    private boolean submit() {
+    public boolean submit() {
         //check word is straight line
         int tempX = -1;
         int tempY = -1;
@@ -490,6 +490,7 @@ public class Scrabble {
         }
         if(command == Command.SUBMIT){
             if(!submit()) {
+                //reset();
                 this.command = Command.RESET;
             }
         }
