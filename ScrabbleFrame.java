@@ -9,6 +9,7 @@ import java.awt.*;
 public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private JButton[][] board;
     private JButton[] hand;
+    private JButton[] info;
     private static final int boardSizeX = 15;
     private static final int boardSizeY = 15;
 
@@ -24,15 +25,17 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.board = new JButton[boardSizeX][boardSizeY];
         this.hand = new JButton[7];
+        this.info = new JButton[2];
         this.setLayout(new BorderLayout());
         JPanel handPanel = new JPanel();
         handPanel.setLayout(new GridLayout());
         JPanel optionPanel = new JPanel();
         optionPanel.setLayout(new BoxLayout(optionPanel, BoxLayout.Y_AXIS));
+        JPanel scorePanel = new JPanel();
+        scorePanel.setLayout(new BoxLayout(scorePanel, BoxLayout.Y_AXIS));
         JPanel gridPanel = new JPanel();
         gridPanel.setLayout(new GridLayout(15, 15));
         this.add(gridPanel, BorderLayout.CENTER);
-
 
         ScrabbleController controller = new ScrabbleController(scrabble);
 
@@ -85,7 +88,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         passButton.setBackground(c2);
         passButton.setOpaque(true);
         passButton.setBorderPainted(false);
-        optionPanel.add(submitButton);
         optionPanel.add(passButton);
         passButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.PASS));
         JButton resetButton = new JButton("Reset");
@@ -95,10 +97,31 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         resetButton.setBackground(c2);
         resetButton.setOpaque(true);
         resetButton.setBorderPainted(false);
-        optionPanel.add(submitButton);
         optionPanel.add(Box.createVerticalGlue());
         Color c1 = new Color(123, 123, 255);
         optionPanel.setBackground(c1);
+
+        this.add(scorePanel, BorderLayout.WEST);
+        scorePanel.add(Box.createVerticalGlue());
+        JButton turnButton = new JButton("Turn: 1");
+        info[0] = turnButton;
+        turnButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
+        scorePanel.add(turnButton);
+        turnButton.setBackground(c2);
+        turnButton.setOpaque(true);
+        turnButton.setBorderPainted(false);
+        turnButton.setEnabled(false);
+        JButton scoreButton = new JButton("Your Score: 0");
+        info[1] = scoreButton;
+        scoreButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
+        scorePanel.add(scoreButton);
+        scoreButton.setBackground(c2);
+        scoreButton.setOpaque(true);
+        scoreButton.setBorderPainted(false);
+        scoreButton.setEnabled(false);
+        scorePanel.add(Box.createVerticalGlue());
+        scorePanel.setBackground(c1);
+
         this.setSize(800, 600);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
@@ -133,6 +156,10 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
+
+            //update turn
+            info[0].setText("Turn: " + e.getTurn());
+            info[1].setText("Your Score: " + e.getCurrentPlayer().score);
         }
 
         if(e.getCommand() == Scrabble.Command.SUBMIT) {

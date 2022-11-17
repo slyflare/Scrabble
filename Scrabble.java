@@ -11,9 +11,11 @@ public class Scrabble {
     private ArrayList<Player> players;
     private ArrayList<LetterTile> letterBag;
     private int currentPlayer;
+    private int turn;
     private Character currentLetter;
     private ArrayList<String> WordBank;
     private HashMap<ArrayList<Integer>,Character> playerPlacement;
+
     public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET}
     private Command command;
     private List<ScrabbleView> views;
@@ -27,6 +29,7 @@ public class Scrabble {
         this.players = new ArrayList<>();
         this.currentPlayer = 0;
         this.currentLetter = null;
+        this.turn = 1;
         this.playerPlacement = new HashMap<>();
         this.command = Command.RESET;
         this.views = new ArrayList<>();
@@ -188,6 +191,7 @@ public class Scrabble {
         else {
             currentPlayer++;
         }
+        turn++;
     }
 
     private void place(int x, int y) {
@@ -280,6 +284,7 @@ public class Scrabble {
                 currentPlayer++;
             }
             playerPlacement.clear();
+            turn++;
             return true;
         }
         if(currentLetter != null){
@@ -539,7 +544,7 @@ public class Scrabble {
         }
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, board, getCurrentPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters

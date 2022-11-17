@@ -11,15 +11,17 @@ import java.util.List;
 public class ScrabbleEvent extends EventObject {
     private int x;
     private int y;
+    private int turn;
     private Board board;
     private Player currentPlayer;
     private Character currentLetter;
     private Scrabble.Command command;
-    public ScrabbleEvent(Scrabble scrabble, int x, int y, Board board, Player currentPlayer, Character currentLetter,
+    public ScrabbleEvent(Scrabble scrabble, int x, int y, int turn, Board board, Player currentPlayer, Character currentLetter,
                         Scrabble.Command command) {
         super(scrabble);
         this.x = x;
         this.y = y;
+        this.turn = turn;
         this.board = board;
         this.currentPlayer = currentPlayer;
         this.currentLetter = currentLetter;
@@ -48,5 +50,9 @@ public class ScrabbleEvent extends EventObject {
 
     public Scrabble.Command getCommand() {
         return command;
+    }
+
+    public int getTurn() {
+        return turn;
     }
 }
