@@ -39,8 +39,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         for(int i = 0; i < boardSizeX; i++) {
             for(int j = 0; j < boardSizeY; j++) {
                 JButton b = new JButton(" ");
-                Color color1 = new Color(246, 190 ,0);
-                b.setBackground(color1);
+                Color color1 = new Color(155, 155 ,155);
+                Color color2 = new Color(255, 255 ,255);
+                if ((i+j)%2 == 0){
+                    b.setBackground(color1);
+                }
+                else{
+                    b.setBackground(color2);
+                }
                 b.setOpaque(true);
                 board[i][j] = b;
                 gridPanel.add(b);
