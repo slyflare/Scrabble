@@ -154,8 +154,9 @@ public class Scrabble {
      */
     public int calculatePoints(String word){
         int score = 0;
-        //for(String letter)
-        // we want to create a for loop that checks the score of each individual letter played and returns the total points for the round
+        for(int i = 0; i < word.length(); i++) {
+            score += new LetterTile(word.charAt(i)).getNum();
+        }
         return score;
     }
 
@@ -254,7 +255,10 @@ public class Scrabble {
                 return false;
             }
         }
-
+        //add points
+        for(String w : words) {
+            getCurrentPlayer().addScore(calculatePoints(w));
+        }
         if(valid) {
             this.board.newUpdateBoard(playerPlacement);
             for(Character c : playerPlacement.values()) {
@@ -286,6 +290,25 @@ public class Scrabble {
     private void reset() {
         currentLetter = null;
         playerPlacement.clear();
+    }
+
+    private String getWordVertical(int x, int y) {
+        char[] word = new char[15];
+        for(int i = 0; i < 15; i++) {word[i] = ' ';}
+        char[][] b = board.getBoard();
+        word[x] = playerPlacement.get((new ArrayList<>(Arrays.asList(x, y))));
+        int i = y + 1;
+        while(b[x][i] != ' ') {
+            word[i] = b[x][i];
+            i++;
+        }
+        int j = y - 1;
+        while(b[x][j] != ' ') {
+            word[j] = b[x][j];
+            j++;
+        }
+        String s = String.valueOf(word).trim();
+        return s;
     }
 
     public ArrayList<String> getWords() {
@@ -333,6 +356,16 @@ public class Scrabble {
             }
 
             //check verticals from each letter
+            for(int i = leftmostX; i < rightmostX; i++) {
+                if (board.getBoard()[i][y + 1] != ' ' || board.getBoard()[i][y - 1] != ' ') {
+                    words.add(getWordVertical(i, y));
+                }
+            }
+
+
+
+
+            /*
             for(int i = leftmostX + 1; i < rightmostX; i++) {
                 if(board.getBoard()[i][y-1] != ' ') {
                     int topmostY = 14;
@@ -369,7 +402,7 @@ public class Scrabble {
                     String sv = String.valueOf(word).trim();
                     words.add(sv);
                 }
-            }
+            } */
 
             for (String w: words) {
                 System.out.println(w);
@@ -416,6 +449,7 @@ public class Scrabble {
             }
 
             //check horizontals from each letter
+
             for(int i = topmostY + 1; i < botmostY; i++) {
                 for(ArrayList<Integer> yx : playerPlacement.keySet()) {
                     if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
