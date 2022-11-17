@@ -97,7 +97,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
-
     }
     @Override
     public void update(ScrabbleEvent e) {
