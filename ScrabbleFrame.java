@@ -74,14 +74,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         submitButton.setOpaque(true);
         submitButton.setBorderPainted(false);
         optionPanel.add(submitButton);
-        JButton drawButton = new JButton("Draw");
-        drawButton.setBackground(c2);
-        drawButton.setOpaque(true);
-        drawButton.setBorderPainted(false);
-        optionPanel.add(submitButton);
-        optionPanel.add(drawButton);
-        drawButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, drawButton.getMinimumSize().height));
-        drawButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.DRAW));
         JButton passButton = new JButton("Pass");
         passButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, passButton.getMinimumSize().height));
         passButton.setBackground(c2);
@@ -144,11 +136,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             }
         }
 
-        if(e.getCommand() == Scrabble.Command.DRAW){
-            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
-                hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
-            }
-        }
         if(e.getCommand() == Scrabble.Command.SUBMIT) {
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {

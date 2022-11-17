@@ -239,7 +239,11 @@ public class Scrabble {
         else {
             System.out.println("Word is NOT a straight line");
         }
-        //check builds off other word or off center if first word
+
+        //checks if there is a word at 7,7
+        if(board.getBoard()[7][7] == ' ' && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
+            return false;
+        }
 
         //check valid word
         ArrayList<String> words = getWords();
@@ -256,6 +260,9 @@ public class Scrabble {
             for(Character c : playerPlacement.values()) {
                 getCurrentPlayer().removeLetterTile(c);
             }
+
+            draw();
+
             if(currentLetter != null){
                 currentLetter = null;
             }
