@@ -243,6 +243,8 @@ public class Scrabble {
 
         //checks if there is a word at 7,7
         if(board.getBoard()[7][7] == ' ' && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
+            System.out.println("Word didn't start at 7,7");
+            reset();
             return false;
         }
 
