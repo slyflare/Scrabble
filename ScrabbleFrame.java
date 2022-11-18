@@ -178,6 +178,10 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
             }
+
+            //update turn
+            info[0].setText("Turn: " + e.getTurn());
+            info[1].setText("Your Score: " + e.getCurrentPlayer().score);
         }
     }
 

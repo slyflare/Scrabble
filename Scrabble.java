@@ -245,15 +245,18 @@ public class Scrabble {
             System.out.println("Word is NOT a straight line");
         }
 
-        //checks if there is a word at 7,7
-        if(board.getBoard()[7][7] == ' ' && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
-            System.out.println("Word didn't start at 7,7");
-            reset();
-            return false;
+        ArrayList<String> words = getWords();
+        //checks if it builds off another word and checks if there is a word at 7,7
+        //assuming that if multiple words are detect for scoring, player must have built off another word.
+        if(words.size() == 1){
+            if(!buildOff()){
+                System.out.println("Word does not start at 7,7 or word does not build off another");
+                reset();
+                return false;
+            }
         }
 
         //check valid word
-        ArrayList<String> words = getWords();
         for(String w : words) {
             if(!wordCheck(w)){
                 System.out.println("Word is NOT legal");
@@ -316,6 +319,43 @@ public class Scrabble {
         }
         String s = String.valueOf(word).trim();
         return s;
+    }
+
+    public boolean buildOff(){
+        if(board.getBoard()[7][7] == ' ' && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
+            return false;
+        }
+        ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
+        if(getWordDirection().equals("horizontal")){
+            if(temp.get(0).get(0) != 0){
+                //checks left
+                if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)-1] != ' '){
+                    return true;
+                }
+            }
+            for(int i = 0; i < temp.size()-1; i++){
+                //checks right
+                if(temp.get(i).get(0) + 1 != temp.get(i+1).get(0) && board.getBoard()[temp.get(i).get(1)][temp.get(i).get(0)+1] != ' '){
+                    return true;
+                }
+            }
+        }
+        else {
+            if(temp.get(0).get(1) != 0){
+                //checks up
+                if(board.getBoard()[temp.get(0).get(1)-1][temp.get(0).get(0)] != ' '){
+                    return true;
+                }
+            }
+            for(int i = 0; i < temp.size()-1; i++){
+                //checks down
+                if(temp.get(i).get(1) + 1 != temp.get(i+1).get(1) && board.getBoard()[temp.get(i).get(1)+1][temp.get(i).get(0)] != ' '){
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     public ArrayList<String> getWords() {
