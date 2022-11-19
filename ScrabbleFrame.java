@@ -131,15 +131,15 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     public void update(ScrabbleEvent e) {
         if(e.getCommand() == Scrabble.Command.PLACE && e.getCurrentLetter() != null) {
             String label = e.getCurrentLetter().toString();
-            board[e.getX()][e.getY()].setText(label);
+            board[e.getY()][e.getX()].setText(label);
         }
 
         if(e.getCommand() == Scrabble.Command.RESET){
             //clear anything temporary on board
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
-                    if(board[i][j].isEnabled()) {
-                        board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                    if(board[j][i].isEnabled()) {
+                        board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
                     }
                 }
             }
@@ -149,7 +149,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //clear anything temporary on board
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
-                    board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                    board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
                 }
             }
             //load next players hand
@@ -169,9 +169,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                         /* debug
                         System.out.println("buttons[" + i + "][" + j + "]: " + board[j][i].getText());
                         System.out.println("board:[" + i + "][" + j + "]: " + e.getBoard().getBoard()[i][j]); */
-                        board[i][j].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
-                        board[i][j].setForeground(new Color(0,0,0));
-                        board[i][j].setEnabled(false);
+                        board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                        board[j][i].setForeground(new Color(0,0,0));
+                        board[j][i].setEnabled(false);
                     }
                 }
             }
