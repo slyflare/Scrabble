@@ -199,4 +199,132 @@ public class ScrabbleTest {
         test2.play(11,9,2, Scrabble.Command.SUBMIT);
         //assertTrue("Word Check", test2.submit());
     }
+    @Test
+    public void testParallelPlacementHorizontal(){
+        Scrabble test2 = new Scrabble(2);
+
+        ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //Test word 'bow' (valid word) (horizontal)
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('W',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('B',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('F',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('O',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        //B
+        test2.play(7,7,1, Scrabble.Command.SELECT);
+        test2.play(7,7,1, Scrabble.Command.PLACE);
+
+        //O
+        test2.play(8,7,3, Scrabble.Command.SELECT);
+        test2.play(8,7,3, Scrabble.Command.PLACE);
+
+        //W
+        test2.play(9,7,0, Scrabble.Command.SELECT);
+        test2.play(9,7,0, Scrabble.Command.PLACE);
+
+        test2.play(9,7,0, Scrabble.Command.SUBMIT);
+
+
+        //assertTrue(test2.submit());
+
+
+
+        a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //test word 'BOW
+        //             EYE' (we and eye)
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('R',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('T',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
+
+        //E
+        test2.play(9,8,0, Scrabble.Command.SELECT);
+        test2.play(9,8,0, Scrabble.Command.PLACE);
+        //Y
+        test2.play(10,8,3, Scrabble.Command.SELECT);
+        test2.play(10,8,3, Scrabble.Command.PLACE);
+        //E
+        test2.play(11,8,5, Scrabble.Command.SELECT);
+        test2.play(11,8,5, Scrabble.Command.PLACE);
+
+        test2.play(11,8,5, Scrabble.Command.SUBMIT);
+        //assertTrue("Word Check", test2.submit());
+    }
+    @Test
+    public void testParallelPlacementVertical(){
+        Scrabble test2 = new Scrabble(2);
+
+        ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //Test word 'bow' (valid word) (vertical)
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('W',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('B',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('F',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('O',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        //B
+        test2.play(7,7,1, Scrabble.Command.SELECT);
+        test2.play(7,7,1, Scrabble.Command.PLACE);
+
+        //O
+        test2.play(7,8,3, Scrabble.Command.SELECT);
+        test2.play(7,8,3, Scrabble.Command.PLACE);
+
+        //W
+        test2.play(7,9,0, Scrabble.Command.SELECT);
+        test2.play(7,9,0, Scrabble.Command.PLACE);
+
+        test2.play(9,7,0, Scrabble.Command.SUBMIT);
+
+
+        //assertTrue(test2.submit());
+
+
+
+        a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //test word 'B
+        //           O
+        //           W E
+        //             Y
+        //             E' (we and eye)
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('R',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('T',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('E',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
+
+        //E
+        test2.play(8,9,0, Scrabble.Command.SELECT);
+        test2.play(8,9,0, Scrabble.Command.PLACE);
+        //Y
+        test2.play(8,10,3, Scrabble.Command.SELECT);
+        test2.play(8,10,3, Scrabble.Command.PLACE);
+        //E
+        test2.play(8,11,5, Scrabble.Command.SELECT);
+        test2.play(8,11,5, Scrabble.Command.PLACE);
+
+        test2.play(8,11,5, Scrabble.Command.SUBMIT);
+        //assertTrue("Word Check", test2.submit());
+    }
+
 }

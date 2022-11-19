@@ -313,13 +313,13 @@ public class Scrabble {
         char[][] b = board.getBoard();
         word[x] = playerPlacement.get((new ArrayList<>(Arrays.asList(x, y))));
         int i = x - 1;
-        while(b[x][i] != ' ') {
-            word[i] = b[x][i];
+        while(b[i][y] != ' ') {
+            word[i] = b[i][y];
             i++;
         }
         int j = x + 1;
-        while(b[j][x] != ' ') {
-            word[j] = b[j][x];
+        while(b[x][j] != ' ') {
+            word[j] = b[x][j];
             j++;
         }
         return String.valueOf(word).trim();
@@ -331,13 +331,13 @@ public class Scrabble {
         char[][] b = board.getBoard();
         word[y] = playerPlacement.get((new ArrayList<>(Arrays.asList(x, y))));
         int i = y - 1;
-        while(b[i][y] != ' ') {
-            word[i] = b[i][y];
+        while(b[x][i] != ' ') {
+            word[i] = b[x][i];
             i++;
         }
         int j = y + 1;
-        while(b[j][y] != ' ') {
-            word[j] = b[j][y];
+        while(b[x][j] != ' ') {
+            word[j] = b[x][j];
             j++;
         }
         return String.valueOf(word).trim();
@@ -483,7 +483,7 @@ public class Scrabble {
                 word[i] = ' ';
             }
 
-            /*
+            //check horizontals from each letter
             for(ArrayList<Integer> xy : playerPlacement.keySet()) {
                 String tempH = getWordHorizontal(xy.get(0), xy.get(1));
                 if(tempH.length() > 1){
@@ -491,7 +491,7 @@ public class Scrabble {
                 }
             }
 
-             */
+
 
             for (String w: words) {
                 System.out.println(w);
