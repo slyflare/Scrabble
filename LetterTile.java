@@ -26,10 +26,10 @@ public class LetterTile {
         return this.num;
     }
     public void createMap () {
-        int[] vals = {1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10};
+        int[] vals = {1,3,3,2,1,4,2,4,1,8,5,1,3,1,1,3,10,1,1,1,1,4,4,8,4,10,0};
         char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
-            'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-        for(int i = 0; i < 26; i++) {
+            'O','P','Q','R','S','T','U','V','W','X','Y','Z', ' '};
+        for(int i = 0; i < 27; i++) {
             map.put(letters[i], vals[i]);
         }
 

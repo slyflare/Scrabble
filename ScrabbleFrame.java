@@ -184,6 +184,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             info[1].setText("Your Score: " + e.getCurrentPlayer().score);
         }
     }
+    public char getBlankTileInput() {
+        return JOptionPane.showInputDialog("Enter letter").charAt(0);
+    }
 
     public static void main(String[] args) {
         new ScrabbleFrame();
