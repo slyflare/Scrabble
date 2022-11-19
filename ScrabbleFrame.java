@@ -143,6 +143,20 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                     }
                 }
             }
+
+            //reset hand
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+                hand[i].setEnabled(true);
+            }
+        }
+
+        if(e.getCommand() == Scrabble.Command.SELECT) {
+            for (JButton button : hand) {
+                if (button.getText().equals(e.getCurrentLetter().toString())) {
+                    button.setEnabled(false);
+                    break;
+                }
+            }
         }
 
         if(e.getCommand() == Scrabble.Command.PASS){
@@ -155,6 +169,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //load next players hand
             for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
                 hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
+                hand[i].setEnabled(true);
             }
 
             //update turn
