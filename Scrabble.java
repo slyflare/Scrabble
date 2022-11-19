@@ -75,9 +75,9 @@ public class Scrabble {
     public void createLetterBag() {
         int i;
         char[] letters = {'A','B','C','D','E','F','G','H','I','J','K','L','M','N',
-                'O','P','Q','R','S','T','U','V','W','X','Y','Z'};
-        int[] numTiles = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1};
-        for(i = 0; i < 26; i++) {
+                'O','P','Q','R','S','T','U','V','W','X','Y','Z', ' '};
+        int[] numTiles = {9,2,2,4,12,2,3,2,9,1,1,4,2,6,8,2,1,6,4,6,4,2,2,1,2,1,2};
+        for(i = 0; i < 27; i++) {
             for(int j = 0; j < numTiles[i]; j++) {
                 this.letterBag.add(new LetterTile(letters[i]));
             }
@@ -196,6 +196,9 @@ public class Scrabble {
 
     private void place(int x, int y) {
         if (currentLetter != null && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(x, y)))) {
+            if(currentLetter == ' ') {
+                currentLetter = views.get(0).getBlankTileInput();
+            }
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
         }
         else {
@@ -229,6 +232,7 @@ public class Scrabble {
                     vertical = true;
                 }
                 else { valid = false; }
+                second = false;
             }
             else if(horizontal && !(yx.get(0) == tempY)) {
                 valid = false;
