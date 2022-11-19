@@ -122,7 +122,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         scorePanel.add(Box.createVerticalGlue());
         scorePanel.setBackground(c1);
 
-        this.setSize(800, 600);
+        this.setSize(900, 700);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 

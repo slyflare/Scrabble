@@ -265,11 +265,11 @@ public class Scrabble {
             }
         }
         //add points
-        for(String w : words) {
-            getCurrentPlayer().addScore(calculatePoints(w));
-        }
         if(valid) {
             this.board.newUpdateBoard(playerPlacement);
+            for(String w : words) {
+                getCurrentPlayer().addScore(calculatePoints(w));
+            }
             for(Character c : playerPlacement.values()) {
                 getCurrentPlayer().removeLetterTile(c);
             }
@@ -322,8 +322,8 @@ public class Scrabble {
     }
 
     public boolean buildOff(){
-        if(board.getBoard()[7][7] == ' ' && !playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
-            return false;
+        if(board.getBoard()[7][7] == ' ' && playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
+            return true;
         }
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
         if(getWordDirection().equals("horizontal")){
