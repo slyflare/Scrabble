@@ -136,4 +136,67 @@ public class ScrabbleTest {
 
         assertFalse("Word Check", test2.submit());
     }
+
+    @Test
+    public void testPlacement(){
+        Scrabble test2 = new Scrabble(2);
+
+        ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //Test word 'flash' (valid word) (horizontal)
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('L',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('D',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('F',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('S',1));
+        //F
+        test2.play(7,7,2, Scrabble.Command.SELECT);
+        test2.play(7,7,2, Scrabble.Command.PLACE);
+
+        //L
+        test2.play(8,7,0, Scrabble.Command.SELECT);
+        test2.play(8,7,0, Scrabble.Command.PLACE);
+
+        //A
+        test2.play(9,7,3, Scrabble.Command.SELECT);
+        test2.play(9,7,3, Scrabble.Command.PLACE);
+        //S
+        test2.play(10,7,6, Scrabble.Command.SELECT);
+        test2.play(10,7,6, Scrabble.Command.PLACE);
+        //H
+        test2.play(11,7,5, Scrabble.Command.SELECT);
+        test2.play(11,7,5, Scrabble.Command.PLACE);
+        test2.play(11,7,5, Scrabble.Command.SUBMIT);
+
+
+        //assertTrue(test2.submit());
+
+
+
+        a = test2.getCurrentPlayer().getLetters();
+        for(int j = 0; j < 7; j++) {
+            test2.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
+        }
+        //test word 'HAT' down off H
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('A',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('R',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('T',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('I',1));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('Y',4));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('G',2));
+        test2.getCurrentPlayer().addLetterTile(new LetterTile('H',4));
+
+        //A
+        test2.play(11,8,0, Scrabble.Command.SELECT);
+        test2.play(11,8,0, Scrabble.Command.PLACE);
+        //T
+        test2.play(11,9,2, Scrabble.Command.SELECT);
+        test2.play(11,9,2, Scrabble.Command.PLACE);
+        test2.play(11,9,2, Scrabble.Command.SUBMIT);
+        //assertTrue("Word Check", test2.submit());
+    }
 }

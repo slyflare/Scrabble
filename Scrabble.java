@@ -219,26 +219,26 @@ public class Scrabble {
         boolean second = false;
         boolean horizontal = false;
         boolean vertical = false;
-        for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+        for(ArrayList<Integer> xy : playerPlacement.keySet()) {
             if(tempX == -1) {
-                tempY = yx.get(0);
-                tempX = yx.get(1);
+                tempX = xy.get(0);
+                tempY = xy.get(1);
                 second = true;
             }
             else if(second) {
-                if(yx.get(0) == tempY) {
-                    horizontal = true;
-                }
-                else if (yx.get(1) == tempX) {
+                if(xy.get(0) == tempX) {
                     vertical = true;
+                }
+                else if (xy.get(1) == tempY) {
+                    horizontal = true;
                 }
                 else { valid = false; }
                 second = false;
             }
-            else if(horizontal && !(yx.get(0) == tempY)) {
+            else if(horizontal && !(xy.get(1) == tempY)) {
                 valid = false;
             }
-            else if(vertical && !(yx.get(1) == tempX)) {
+            else if(vertical && !(xy.get(0) == tempX)) {
                 valid = false;
             }
         }
@@ -396,31 +396,31 @@ public class Scrabble {
             int leftmostX = 14;
             int rightmostX = 0;
             int y = 0;
-            for(ArrayList<Integer> yx : playerPlacement.keySet()) {
-                if(yx.get(1) < leftmostX) { leftmostX = yx.get(1); }
-                if(yx.get(1) > rightmostX) { rightmostX = yx.get(1); }
-                y = yx.get(0);
-                word[yx.get(1)] = playerPlacement.get(yx);
+            for(ArrayList<Integer> xy : playerPlacement.keySet()) {
+                if(xy.get(0) < leftmostX) { leftmostX = xy.get(0); }
+                if(xy.get(0) > rightmostX) { rightmostX = xy.get(0); }
+                y = xy.get(1);
+                word[xy.get(0)] = playerPlacement.get(xy);
             }
             int currentX = leftmostX - 1;
             while(currentX >= 0) { //add characters to the left of the placed letters
-                if(board.getBoard()[y][currentX] != ' ') {
-                    word[currentX] = board.getBoard()[y][currentX]; //not sure if this works
+                if(board.getBoard()[currentX][y] != ' ') {
+                    word[currentX] = board.getBoard()[currentX][y]; //add to word
                 }
-                else { currentX = -1;}
+                else { currentX = -1;} //continue
                 currentX--;
             }
             currentX = rightmostX + 1;
             while(currentX <= 14) { //add characters to the right of the placed letters
-                if(board.getBoard()[y][currentX] != ' ') {
-                    word[currentX] = board.getBoard()[y][currentX]; //not sure if this works
+                if(board.getBoard()[currentX][y] != ' ') {
+                    word[currentX] = board.getBoard()[currentX][y]; //add to word
                 }
                 else { currentX = 15;}
                 currentX++;
             }
             //add characters in the middle of placed letters
             for(int i = leftmostX + 1; i < rightmostX; i++) {
-                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(y, i)))) {
+                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(i, y)))) {
                     word[i] = board.getBoard()[i][y]; //not sure if this works
                 }
             }
@@ -448,16 +448,16 @@ public class Scrabble {
             int topmostY = 14;
             int botmostY = 0;
             int x = 0;
-            for(ArrayList<Integer> yx : playerPlacement.keySet()) {
-                if(yx.get(0) < topmostY) { topmostY = yx.get(0); }
-                if(yx.get(0) > botmostY) { botmostY = yx.get(0); }
-                x = yx.get(1);
-                word[yx.get(0)] = playerPlacement.get(yx);
+            for(ArrayList<Integer> xy : playerPlacement.keySet()) {
+                if(xy.get(1) < topmostY) { topmostY = xy.get(1); }
+                if(xy.get(1) > botmostY) { botmostY = xy.get(1); }
+                x = xy.get(0);
+                word[xy.get(1)] = playerPlacement.get(xy);
             }
             int currentY = topmostY - 1;
             while(currentY <= 14) { //add characters to the top of the placed letters
                 if(board.getBoard()[x][currentY] != ' ') {
-                    word[currentY] = board.getBoard()[currentY][x]; //not sure if this works
+                    word[currentY] = board.getBoard()[x][currentY]; //not sure if this works
                 }
                 else { currentY = 15;}
                 currentY++;
@@ -465,15 +465,15 @@ public class Scrabble {
             currentY = botmostY + 1;
             while(currentY >= 0) { //add characters to the bottom of the placed letters
                 if(board.getBoard()[x][currentY] != ' ') {
-                    word[currentY] = board.getBoard()[currentY][x]; //not sure if this works
+                    word[currentY] = board.getBoard()[x][currentY]; //not sure if this works
                 }
                 else { currentY = -1;}
                 currentY--;
             }
             //add characters in the middle of placed letters
             for(int i = topmostY + 1; i < botmostY; i++) {
-                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(i, x)))) {
-                    word[i] = board.getBoard()[i][x]; //not sure if this works
+                if(!playerPlacement.containsKey(new ArrayList<>(Arrays.asList(x, i)))) {
+                    word[i] = board.getBoard()[x][i]; //not sure if this works
                 }
             }
             String s = String.valueOf(word).trim();
@@ -505,16 +505,16 @@ public class Scrabble {
         int tempX = -1;
         int tempY = -1;
         boolean second = false;
-        for(ArrayList<Integer> yx : playerPlacement.keySet()) {
+        for(ArrayList<Integer> xy : playerPlacement.keySet()) {
             if (tempX == -1) {
-                tempY = yx.get(0);
-                tempX = yx.get(1);
+                tempX = xy.get(0);
+                tempY = xy.get(1);
                 second = true;
             } else if (second) {
-                if (yx.get(0) == tempY) {
-                    return "horizontal";
-                } else if (yx.get(1) == tempX) {
+                if (xy.get(0) == tempX) {
                     return "vertical";
+                } else if (xy.get(1) == tempY) {
+                    return "horizontal";
                 }
             }
         }
