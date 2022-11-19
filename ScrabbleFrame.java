@@ -55,7 +55,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 gridPanel.add(b);
                 int finalI = i;
                 int finalJ = j;
-                b.addActionListener(e->scrabble.play(finalI, finalJ, 0, Scrabble.Command.PLACE));
+                b.addActionListener(e->scrabble.play(finalJ, finalI, 0, Scrabble.Command.PLACE));
             }
         }
 
