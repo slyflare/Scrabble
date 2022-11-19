@@ -350,13 +350,13 @@ public class Scrabble {
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
         if(temp.get(0).get(0) > 0){
             //checks left
-            if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)+1] != ' '){
+            if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)-1] != ' '){
                 return true;
             }
         }
         if(temp.get(0).get(0) < 15){
             //checks right
-            if(board.getBoard()[temp.get(playerPlacement.keySet().size()-1).get(1)][temp.get(playerPlacement.keySet().size()-1).get(0)-1] != ' '){
+            if(board.getBoard()[temp.get(playerPlacement.keySet().size()-1).get(1)][temp.get(playerPlacement.keySet().size()-1).get(0)+1] != ' '){
                 return true;
             }
         }
