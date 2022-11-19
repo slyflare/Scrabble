@@ -327,28 +327,40 @@ public class Scrabble {
         }
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
         if(getWordDirection().equals("horizontal")){
-            if(temp.get(0).get(0) != 0){
+            if(temp.get(0).get(0) > 0){
                 //checks left
                 if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)-1] != ' '){
                     return true;
                 }
             }
+            if(temp.get(0).get(0) < 15){
+                //checks left
+                if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)+1] != ' '){
+                    return true;
+                }
+            }
             for(int i = 0; i < temp.size()-1; i++){
-                //checks right
+                //checks in between
                 if(temp.get(i).get(0) + 1 != temp.get(i+1).get(0) && board.getBoard()[temp.get(i).get(1)][temp.get(i).get(0)+1] != ' '){
                     return true;
                 }
             }
         }
         else {
-            if(temp.get(0).get(1) != 0){
-                //checks up
+            if(temp.get(0).get(1) > 0){
+                //checks down
                 if(board.getBoard()[temp.get(0).get(1)-1][temp.get(0).get(0)] != ' '){
                     return true;
                 }
             }
+            if(temp.get(0).get(1) < 15){
+                //checks up
+                if(board.getBoard()[temp.get(0).get(1)+1][temp.get(0).get(0)] != ' '){
+                    return true;
+                }
+            }
             for(int i = 0; i < temp.size()-1; i++){
-                //checks down
+                //checks in between
                 if(temp.get(i).get(1) + 1 != temp.get(i+1).get(1) && board.getBoard()[temp.get(i).get(1)+1][temp.get(i).get(0)] != ' '){
                     return true;
                 }
