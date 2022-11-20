@@ -315,11 +315,11 @@ public class Scrabble {
         int i = x - 1;
         while(b[i][y] != ' ') {
             word[i] = b[i][y];
-            i++;
+            i--;
         }
         int j = x + 1;
-        while(b[x][j] != ' ') {
-            word[j] = b[x][j];
+        while(b[j][y] != ' ') {
+            word[j] = b[j][y];
             j++;
         }
         return String.valueOf(word).trim();
@@ -333,7 +333,7 @@ public class Scrabble {
         int i = y - 1;
         while(b[x][i] != ' ') {
             word[i] = b[x][i];
-            i++;
+            i--;
         }
         int j = y + 1;
         while(b[x][j] != ' ') {
@@ -347,41 +347,62 @@ public class Scrabble {
         if(board.getBoard()[7][7] == ' ' && playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
             return true;
         }
+        char[][] b = board.getBoard();
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
-        if(temp.get(0).get(0) > 0){
-            //checks left
-            if(board.getBoard()[temp.get(0).get(1)][temp.get(0).get(0)-1] != ' '){
+        if(getWordDirection().equals("horizontal")) { //horizontal
+            //check left
+            int minX = 15;
+            int maxX = 0;
+            for(ArrayList<Integer> i : temp) {
+                if(i.get(0) < minX) {minX = i.get(0);}
+                if(i.get(0) > maxX) {maxX = i.get(0);}
+            }
+            if(b[minX-1][temp.get(0).get(1)] != ' '){
                 return true;
             }
-        }
-        if(temp.get(0).get(0) < 15){
-            //checks right
-            if(board.getBoard()[temp.get(playerPlacement.keySet().size()-1).get(1)][temp.get(playerPlacement.keySet().size()-1).get(0)+1] != ' '){
+            //check right
+            if(b[maxX + 1][temp.get(0).get(1)] != ' '){
                 return true;
             }
-        }
-        for(int i = 0; i < temp.size()-1; i++){
+            //check all verticals
+            for(ArrayList<Integer> xy : temp) {
+                if(b[xy.get(0)][xy.get(1) + 1] != ' ' || b[xy.get(0)][xy.get(1) - 1] != ' ') {
+                    return true;
+                }
+            }
             //checks in between
-            if(temp.get(i).get(0) + 1 != temp.get(i+1).get(0) && board.getBoard()[temp.get(i).get(1)][temp.get(i).get(0)+1] != ' '){
-                return true;
+            for(int i = 0; i < temp.size()-1; i++) {
+                if(temp.get(i).get(0) + 1 != temp.get(i+1).get(0) && board.getBoard()[temp.get(i).get(1)][temp.get(i).get(0)+1] != ' '){
+                    return true;
+                }
             }
         }
-        if(temp.get(0).get(1) > 0){
-            //checks down
-            if(board.getBoard()[temp.get(0).get(1)+1][temp.get(0).get(0)] != ' '){
+       else { //vertical
+           //check up
+            int minY = 15;
+            int maxY = 0;
+            for(ArrayList<Integer> i : temp) {
+                if(i.get(0) < minY) {minY = i.get(0);}
+                if(i.get(0) > maxY) {maxY = i.get(0);}
+            }
+            if(b[temp.get(0).get(0)][maxY - 1] != ' '){
                 return true;
             }
-        }
-        if(temp.get(0).get(1) < 15){
-            //checks up
-            if(board.getBoard()[temp.get(playerPlacement.keySet().size()-1).get(1)-1][temp.get(playerPlacement.keySet().size()-1).get(0)] != ' '){
+            //check down
+            if(b[temp.get(0).get(0)][maxY + 1] != ' '){
                 return true;
             }
-        }
-        for(int i = 0; i < temp.size()-1; i++){
+            //check all horizontals
+            for(ArrayList<Integer> xy : temp) {
+                if(b[xy.get(0)+1][xy.get(1)] != ' ' || b[xy.get(0) - 1][xy.get(1)] != ' ') {
+                    return true;
+                }
+            }
             //checks in between
-            if(temp.get(i).get(1) + 1 != temp.get(i+1).get(1) && board.getBoard()[temp.get(i).get(1)+1][temp.get(i).get(0)] != ' '){
-                return true;
+            for(int i = 0; i < temp.size()-1; i++) {
+                if(temp.get(i).get(1) + 1 != temp.get(i+1).get(1) && board.getBoard()[temp.get(i).get(1)+1][temp.get(i).get(0)] != ' '){
+                    return true;
+                }
             }
         }
         return false;
@@ -497,7 +518,6 @@ public class Scrabble {
                 System.out.println(w);
             }
         }
-
         return words;
     }
 
