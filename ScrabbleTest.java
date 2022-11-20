@@ -67,7 +67,7 @@ public class ScrabbleTest {
         test1.play(8,10,4, Scrabble.Command.PLACE);
 
         test1.play(7,7,6, Scrabble.Command.SUBMIT);
-
+        test1.play(7, 7, 1, Scrabble.Command.PASS);
         assertEquals("Points scored by player2:", 5, test1.getCurrentPlayer().GetScore());
 
     }
