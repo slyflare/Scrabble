@@ -25,7 +25,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.board = new JButton[boardSizeX][boardSizeY];
         this.hand = new JButton[7];
-        this.info = new JButton[2];
+        this.info = new JButton[3];
         this.setLayout(new BorderLayout());
         JPanel handPanel = new JPanel();
         handPanel.setLayout(new GridLayout());
@@ -119,6 +119,14 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         scoreButton.setOpaque(true);
         scoreButton.setBorderPainted(false);
         scoreButton.setEnabled(false);
+        JButton playerButton = new JButton("Player 1");
+        info[2] = playerButton;
+        playerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
+        scorePanel.add(playerButton);
+        playerButton.setBackground(c2);
+        playerButton.setOpaque(true);
+        playerButton.setBorderPainted(false);
+        playerButton.setEnabled(false);
         scorePanel.add(Box.createVerticalGlue());
         scorePanel.setBackground(c1);
 
@@ -175,6 +183,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //update turn
             info[0].setText("Turn: " + e.getTurn());
             info[1].setText("Your Score: " + e.getCurrentPlayer().score);
+            info[2].setText(e.getCurrentPlayer().getName());
         }
 
         if(e.getCommand() == Scrabble.Command.SUBMIT) {
@@ -198,6 +207,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //update turn
             info[0].setText("Turn: " + e.getTurn());
             info[1].setText("Your Score: " + e.getCurrentPlayer().score);
+            info[2].setText(e.getCurrentPlayer().getName());
         }
     }
     public char getBlankTileInput() {
