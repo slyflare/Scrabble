@@ -121,35 +121,6 @@ public class Scrabble {
     }
 
     /**
-     * Calculate and return the points earned by the word that was placed -
-     * Rules:
-     * Using all 7 letters results in a 50 point bonus - "bingo"
-     * Letter premiums are calculated before word premiums
-     * Premium squares apply only on first use
-     * Multiple word premiums do stack
-     * @author Matthew and Vimal
-     * @return points earned by word placement
-     */
-    public int scoredPoints(ArrayList<String> command) {
-        //score of word + score of all other words created by placement
-        int sum = 0;
-        int count = 0;
-        for(int i = 4; i < command.size(); i++) {
-            if(!command.get(i).startsWith("(")) {
-                sum += (new LetterTile(command.get(i).charAt(0))).getNum();
-                count++;
-            }
-            else {
-                sum += (new LetterTile(command.get(i).charAt(1))).getNum();
-            }
-
-        }
-        if(count == 7) {sum += 50;} //place all 7 = 50 points
-        System.out.println("SCORE: " + sum);
-        return sum;
-    }
-
-    /**
      * Calculates the total score of all the individual letters played in a round
      * @author Ashwitha and Riya
      * @return total score of letters played
@@ -188,15 +159,6 @@ public class Scrabble {
             score += 50;
         }
         return score;
-    }
-
-    private ArrayList<Integer> playerPlacementContains(Character c){
-        for(ArrayList<Integer> xy : playerPlacement.keySet()){
-            if(playerPlacement.get(xy) == c){
-                return xy;
-            }
-        }
-        return null;
     }
 
     /**
@@ -240,13 +202,6 @@ public class Scrabble {
         else {
             currentLetter = null;
         }
-        if(board.getPremium().containsKey(new ArrayList<>(Arrays.asList(x,y)))){
-            int mult=board.getPremium().get(new ArrayList<>(Arrays.asList(x,y)));
-            int newLettervalue=(new LetterTile(currentLetter)).getNum()*mult;
-
-            //you can update the score accordingly
-        }
-        //System.out.println(x + ", "+ y);
     }
 
     private void selectLetter(int i) {
