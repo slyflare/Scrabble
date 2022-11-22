@@ -376,12 +376,15 @@ public class Scrabble {
                     return true;
                 }
             }
-            //checks in between
-            for(int i = 0; i < temp.size()-1; i++) {
-                if(temp.get(i).get(0) + 1 != temp.get(i+1).get(0) && board.getBoard()[temp.get(i).get(1)][temp.get(i).get(0)+1] != ' '){
-                    return true;
+            //check in between
+            for(int i = minX + 1; i < maxX; i++) {
+                if(b[i][temp.get(0).get(1)] == ' ') { //not already placed
+                    if(!temp.contains(new ArrayList<>(Arrays.asList(i, temp.get(0).get(1))))) { //also not in new placements
+                        return false;
+                    }
                 }
             }
+            return true;
         }
        else { //vertical
            //check up
@@ -404,14 +407,16 @@ public class Scrabble {
                     return true;
                 }
             }
-            //checks in between
-            for(int i = 0; i < temp.size()-1; i++) {
-                if(temp.get(i).get(1) + 1 != temp.get(i+1).get(1) && board.getBoard()[temp.get(i).get(1)+1][temp.get(i).get(0)] != ' '){
-                    return true;
+            //check in between
+            for(int i = minY + 1; i < maxY; i++) {
+                if(b[temp.get(0).get(0)][i] == ' ') { //not already placed
+                    if(!temp.contains(new ArrayList<>(Arrays.asList(temp.get(0).get(0), i)))) { //also not in new placements
+                        return false;
+                    }
                 }
             }
+            return true;
         }
-        return false;
     }
 
     public ArrayList<String> getWords() {

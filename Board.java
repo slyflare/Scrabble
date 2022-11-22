@@ -15,7 +15,7 @@ public class Board {
 
     public Board(){
         this.board();
-
+        premium = new HashMap<>();
         //3LS
         premium.put(new ArrayList<>(Arrays.asList(1,5)),3);
         premium.put(new ArrayList<>(Arrays.asList(5,5)),3);
