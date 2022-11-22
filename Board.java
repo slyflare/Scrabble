@@ -31,51 +31,11 @@ public class Board {
 
     /**
      * Puts the words on the board
-     * @param command the command containing the word to place
+     * @param playerPlacement the command containing the word to place
      * @return true if the word is placed, false if placement is invalid
      * @author Matthew
      */
-    public boolean updateBoard(ArrayList<String> command) {
-        int x = Integer.parseInt(command.get(1));
-        int y = Integer.parseInt(command.get(2));
-        int len = command.size() - 4;
-        for(int i = 0; i < len; i++) { //check if placement is valid
-            if(command.get(3).compareTo("RIGHT") == 0) {
-                if(Character.compare(board[x - 1][y + i - 1], ' ') == 0 ||
-                        Character.compare(command.get(i+4).charAt(0), '(') == 0 &&
-                        Character.compare(command.get(i+4).charAt(1), board[x - 1][y + i - 1]) == 0){
-                }
-                else {return false;}
-            }
-            else if(command.get(3).compareTo("DOWN") == 0 ||
-                    Character.compare(command.get(i+4).charAt(0), '(') == 0 &&
-                    Character.compare(command.get(i+4).charAt(1), board[x + i - 1][y - 1]) == 0) {
-                if(Character.compare(board[x - 1][y + i - 1], ' ') == 0) {
-                }
-                else{return false;}
-            }
-        }
-        for(int i = 0; i < len; i++) { //place word
-            if(command.get(3).compareTo("RIGHT") == 0) {
-                if(Character.compare(command.get(i + 4).charAt(0), '(') == 0) {
-                    board[x - 1][y + i - 1] = command.get(i + 4).charAt(1);
-                }
-                else {
-                    board[x - 1][y + i - 1] = command.get(i + 4).charAt(0);
-                }
-            }
-            else if(command.get(3).compareTo("DOWN") == 0) {
-                if(Character.compare(command.get(i + 4).charAt(0), '(') == 0) {
-                    board[x + i - 1][y - 1] = command.get(i + 4).charAt(1);
-                }
-                else {
-                    board[x + i - 1][y - 1] = command.get(i + 4).charAt(0);
-                }
-            }
-        }
-        return true;
-    }
-    public boolean newUpdateBoard(HashMap<ArrayList<Integer>, Character> playerPlacement) {
+    public boolean updateBoard(HashMap<ArrayList<Integer>, Character> playerPlacement) {
         for(ArrayList<Integer> yx : playerPlacement.keySet()) {
             int x = yx.get(0);
             int y = yx.get(1);

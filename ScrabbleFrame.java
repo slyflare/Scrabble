@@ -55,7 +55,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 gridPanel.add(b);
                 int finalI = i;
                 int finalJ = j;
-                b.addActionListener(e->scrabble.play(finalJ, finalI, 0, Scrabble.Command.PLACE));
+                b.setActionCommand(finalJ + " " + finalI + " " + 0 + " PLACE");
+                b.addActionListener(controller);
             }
         }
 
@@ -70,14 +71,16 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
             hand[i] = b;
             handPanel.add(b);
-            b.addActionListener(e->scrabble.play(0,0, finalI, Scrabble.Command.SELECT));
+            b.setActionCommand(0 + " " + 0 + " " + finalI + " SELECT");
+            b.addActionListener(controller);
 
         }
         optionPanel.add(Box.createVerticalGlue());
         this.add(optionPanel, BorderLayout.EAST);
         JButton submitButton = new JButton("Submit");
         submitButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, submitButton.getMinimumSize().height));
-        submitButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.SUBMIT));
+        submitButton.setActionCommand(0 + " " + 0 + " " + 0 + " SUBMIT");
+        submitButton.addActionListener(controller);
         Color c2 = new Color(21, 224 ,140);
         submitButton.setBackground(c2);
         submitButton.setOpaque(true);
@@ -89,11 +92,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         passButton.setOpaque(true);
         passButton.setBorderPainted(false);
         optionPanel.add(passButton);
-        passButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.PASS));
+        passButton.setActionCommand(0 + " " + 0 + " " + 0 + " PASS");
+        passButton.addActionListener(controller);
         JButton resetButton = new JButton("Reset");
         resetButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
         optionPanel.add(resetButton);
-        resetButton.addActionListener(e->scrabble.play(0,0,0,Scrabble.Command.RESET));
+        resetButton.setActionCommand(0 + " " + 0 + " " + 0 + " RESET");
+        resetButton.addActionListener(controller);
         resetButton.setBackground(c2);
         resetButton.setOpaque(true);
         resetButton.setBorderPainted(false);

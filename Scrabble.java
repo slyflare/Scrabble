@@ -271,7 +271,7 @@ public class Scrabble {
         }
         //add points
         if(valid) {
-            this.board.newUpdateBoard(playerPlacement);
+            this.board.updateBoard(playerPlacement);
             for(String w : words) {
                 getCurrentPlayer().addScore(calculatePoints(w));
             }
