@@ -214,7 +214,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     @Override
     public void update(ScrabbleEvent e) {
         if(e.getCommand() == Scrabble.Command.PLACE && e.getCurrentLetter() != null) {
-            String label = e.getCurrentLetter().toString();
+            String label = e.getCurrentLetter().toString().toUpperCase();
             board[e.getY()][e.getX()].setText(label);
         }
 

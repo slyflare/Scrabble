@@ -254,7 +254,7 @@ public class Scrabble {
         //assuming that if multiple words are detect for scoring, player must have built off another word.
         if(words.size() == 1){
             if(!buildOff()){
-                System.out.println("Word does not start at 7,7 or word does not build off another");
+                System.out.println("Word does not start at 8,8 or word does not build off another");
                 reset();
                 return false;
             }
@@ -372,12 +372,19 @@ public class Scrabble {
                 }
             }
             //check in between
+            int count = 0;
             for(int i = minX + 1; i < maxX; i++) {
                 if(b[i][temp.get(0).get(1)] == ' ') { //not already placed
                     if(!temp.contains(new ArrayList<>(Arrays.asList(i, temp.get(0).get(1))))) { //also not in new placements
                         return false;
                     }
+                    else{
+                        count++;
+                    }
                 }
+            }
+            if(count == maxX-minX){
+                return true;
             }
             return false;
         }
@@ -403,12 +410,19 @@ public class Scrabble {
                 }
             }
             //check in between
+            int count = 0;
             for(int i = minY + 1; i < maxY; i++) {
                 if(b[temp.get(0).get(0)][i] == ' ') { //not already placed
                     if(!temp.contains(new ArrayList<>(Arrays.asList(temp.get(0).get(0), i)))) { //also not in new placements
                         return false;
                     }
                 }
+                else{
+                    count++;
+                }
+            }
+            if(count == maxY-minY){
+                return true;
             }
             return false;
         }
@@ -579,6 +593,10 @@ public class Scrabble {
         //prevents copying letters
         if(command == Command.PLACE){
             currentLetter = null;
+        }
+
+        if(getCurrentPlayer().isAI()){
+            //do ai stuff
         }
     }
 }
