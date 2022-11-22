@@ -127,6 +127,17 @@ public class Board {
         System.out.println(output);
     }
 
+    public boolean isEmpty(){
+        for ( int  row = 0;  row < 15; row++){
+            for (int col = 0; col < 15; col ++) {
+                if(board[row][col] != ' '){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public char[][] getBoard() {
         return board;
     }
