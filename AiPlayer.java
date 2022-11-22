@@ -1,24 +1,97 @@
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 public class AiPlayer extends Player{
 
     private ArrayList<String> wordBank;
+    private Board board;
+    private Scrabble scrabble;
 
-    public AiPlayer(String name, ArrayList<String> wordBank) {
+    public AiPlayer(Scrabble scrabble, String name, ArrayList<String> wordBank) {
         super(name);
         this.wordBank = wordBank;
+        this.board = new Board();
+        this.scrabble = scrabble;
     }
 
-    private void makeMove(Board board){
+    private Board makeMove(Board board){
+        this.board = board;
 
+        String hWord = "";
+        String vWord = "";
+        int highestHorizontalScore = 0;
+        int highestVerticalScore = 0;
+        ArrayList<Integer> horizontalPosition = new ArrayList<>();
+        ArrayList<Integer> verticalPosition = new ArrayList<>();
+
+        HashMap<ArrayList<Integer>, String> horizontal = checkHorizontalPossibilities();
+        HashMap<ArrayList<Integer>, String> vertical = checkVerticalPossibilities();
+
+        //calculate horizontals
+        for(String s: horizontal.values()){
+            int score = 0;
+            for(char c: s.toCharArray()){
+                score += new LetterTile(c).getNum();
+            }
+            if(score > highestHorizontalScore){
+                hWord = s;
+                highestHorizontalScore = score;
+            }
+        }
+
+        //calculate verticals
+        for(String s: vertical.values()){
+            int score = 0;
+            for(char c: s.toCharArray()){
+                score += new LetterTile(c).getNum();
+            }
+            if(score > highestVerticalScore){
+                vWord = s;
+                highestVerticalScore = score;
+            }
+        }
+
+        //play
+        HashMap<ArrayList<Integer>, Character> play = new HashMap<>();
+        if(highestHorizontalScore > highestVerticalScore){
+            for(ArrayList<Integer> xy : horizontal.keySet()){
+                if(horizontal.get(xy).equals(hWord)){
+                    horizontalPosition = xy;
+                    break;
+                }
+            }
+
+            for(int i = 0; i < hWord.length(); i++){
+                play.put(new ArrayList<Integer>(Arrays.asList(horizontalPosition.get(0) + i, horizontalPosition.get(1))), hWord.toCharArray()[i]);
+            }
+
+            this.board.updateBoard(play);
+        }
+        if(highestHorizontalScore < highestVerticalScore){
+            for(ArrayList<Integer> xy : vertical.keySet()){
+                if(vertical.get(xy).equals(vWord)){
+                    verticalPosition = xy;
+                    break;
+                }
+            }
+
+            for(int i = 0; i < vWord.length(); i++){
+                play.put(new ArrayList<Integer>(Arrays.asList(verticalPosition.get(0), verticalPosition.get(1) + i)), vWord.toCharArray()[i]);
+            }
+
+            this.board.updateBoard(play);
+        }
+
+        return board;
     }
 
-    private ArrayList<String> checkHorizontalPossibilities(){
+    private HashMap<ArrayList<Integer>, String> checkHorizontalPossibilities(){
 
         return null;
     }
 
-    private ArrayList<String> checkVerticalPossibilities(){
+    private HashMap<ArrayList<Integer>, String> checkVerticalPossibilities(){
 
         return null;
     }
