@@ -1,3 +1,4 @@
+import javax.swing.*;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.*;
@@ -19,6 +20,7 @@ public class Scrabble {
     public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET}
     private Command command;
     private List<ScrabbleView> views;
+    JFrame frame;
 
     /**
      * Constructor for class scrabble
@@ -263,6 +265,8 @@ public class Scrabble {
             if(!wordCheck(w) || w.length() <= 1){
                 System.out.println("Word is NOT legal");
                 reset();
+                frame = new JFrame();
+                JOptionPane.showMessageDialog(frame,"Word is NOT legal!");
                 return false;
             }
         }
