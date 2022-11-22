@@ -254,7 +254,7 @@ public class Scrabble {
         //assuming that if multiple words are detect for scoring, player must have built off another word.
         if(words.size() == 1){
             if(!buildOff()){
-                System.out.println("Word does not start at 7,7 or word does not build off another");
+                System.out.println("Word does not start at 8,8 or word does not build off another");
                 reset();
                 return false;
             }
