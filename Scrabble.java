@@ -61,7 +61,7 @@ public class Scrabble {
     /**
      * Creates the letter bag that holds all the letter tiles to draw from
      * Scrabble contain 100 letter tiles, in the following distribution:
-     * 2 blank tiles (scoring 0 points) (not yet implemented)
+     * 2 blank tiles (scoring 0 points) (now implemented)
      * 1 point: E ×12, A ×9, I ×9, O ×8, N ×6, R ×6, T ×6, L ×4, S ×4, U ×4
      * 2 points: D ×4, G ×3
      * 3 points: B ×2, C ×2, M ×2, P ×2
@@ -159,7 +159,32 @@ public class Scrabble {
         for(int i = 0; i < word.length(); i++) {
             score += new LetterTile(word.charAt(i)).getNum();
         }
-
+        //check for letter premiums
+        for(ArrayList<Integer> xy : playerPlacement.keySet()) {
+            HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
+            if(p.containsKey(xy)) {
+                int i = p.get(xy);
+                if(i == 2) { //2LS
+                    score += new LetterTile(playerPlacement.get(xy)).getNum();
+                }
+                else if(i == 3) { //3LS
+                    score += 2 * new LetterTile(playerPlacement.get(xy)).getNum();;
+                }
+            }
+        }
+        //check for word premiums
+        for(ArrayList<Integer> xy : playerPlacement.keySet()) {
+            HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
+            if(p.containsKey(xy)) {
+                int i = p.get(xy);
+                if(i == 4) { //2WS
+                    score *= 2;
+                }
+                else if(i == 5) { //3WS
+                    score *= 3;
+                }
+            }
+        }
         return score;
     }
 
