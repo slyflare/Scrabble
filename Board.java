@@ -57,6 +57,20 @@ public class Board {
         premium.put(new ArrayList<>(Arrays.asList(14,3)),2);
         premium.put(new ArrayList<>(Arrays.asList(14,11)),2);
 
+        //2WS
+        int[] x = {1,2,3,4,10,11,12,13,1,2,3,4,10,11,12,13};
+        int[] y = {1,2,3,4,4,3,2,1,13,12,11,10,10,11,12,13};
+        for(int i = 0; i < 16; i++) {
+            premium.put(new ArrayList<>(Arrays.asList(x[i], y[i])), 4); //4 means 2WS
+        }
+
+        //3WS
+        int[] x1 = {0,7,14,0,14,0,7,14};
+        int[] y1 = {0,0,0,7,7,14,14,14};
+        for(int i = 0; i < 8; i++) {
+            premium.put(new ArrayList<>(Arrays.asList(x1[i], y1[i])), 5); //5 means 2WS
+        }
+
     }
     /**Initialising the scrabble board with 15 numbered rows and 15 alphabetized columns.
      * @author Riya
