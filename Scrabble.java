@@ -156,25 +156,24 @@ public class Scrabble {
      */
     public int calculatePoints(String word){
         int score = 0;
+        HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
         for(int i = 0; i < word.length(); i++) {
-            score += new LetterTile(word.charAt(i)).getNum();
-        }
-        //check for letter premiums
-        for(ArrayList<Integer> xy : playerPlacement.keySet()) {
-            HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
-            if(p.containsKey(xy)) {
-                int i = p.get(xy);
-                if(i == 2) { //2LS
-                    score += new LetterTile(playerPlacement.get(xy)).getNum();
+            //check for letter premiums
+            if(playerPlacementContains(word.charAt(i)) != null){
+                int j = p.get(playerPlacementContains(word.charAt(i)));
+                if(j == 2) { //2LS
+                    score += new LetterTile(playerPlacement.get(playerPlacementContains(word.charAt(i)))).getNum();
                 }
-                else if(i == 3) { //3LS
-                    score += 2 * new LetterTile(playerPlacement.get(xy)).getNum();;
+                else if(j == 3) { //3LS
+                    score += 2 * new LetterTile(playerPlacement.get(playerPlacementContains(word.charAt(i)))).getNum();
                 }
+            }
+            else{
+                score += new LetterTile(word.charAt(i)).getNum();
             }
         }
         //check for word premiums
         for(ArrayList<Integer> xy : playerPlacement.keySet()) {
-            HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
             if(p.containsKey(xy)) {
                 int i = p.get(xy);
                 if(i == 4) { //2WS
@@ -186,6 +185,15 @@ public class Scrabble {
             }
         }
         return score;
+    }
+
+    private ArrayList<Integer> playerPlacementContains(Character c){
+        for(ArrayList<Integer> xy : playerPlacement.keySet()){
+            if(playerPlacement.get(xy) == c){
+                return xy;
+            }
+        }
+        return null;
     }
 
     /**
