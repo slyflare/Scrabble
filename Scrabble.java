@@ -156,10 +156,12 @@ public class Scrabble {
      */
     public int calculatePoints(String word){
         int score = 0;
+        int count = 0;
         HashMap<ArrayList<Integer>, Integer> p = board.getPremium();
         for(int i = 0; i < word.length(); i++) {
             //check for letter premiums
             if(playerPlacementContains(word.charAt(i)) != null){
+                count++;
                 int j = p.get(playerPlacementContains(word.charAt(i)));
                 if(j == 2) { //2LS
                     score += new LetterTile(playerPlacement.get(playerPlacementContains(word.charAt(i)))).getNum();
@@ -183,6 +185,10 @@ public class Scrabble {
                     score *= 3;
                 }
             }
+        }
+        //if all 7 letters are used
+        if(count == 7){
+            score += 50;
         }
         return score;
     }
