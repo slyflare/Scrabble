@@ -14,9 +14,10 @@ public class ScrabbleEvent extends EventObject {
     private int turn;
     private Board board;
     private Player currentPlayer;
+    private Player previousPlayer;
     private Character currentLetter;
     private Scrabble.Command command;
-    public ScrabbleEvent(Scrabble scrabble, int x, int y, int turn, Board board, Player currentPlayer, Character currentLetter,
+    public ScrabbleEvent(Scrabble scrabble, int x, int y, int turn, Board board, Player currentPlayer, Player previousPlayer, Character currentLetter,
                         Scrabble.Command command) {
         super(scrabble);
         this.x = x;
@@ -24,6 +25,7 @@ public class ScrabbleEvent extends EventObject {
         this.turn = turn;
         this.board = board;
         this.currentPlayer = currentPlayer;
+        this.previousPlayer = previousPlayer;
         this.currentLetter = currentLetter;
         this.command = command;
     }
@@ -38,6 +40,10 @@ public class ScrabbleEvent extends EventObject {
 
     public Player getCurrentPlayer() {
         return currentPlayer;
+    }
+
+    public Player getPreviousPlayer() {
+        return previousPlayer;
     }
 
     public Board getBoard() {

@@ -122,6 +122,13 @@ public class Scrabble {
         return players.get(currentPlayer);
     }
 
+    public Player getPreviousPlayer(){
+        if (currentPlayer == 0){
+            return players.get(players.size()-1);
+        }
+        return players.get(currentPlayer-1);
+    }
+
     public Board getBoard(){
         return this.board;
     }
@@ -591,7 +598,7 @@ public class Scrabble {
         }
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters

@@ -13,6 +13,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private JButton[][] board;
     private JButton[] hand;
     private JButton[] info;
+    private int numPlayers;
     private static final int boardSizeX = 15;
     private static final int boardSizeY = 15;
     private HashMap<ArrayList<Integer>,Integer> premium;
@@ -24,7 +25,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         super("Scrabble");
 
-        Scrabble scrabble = new Scrabble(2);
+        numPlayers = 2;
+        Scrabble scrabble = new Scrabble(numPlayers);
         scrabble.addScrabbleView(this);
 
         premium = scrabble.getBoard().getPremium();
@@ -32,7 +34,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.board = new JButton[boardSizeX][boardSizeY];
         this.hand = new JButton[7];
-        this.info = new JButton[3];
+        this.info = new JButton[2+numPlayers];
         this.setLayout(new BorderLayout());
         JPanel handPanel = new JPanel();
         handPanel.setLayout(new GridLayout());
@@ -60,13 +62,20 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
                     if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
                         b.setBackground(new Color(0,183,235));
+                        b.setText("2L");
                     }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
-                        b.setBackground(new Color(60,70,255));
+                        b.setBackground(new Color(60,150,255));
+                        b.setText("3L");
                     }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
                         b.setBackground(new Color(255,105,180));
+                        b.setText("2W");
                     }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
                         b.setBackground(new Color(255,0,0));
+                        b.setText("3W");
                     }
+                }
+                if(i == 7 && j == 7){
+                    b.setBackground(new Color(255,228,181));
                 }
                 b.setOpaque(true);
                 board[i][j] = b;
@@ -134,16 +143,20 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         turnButton.setOpaque(true);
         turnButton.setBorderPainted(false);
         turnButton.setEnabled(false);
-        JButton scoreButton = new JButton("Your Score: 0");
-        info[1] = scoreButton;
-        scoreButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
-        scorePanel.add(scoreButton);
-        scoreButton.setBackground(c2);
-        scoreButton.setOpaque(true);
-        scoreButton.setBorderPainted(false);
-        scoreButton.setEnabled(false);
-        JButton playerButton = new JButton("Player 1");
-        info[2] = playerButton;
+
+        for(int i = 1; i < numPlayers+1; i++){
+            JButton scoreButton = new JButton("Player " + i + " Score: 0");
+            info[i] = scoreButton;
+            scoreButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
+            scorePanel.add(scoreButton);
+            scoreButton.setBackground(c2);
+            scoreButton.setOpaque(true);
+            scoreButton.setBorderPainted(false);
+            scoreButton.setEnabled(false);
+        }
+
+        JButton playerButton = new JButton("Player 1's Turn");
+        info[1+numPlayers] = playerButton;
         playerButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
         scorePanel.add(playerButton);
         playerButton.setBackground(c2);
@@ -153,7 +166,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         scorePanel.add(Box.createVerticalGlue());
         scorePanel.setBackground(c1);
 
-        this.setSize(900, 700);
+        this.setSize(1100, 900);
         this.setLocationRelativeTo(null);
         this.setVisible(true);
 
@@ -205,8 +218,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
             //update turn
             info[0].setText("Turn: " + e.getTurn());
-            info[1].setText("Your Score: " + e.getCurrentPlayer().score);
-            info[2].setText(e.getCurrentPlayer().getName());
+            for(int i = 1; i < numPlayers+1; i++){
+                if(info[i].getText().split(" ")[1].equals(e.getPreviousPlayer().getName().split(" ")[1])){
+                    info[i].setText(e.getPreviousPlayer().getName() + " Score: " + e.getPreviousPlayer().score);
+                    break;
+                }
+            }
+            info[1+numPlayers].setText(e.getCurrentPlayer().getName() + "'s turn");
         }
 
         if(e.getCommand() == Scrabble.Command.SUBMIT) {
@@ -229,8 +247,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
             //update turn
             info[0].setText("Turn: " + e.getTurn());
-            info[1].setText("Your Score: " + e.getCurrentPlayer().score);
-            info[2].setText(e.getCurrentPlayer().getName());
+            for(int i = 1; i < numPlayers+1; i++){
+                if(info[i].getText().split(" ")[1].equals(e.getPreviousPlayer().getName().split(" ")[1])){
+                    info[i].setText(e.getPreviousPlayer().getName() + " Score: " + e.getPreviousPlayer().score);
+                    break;
+                }
+            }
+            info[1+numPlayers].setText(e.getCurrentPlayer().getName() + "'s turn");
         }
     }
     public char getBlankTileInput() {
