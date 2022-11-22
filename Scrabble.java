@@ -375,7 +375,7 @@ public class Scrabble {
                     }
                 }
             }
-            return true;
+            return false;
         }
        else { //vertical
            //check up
@@ -406,7 +406,7 @@ public class Scrabble {
                     }
                 }
             }
-            return true;
+            return false;
         }
     }
 

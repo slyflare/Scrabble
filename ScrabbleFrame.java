@@ -165,7 +165,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         if(e.getCommand() == Scrabble.Command.SELECT) {
             for (JButton button : hand) {
-                if (button.getText().equals(e.getCurrentLetter().toString())) {
+                if (button.getText().equals(e.getCurrentLetter().toString()) && button.isEnabled()) {
                     button.setEnabled(false);
                     break;
                 }
