@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 
 /**
  * ScrabbleFrame class responsible for making the Scrabble Frame
@@ -12,6 +15,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     private JButton[] info;
     private static final int boardSizeX = 15;
     private static final int boardSizeY = 15;
+    private HashMap<ArrayList<Integer>,Integer> premium;
 
     /**
      * ScrabbleFrame constructor
@@ -19,6 +23,61 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     public ScrabbleFrame() {
 
         super("Scrabble");
+        premium = new HashMap<>();
+        //3LS
+        premium.put(new ArrayList<>(Arrays.asList(1,5)),3);
+        premium.put(new ArrayList<>(Arrays.asList(5,5)),3);
+        premium.put(new ArrayList<>(Arrays.asList(9,5)),3);
+        premium.put(new ArrayList<>(Arrays.asList(13,5)),3);
+        premium.put(new ArrayList<>(Arrays.asList(5,1)),3);
+        premium.put(new ArrayList<>(Arrays.asList(9,1)),3);
+        premium.put(new ArrayList<>(Arrays.asList(1,9)),3);
+        premium.put(new ArrayList<>(Arrays.asList(5,9)),3);
+        premium.put(new ArrayList<>(Arrays.asList(9,9)),3);
+        premium.put(new ArrayList<>(Arrays.asList(13,9)),3);
+        premium.put(new ArrayList<>(Arrays.asList(5,13)),3);
+        premium.put(new ArrayList<>(Arrays.asList(9,13)),3);
+
+
+        //2LS
+        premium.put(new ArrayList<>(Arrays.asList(0,3)),2);
+        premium.put(new ArrayList<>(Arrays.asList(0,11)),2);
+        premium.put(new ArrayList<>(Arrays.asList(2,5)),2);
+        premium.put(new ArrayList<>(Arrays.asList(2,8)),2);
+        premium.put(new ArrayList<>(Arrays.asList(3,0)),2);
+        premium.put(new ArrayList<>(Arrays.asList(3,7)),2);
+        premium.put(new ArrayList<>(Arrays.asList(3,14)),2);
+        premium.put(new ArrayList<>(Arrays.asList(6,2)),2);
+        premium.put(new ArrayList<>(Arrays.asList(6,6)),2);
+        premium.put(new ArrayList<>(Arrays.asList(6,8)),2);
+        premium.put(new ArrayList<>(Arrays.asList(6,12)),2);
+        premium.put(new ArrayList<>(Arrays.asList(7,3)),2);
+        premium.put(new ArrayList<>(Arrays.asList(7,11)),2);
+        premium.put(new ArrayList<>(Arrays.asList(8,2)),2);
+        premium.put(new ArrayList<>(Arrays.asList(8,6)),2);
+        premium.put(new ArrayList<>(Arrays.asList(8,8)),2);
+        premium.put(new ArrayList<>(Arrays.asList(8,12)),2);
+        premium.put(new ArrayList<>(Arrays.asList(11,0)),2);
+        premium.put(new ArrayList<>(Arrays.asList(11,7)),2);
+        premium.put(new ArrayList<>(Arrays.asList(11,14)),2);
+        premium.put(new ArrayList<>(Arrays.asList(12,6)),2);
+        premium.put(new ArrayList<>(Arrays.asList(12,8)),2);
+        premium.put(new ArrayList<>(Arrays.asList(14,3)),2);
+        premium.put(new ArrayList<>(Arrays.asList(14,11)),2);
+
+        //2WS
+        int[] x = {1,2,3,4,10,11,12,13,1,2,3,4,10,11,12,13};
+        int[] y = {1,2,3,4,4,3,2,1,13,12,11,10,10,11,12,13};
+        for(int i = 0; i < 16; i++) {
+            premium.put(new ArrayList<>(Arrays.asList(x[i], y[i])), 4); //4 means 2WS
+        }
+
+        //3WS
+        int[] x1 = {0,7,14,0,14,0,7,14};
+        int[] y1 = {0,0,0,7,7,14,14,14};
+        for(int i = 0; i < 8; i++) {
+            premium.put(new ArrayList<>(Arrays.asList(x1[i], y1[i])), 5); //5 means 3WS
+        }
 
         Scrabble scrabble = new Scrabble(2);
         scrabble.addScrabbleView(this);
@@ -44,11 +103,23 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 JButton b = new JButton(" ");
                 Color color1 = new Color(200, 200 ,200);
                 Color color2 = new Color(255, 255 ,255);
+
                 if ((i+j)%2 == 0){
                     b.setBackground(color1);
                 }
                 else{
                     b.setBackground(color2);
+                }
+                if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
+                    if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
+                        b.setForeground(new Color(0,183,235));
+                    }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
+                        b.setForeground(new Color(60,70,255));
+                    }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
+                        b.setForeground(new Color(255,105,180));
+                    }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
+                        b.setForeground(new Color(255,0,0));
+                    }
                 }
                 b.setOpaque(true);
                 board[i][j] = b;

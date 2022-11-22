@@ -68,7 +68,7 @@ public class Board {
         int[] x1 = {0,7,14,0,14,0,7,14};
         int[] y1 = {0,0,0,7,7,14,14,14};
         for(int i = 0; i < 8; i++) {
-            premium.put(new ArrayList<>(Arrays.asList(x1[i], y1[i])), 5); //5 means 2WS
+            premium.put(new ArrayList<>(Arrays.asList(x1[i], y1[i])), 5); //5 means 3WS
         }
 
     }
@@ -139,6 +139,7 @@ public class Board {
     }
 
     public char[][] getBoard() {
+
         return board;
     }
 }
