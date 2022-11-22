@@ -111,7 +111,26 @@ public class AiPlayer extends Player{
 
     private HashMap<ArrayList<Integer>, String> checkVerticalPossibilities(){
 
-        return null;
+        ArrayList<LetterTile> hand = getLetters();
+        boolean wordValid = true;
+        HashMap<ArrayList<Integer>, String> possibilities = new HashMap<>();
+
+        //If board is empty find a word to start the game.
+        if(board.isEmpty()){
+            for(String s : wordBank){
+                for(int i = 0; i < s.length(); i++){
+                    if(!hand.contains(new LetterTile(s.toCharArray()[i]))){
+                        wordValid = false;
+                    }
+                }
+                if(wordValid){
+                    possibilities.put(new ArrayList<Integer>(Arrays.asList(7-(s.length()/2),7)),s);
+                }
+                wordValid = true;
+            }
+        }
+
+        return possibilities;
     }
 
     @Override
