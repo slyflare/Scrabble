@@ -78,4 +78,8 @@ public class Player{
     public ArrayList<LetterTile> getLetters() {
         return letters;
     }
+
+    public boolean isAI(){
+        return false;
+    }
 }

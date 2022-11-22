@@ -580,5 +580,9 @@ public class Scrabble {
         if(command == Command.PLACE){
             currentLetter = null;
         }
+
+        if(getCurrentPlayer().isAI()){
+            //do ai stuff
+        }
     }
 }
