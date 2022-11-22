@@ -122,6 +122,10 @@ public class Scrabble {
         return players.get(currentPlayer);
     }
 
+    public Board getBoard(){
+        return this.board;
+    }
+
     /**
      * Calculates the total score of all the individual letters played in a round
      * @author Ashwitha and Riya
