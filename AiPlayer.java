@@ -2,6 +2,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * AI Player Class
+ */
+
 public class AiPlayer extends Player{
 
     private ArrayList<String> wordBank;
