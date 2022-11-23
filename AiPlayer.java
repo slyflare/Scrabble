@@ -1,6 +1,11 @@
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * AI Player Class
@@ -136,6 +141,27 @@ public class AiPlayer extends Player{
         }
 
         return possibilities;
+    }
+
+    public void findWord() throws IOException {
+        Map<Character, Integer> letter = new HashMap<>();
+        //letter hand
+        //for (int i = 0; i < (letter hand) ; i++){
+            //char currentChar = (letter hand).charAt(i);
+
+            //int count = letter.containsKey(currentChar) ? letter.get(currentChar)
+            //letter.put(currentChar, count + 1)
+       // }
+       // Map<Character, Integer> letter = countCharacter((letter hand));
+        BufferedReader reader = new BufferedReader(new FileReader("WordBank.txt"));
+        for (String currentWord = reader.readLine(); currentWord !=null; currentWord = reader.readLine()){
+            // Map<Character, Integer> currWord = countCharacter(currentWord);
+            //bool isWord = true;
+            //for(Character char: currWord.keySet()){
+                //int charCount = currWord.get(char);
+                //int letterCount = letter.containsKey(char) ? letter.get(char);
+        }
+
     }
 
     @Override
