@@ -20,7 +20,7 @@ public class AiPlayer extends Player{
         this.scrabble = scrabble;
     }
 
-    private Board makeMove(Board board){
+    public Board makeMove(Board board){
         this.board = board;
 
         String hWord = "";
@@ -110,6 +110,16 @@ public class AiPlayer extends Player{
                 wordValid = true;
             }
         }
+        else { //must build off a letter on the board
+            ArrayList<Character> charList = board.getLetters(); //existing letters on board
+            for(char c : charList) {
+                for(String s : getPossibleWords(c)) {
+                    //if(placmement is possible){ possibilities.put(new ArrayList(x, y), s); }
+                }
+
+            }
+
+        }
 
         return possibilities;
     }
@@ -134,10 +144,48 @@ public class AiPlayer extends Player{
                 wordValid = true;
             }
         }
+        else { //must build off a letter on the board
+            ArrayList<Character> charList = board.getLetters(); //existing letters on board
+            for(char c : charList) {
+                for(String s : getPossibleWords(c)) {
+                    //if(placmement is possible){ possibilities.put(new ArrayList(x, y), s); }
+                }
+
+            }
+
+        }
 
         return possibilities;
     }
 
+    private ArrayList<String> getPossibleWords(char c) {
+        ArrayList<LetterTile> letterTiles = getLetters(); //existing letters on board
+        ArrayList<Character> chars = new ArrayList<>();
+        ArrayList<String> words = new ArrayList<>();
+        for(LetterTile t : letterTiles) {
+            chars.add(t.getLetter());
+        }
+        boolean wordValid;
+        for(String s : wordBank) {
+            wordValid = true;
+            if(!s.contains(String.valueOf(c))) {
+                wordValid = false;
+            }
+            for(int i = 0; i < s.length(); i++){
+                if (!chars.contains(s.charAt(i))) {
+                    wordValid = false;
+                    break;
+                }
+            }
+            if(wordValid) {
+                words.add(s);
+            }
+        }
+        for(String s : words) {
+            System.out.println(s);
+        }
+        return words;
+    }
     @Override
     public boolean isAI(){
         return true;
