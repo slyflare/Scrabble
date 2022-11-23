@@ -142,4 +142,15 @@ public class Board {
 
         return board;
     }
+    public ArrayList<Character> getLetters() {
+        ArrayList<Character> charList = new ArrayList<>();
+        for (int  row = 0;  row < 15; row++){
+            for (int col = 0; col < 15; col ++) {
+                if(board[row][col] != ' '){
+                    charList.add(board[row][col]);
+                }
+            }
+        }
+        return charList;
+    }
 }
