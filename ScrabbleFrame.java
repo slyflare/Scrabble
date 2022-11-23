@@ -94,7 +94,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             Color color = new Color(203, 120 ,112);
             b.setBackground(color);
             b.setOpaque(true);
-            b.setBorderPainted(false);
+            b.setBorderPainted(true);
 
             hand[i] = b;
             handPanel.add(b);
