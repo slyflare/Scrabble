@@ -58,6 +58,11 @@ public class Scrabble {
         while (tokenizer.hasNextLine()) {
             this.WordBank.add(tokenizer.nextLine());
         }
+
+        //Ai Players
+        for(int i = 1; i < numAI + 1; i++) {
+            players.add(new AiPlayer(this,"CPU " + i, WordBank));
+        }
     }
 
     /**
@@ -611,6 +616,7 @@ public class Scrabble {
             this.board = temp.makeMove(this.getBoard());
             this.command = Command.SUBMIT;
             currentPlayer++;
+            turn++;
             for(ScrabbleView v : views){
                 v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }
