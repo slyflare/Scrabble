@@ -29,7 +29,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         int numAI = 1;
         Scrabble scrabble = new Scrabble(numIRL, numAI);
         scrabble.addScrabbleView(this);
-        numPlayers = numAI + numIRL;
+        this.numPlayers = numAI + numIRL;
 
         premium = scrabble.getBoard().getPremium();
 
@@ -282,7 +282,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         }
     }
     public char getBlankTileInput() {
-        return JOptionPane.showInputDialog("Enter letter").charAt(0);
+        return JOptionPane.showInputDialog("Enter letter").toUpperCase().charAt(0);
     }
 
     public static void main(String[] args) {

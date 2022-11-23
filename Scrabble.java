@@ -40,10 +40,6 @@ public class Scrabble {
         }
         this.letterBag = new ArrayList<>();
         createLetterBag();
-        for(Player p : players) { //give first seven letters to each player
-            addLetterTiles(p, 7);
-            p.SetScore(0);
-        }
 
         //Load WordBank
         this.WordBank = new ArrayList<String>();
@@ -61,7 +57,11 @@ public class Scrabble {
 
         //Ai Players
         for(int i = 1; i < numAI + 1; i++) {
-            players.add(new AiPlayer(this,"CPU " + i, WordBank));
+            players.add(new AiPlayer(this,"Player CPU " + i, WordBank));
+        }
+        for(Player p : players) { //give first seven letters to each player
+            addLetterTiles(p, 7);
+            p.SetScore(0);
         }
     }
 
@@ -611,11 +611,15 @@ public class Scrabble {
             currentLetter = null;
         }
 
+
         if(getCurrentPlayer().isAI()){
             AiPlayer temp = (AiPlayer) getCurrentPlayer();
             this.board = temp.makeMove(this.getBoard());
-            this.command = Command.SUBMIT;
+            this.command = Command.PASS;
             currentPlayer++;
+            if(currentPlayer == players.size()){
+                currentPlayer = 0;
+            }
             turn++;
             for(ScrabbleView v : views){
                 v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
