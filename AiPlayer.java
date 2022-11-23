@@ -57,6 +57,11 @@ public class AiPlayer extends Player{
             }
         }
 
+        System.out.println(hWord);
+        System.out.println(vWord);
+        System.out.println(horizontal.toString());
+        System.out.println(vertical.toString());
+
         //play
         HashMap<ArrayList<Integer>, Character> play = new HashMap<>();
         if(highestHorizontalScore > highestVerticalScore){
@@ -88,7 +93,7 @@ public class AiPlayer extends Player{
             this.board.updateBoard(play);
         }
 
-        return board;
+        return this.board;
     }
 
     private HashMap<ArrayList<Integer>, String> checkHorizontalPossibilities(){
@@ -164,20 +169,24 @@ public class AiPlayer extends Player{
         ArrayList<LetterTile> letterTiles = getLetters(); //existing letters on board
         ArrayList<Character> chars = new ArrayList<>();
         ArrayList<String> words = new ArrayList<>();
+        chars.add(c);
         for(LetterTile t : letterTiles) {
             chars.add(t.getLetter());
         }
         boolean wordValid;
         for(String s : wordBank) {
             wordValid = true;
-            if(!s.contains(String.valueOf(c))) {
+            if(!s.toUpperCase().contains(String.valueOf(c))) {
+                wordValid = false;
+            }
+            if(s.length() > 15){
                 wordValid = false;
             }
             for(int i = 0; i < s.length(); i++){
-                if (!chars.contains(s.charAt(i))) {
-                    wordValid = false;
-                    break;
+                if (chars.contains(s.toUpperCase().charAt(i))) {
+                    continue;
                 }
+                wordValid = false;
             }
             if(wordValid) {
                 words.add(s);
@@ -186,6 +195,7 @@ public class AiPlayer extends Player{
         for(String s : words) {
             System.out.println(s);
         }
+
         return words;
     }
     @Override

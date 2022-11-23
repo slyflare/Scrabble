@@ -59,6 +59,8 @@ public class Scrabble {
         for(int i = 1; i < numAI + 1; i++) {
             players.add(new AiPlayer(this,"Player CPU " + i, WordBank));
         }
+
+        //Load hands
         for(Player p : players) { //give first seven letters to each player
             addLetterTiles(p, 7);
             p.SetScore(0);
