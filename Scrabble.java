@@ -26,7 +26,7 @@ public class Scrabble {
      * Constructor for class scrabble
      * @author Matthew
      */
-    public Scrabble(int numPlayers) {
+    public Scrabble(int numPlayers, int numAI) {
         this.board = new Board();
         this.players = new ArrayList<>();
         this.currentPlayer = 0;
@@ -607,7 +607,13 @@ public class Scrabble {
         }
 
         if(getCurrentPlayer().isAI()){
-            //do ai stuff
+            AiPlayer temp = (AiPlayer) getCurrentPlayer();
+            this.board = temp.makeMove(this.getBoard());
+            this.command = Command.SUBMIT;
+            currentPlayer++;
+            for(ScrabbleView v : views){
+                v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+            }
         }
     }
 }

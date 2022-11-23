@@ -15,7 +15,7 @@ public class ScrabbleTest {
 
     @Test
     public void pointsScored() {
-        Scrabble test1 = new Scrabble(2);
+        Scrabble test1 = new Scrabble(2, 0);
         ArrayList<LetterTile> a = test1.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
             test1.getCurrentPlayer().removeLetterTile(a.get(0).getLetter());
@@ -74,7 +74,7 @@ public class ScrabbleTest {
 
     @Test
     public void checkWord(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
@@ -139,7 +139,7 @@ public class ScrabbleTest {
 
     @Test
     public void testPlacement(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
@@ -201,7 +201,7 @@ public class ScrabbleTest {
     }
     @Test
     public void testParallelPlacementHorizontal(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
@@ -263,7 +263,7 @@ public class ScrabbleTest {
     }
     @Test
     public void testParallelPlacementVertical(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
@@ -328,7 +328,7 @@ public class ScrabbleTest {
     }
     @Test
     public void testEndPlacement(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {
@@ -389,7 +389,7 @@ public class ScrabbleTest {
 
     @Test
     public void testPremiums(){
-        Scrabble test2 = new Scrabble(2);
+        Scrabble test2 = new Scrabble(2, 0);
 
         ArrayList<LetterTile> a = test2.getCurrentPlayer().getLetters();
         for(int j = 0; j < 7; j++) {

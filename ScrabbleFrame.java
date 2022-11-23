@@ -25,9 +25,11 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         super("Scrabble");
 
-        numPlayers = 2;
-        Scrabble scrabble = new Scrabble(numPlayers);
+        int numIRL = 1;
+        int numAI = 1;
+        Scrabble scrabble = new Scrabble(numIRL, numAI);
         scrabble.addScrabbleView(this);
+        numPlayers = numAI + numIRL;
 
         premium = scrabble.getBoard().getPremium();
 
