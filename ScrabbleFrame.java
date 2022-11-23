@@ -185,6 +185,17 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                     if(board[j][i].isEnabled() && !(board[j][i].getText().equals("2L") || board[j][i].getText().equals("3L")
                             || board[j][i].getText().equals("2W") || board[j][i].getText().equals("3W"))) {
                         board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                        if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
+                            if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
+                                board[j][i].setText("2L");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
+                                board[j][i].setText("3L");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
+                                board[j][i].setText("2W");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
+                                board[j][i].setText("3W");
+                            }
+                        }
                     }
                 }
             }
@@ -209,6 +220,17 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                    if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
+                        if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
+                            board[j][i].setText("2L");
+                        }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
+                            board[j][i].setText("3L");
+                        }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
+                            board[j][i].setText("2W");
+                        }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
+                            board[j][i].setText("3W");
+                        }
+                    }
                 }
             }
             //load next players hand
