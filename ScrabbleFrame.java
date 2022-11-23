@@ -182,7 +182,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             //clear anything temporary on board
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
-                    if(board[j][i].isEnabled()) {
+                    if(board[j][i].isEnabled() && !(board[j][i].getText().equals("2L") || board[j][i].getText().equals("3L")
+                            || board[j][i].getText().equals("2W") || board[j][i].getText().equals("3W"))) {
                         board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
                     }
                 }

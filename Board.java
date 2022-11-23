@@ -34,7 +34,7 @@ public class Board {
         //2LS
         premium.put(new ArrayList<>(Arrays.asList(0,3)),2);
         premium.put(new ArrayList<>(Arrays.asList(0,11)),2);
-        premium.put(new ArrayList<>(Arrays.asList(2,5)),2);
+        premium.put(new ArrayList<>(Arrays.asList(2,6)),2);
         premium.put(new ArrayList<>(Arrays.asList(2,8)),2);
         premium.put(new ArrayList<>(Arrays.asList(3,0)),2);
         premium.put(new ArrayList<>(Arrays.asList(3,7)),2);
