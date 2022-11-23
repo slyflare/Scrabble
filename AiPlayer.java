@@ -114,11 +114,12 @@ public class AiPlayer extends Player{
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    //if(placmement is possible){ possibilities.put(new ArrayList(x, y), s); }
+                    ArrayList<Integer> placeable = board.checkPlaceable(s, c);
+                    if(placeable != null) {
+                        possibilities.put(placeable, s);
+                    }
                 }
-
             }
-
         }
 
         return possibilities;
@@ -148,11 +149,12 @@ public class AiPlayer extends Player{
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    //if(placmement is possible){ possibilities.put(new ArrayList(x, y), s); }
+                    ArrayList<Integer> placeable = board.checkPlaceable(s, c);
+                    if(placeable != null) {
+                        possibilities.put(placeable, s);
+                    }
                 }
-
             }
-
         }
 
         return possibilities;
