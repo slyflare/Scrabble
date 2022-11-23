@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 /**
  * AI Player Class
+ * @author Vimal and Ashwitha
  */
 
 public class AiPlayer extends Player{
