@@ -153,4 +153,62 @@ public class Board {
         }
         return charList;
     }
+
+    public ArrayList<Integer> checkPlaceable(String word, char c) {
+        ArrayList<Integer> x = new ArrayList<>();
+        ArrayList<Integer> y = new ArrayList<>();
+        for (int  row = 0;  row < 15; row++){
+            for (int col = 0; col < 15; col ++) {
+                if(board[row][col] == c){
+                    x.add(col);
+                    y.add(row);
+                }
+            }
+        }
+        int index = word.indexOf(c);
+        boolean vertical = true;
+        boolean horizontal = true;
+        //try vertical
+        int min = y.get(0) - index;
+        int max = y.get(0) + word.length() - index;
+        for(int tempY = y.get(0) - 1; tempY >= min; tempY--) { //check up
+            if(board[x.get(0)][tempY] != ' ') {
+                vertical = false;
+            }
+        }
+        for(int tempY = y.get(0) + 1; tempY <= max; tempY++) { //check down
+            if(board[x.get(0)][tempY] != ' ') {
+                vertical = false;
+            }
+        }
+        if(vertical) {
+            ArrayList<Integer> a = new ArrayList<>();
+            a.add(x.get(0));
+            a.add(y.get(0));
+            return a;
+        }
+
+        //try horizontal
+        min = x.get(0) - index;
+        max = x.get(0) + word.length() - index;
+        for(int tempX = x.get(0) - 1; tempX >= min; tempX--) { //check up
+            if(board[tempX][y.get(0)] != ' ') {
+                horizontal = false;
+            }
+        }
+        for(int tempX = x.get(0) + 1; tempX <= max; tempX++) { //check down
+            if(board[tempX][y.get(0)] != ' ') {
+                horizontal = false;
+            }
+        }
+        if(horizontal) {
+            ArrayList<Integer> a = new ArrayList<>();
+            a.add(x.get(0));
+            a.add(y.get(0));
+            return a;
+        }
+
+        return null;
+    }
+
 }
