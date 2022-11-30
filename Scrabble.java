@@ -18,6 +18,8 @@ public class Scrabble {
     private HashMap<ArrayList<Integer>,Character> playerPlacement;
     private ArrayList<ArrayList<Integer>> playerPlacementOrder;
     private int first;
+    private int x;
+    private int y;
 
     public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET, UNDO, REDO, SAVE, LOAD}
     private Command command;
@@ -35,6 +37,8 @@ public class Scrabble {
         this.currentLetter = null;
         this.playerPlacementOrder = new ArrayList<>();
         this.first = -1;
+        this.x = 0;
+        this.y = 0;
         this.playerPlacement = new HashMap<>();
         this.command = Command.RESET;
         this.views = new ArrayList<>();
@@ -221,11 +225,11 @@ public class Scrabble {
                 currentLetter = views.get(0).getBlankTileInput();
             }
             //clear redo/undo stuff
-            while(!playerPlacementOrder.isEmpty() && playerPlacementOrder.size()-1 < first){
-                playerPlacement.remove(playerPlacementOrder.get(first));
-                playerPlacementOrder.remove(first);
-                first--;
+            while(playerPlacementOrder.size() > 0  && playerPlacementOrder.size() > first){
+                playerPlacement.remove(playerPlacementOrder.get(playerPlacementOrder.size()-1));
+                playerPlacementOrder.remove(playerPlacementOrder.size()-1);
             }
+
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
             playerPlacementOrder.add(new ArrayList<>(Arrays.asList(x, y)));
             first++;
@@ -597,12 +601,14 @@ public class Scrabble {
         if(first > 0) {
             first--;
             currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+            System.out.println(currentLetter);
         }
     }
 
     private void redo(){
         first++;
         currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+        System.out.println(currentLetter);
     }
 
     public void play(int x, int y, int index, Command command) {
@@ -621,6 +627,8 @@ public class Scrabble {
             reset();
         }
         if(command == Command.PLACE){
+            this.x = x;
+            this.y = y;
             place(x, y);
         }
         if(command == Command.UNDO){
@@ -637,7 +645,7 @@ public class Scrabble {
         }
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters
@@ -656,7 +664,7 @@ public class Scrabble {
             }
             turn++;
             for(ScrabbleView v : views){
-                v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+                v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }
         }
     }
