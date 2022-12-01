@@ -342,6 +342,7 @@ public class Scrabble {
         currentLetter = null;
         playerPlacement.clear();
         playerPlacementOrder.clear();
+        first = -1;
     }
 
     private String getWordHorizontal(int x, int y) {
@@ -598,16 +599,20 @@ public class Scrabble {
     }
 
     private void undo(){
-        if(first > 0) {
-            first--;
+        first--;
+        if(first > -1) {
             currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
-            System.out.println(currentLetter);
         }
+        else {
+            currentLetter = playerPlacement.get(playerPlacementOrder.get(0));
+            first = 0;
+        }
+        System.out.println(currentLetter);
     }
 
     private void redo(){
-        first++;
         currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+        first++;
         System.out.println(currentLetter);
     }
 
@@ -633,9 +638,17 @@ public class Scrabble {
         }
         if(command == Command.UNDO){
             undo();
+            if(first > -1) {
+                this.x = this.playerPlacementOrder.get(first).get(0);
+                this.y = this.playerPlacementOrder.get(first).get(1);
+            }
         }
         if(command == Command.REDO){
             redo();
+            if(first > -1) {
+                this.x = this.playerPlacementOrder.get(first-1).get(0);
+                this.y = this.playerPlacementOrder.get(first-1).get(1);
+            }
         }
         if(command == Command.SUBMIT){
             if(!submit()) {
@@ -652,6 +665,8 @@ public class Scrabble {
         if(command == Command.PLACE){
             currentLetter = null;
         }
+        //update x y
+
 
 
         if(getCurrentPlayer().isAI()){
