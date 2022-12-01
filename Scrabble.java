@@ -225,7 +225,7 @@ public class Scrabble {
                 currentLetter = views.get(0).getBlankTileInput();
             }
             //clear redo/undo stuff
-            while(playerPlacementOrder.size() > 0  && playerPlacementOrder.size() > first){
+            while(playerPlacementOrder.size() > 0  && playerPlacementOrder.size() > first+1){
                 playerPlacement.remove(playerPlacementOrder.get(playerPlacementOrder.size()-1));
                 playerPlacementOrder.remove(playerPlacementOrder.size()-1);
             }
@@ -599,20 +599,38 @@ public class Scrabble {
     }
 
     private void undo(){
-        first--;
         if(first > -1) {
             currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+            this.x = this.playerPlacementOrder.get(first).get(0);
+            this.y = this.playerPlacementOrder.get(first).get(1);
         }
         else {
             currentLetter = playerPlacement.get(playerPlacementOrder.get(0));
+            this.x = this.playerPlacementOrder.get(0).get(0);
+            this.y = this.playerPlacementOrder.get(0).get(1);
             first = 0;
         }
+        first--;
         System.out.println(currentLetter);
     }
 
     private void redo(){
-        currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
         first++;
+        if(first == playerPlacementOrder.size()){
+            first--;
+        }
+        if(first < 7) {
+            currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+            this.x = this.playerPlacementOrder.get(first).get(0);
+            this.y = this.playerPlacementOrder.get(first).get(1);
+        }
+        else {
+            currentLetter = playerPlacement.get(playerPlacementOrder.get(6));
+            this.x = this.playerPlacementOrder.get(6).get(0);
+            this.y = this.playerPlacementOrder.get(6).get(1);
+            first = 6;
+        }
+
         System.out.println(currentLetter);
     }
 
@@ -638,17 +656,9 @@ public class Scrabble {
         }
         if(command == Command.UNDO){
             undo();
-            if(first > -1) {
-                this.x = this.playerPlacementOrder.get(first).get(0);
-                this.y = this.playerPlacementOrder.get(first).get(1);
-            }
         }
         if(command == Command.REDO){
             redo();
-            if(first > -1) {
-                this.x = this.playerPlacementOrder.get(first-1).get(0);
-                this.y = this.playerPlacementOrder.get(first-1).get(1);
-            }
         }
         if(command == Command.SUBMIT){
             if(!submit()) {
@@ -665,9 +675,6 @@ public class Scrabble {
         if(command == Command.PLACE){
             currentLetter = null;
         }
-        //update x y
-
-
 
         if(getCurrentPlayer().isAI()){
             AiPlayer temp = (AiPlayer) getCurrentPlayer();
