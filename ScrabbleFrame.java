@@ -329,8 +329,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             board[e.getY()][e.getX()].setText(String.valueOf(e.getCurrentLetter()));
 
             for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
-                if(!hand[i].isEnabled() && hand[i].getText().equals(e.getCurrentLetter().toString())){
-                    hand[i].setEnabled(true);
+                if(hand[i].isEnabled() && hand[i].getText().equals(e.getCurrentLetter().toString())){
+                    hand[i].setEnabled(false);
                     break;
                 }
             }
