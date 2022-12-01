@@ -25,8 +25,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         super("Scrabble");
 
-        int numIRL = 1;
-        int numAI = 1;
+        int numIRL = 2;
+        int numAI = 0;
         Scrabble scrabble = new Scrabble(numIRL, numAI);
         scrabble.addScrabbleView(this);
         this.numPlayers = numAI + numIRL;
@@ -106,6 +106,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         }
         optionPanel.add(Box.createVerticalGlue());
         this.add(optionPanel, BorderLayout.EAST);
+
         JButton submitButton = new JButton("Submit");
         submitButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, submitButton.getMinimumSize().height));
         submitButton.setActionCommand(0 + " " + 0 + " " + 0 + " SUBMIT");
@@ -115,6 +116,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         submitButton.setOpaque(true);
         submitButton.setBorderPainted(false);
         optionPanel.add(submitButton);
+
         JButton passButton = new JButton("Pass");
         passButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, passButton.getMinimumSize().height));
         passButton.setBackground(c2);
@@ -123,6 +125,25 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         optionPanel.add(passButton);
         passButton.setActionCommand(0 + " " + 0 + " " + 0 + " PASS");
         passButton.addActionListener(controller);
+
+        JButton redoButton = new JButton("Redo");
+        redoButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, redoButton.getMinimumSize().height));
+        optionPanel.add(redoButton);
+        redoButton.setActionCommand(0 + " " + 0 + " " + 0 + " REDO");
+        redoButton.addActionListener(controller);
+        redoButton.setBackground(c2);
+        redoButton.setOpaque(true);
+        redoButton.setBorderPainted(false);
+
+        JButton undoButton = new JButton("Undo");
+        undoButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, undoButton.getMinimumSize().height));
+        optionPanel.add(undoButton);
+        undoButton.setActionCommand(0 + " " + 0 + " " + 0 + " UNDO");
+        undoButton.addActionListener(controller);
+        undoButton.setBackground(c2);
+        undoButton.setOpaque(true);
+        undoButton.setBorderPainted(false);
+
         JButton resetButton = new JButton("Reset");
         resetButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, resetButton.getMinimumSize().height));
         optionPanel.add(resetButton);
@@ -131,6 +152,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         resetButton.setBackground(c2);
         resetButton.setOpaque(true);
         resetButton.setBorderPainted(false);
+
         optionPanel.add(Box.createVerticalGlue());
         Color c1 = new Color(123, 123, 255);
         optionPanel.setBackground(c1);
@@ -279,6 +301,39 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 }
             }
             info[1+numPlayers].setText(e.getCurrentPlayer().getName() + "'s turn");
+        }
+
+        if(e.getCommand() == Scrabble.Command.UNDO){
+            board[e.getY()][e.getX()].setText(String.valueOf(e.getBoard().getBoard()[e.getX()][e.getY()]));
+            if(premium.containsKey(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))){
+                if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==2){
+                    board[e.getY()][e.getX()].setText("2L");
+                }else if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==3){
+                    board[e.getY()][e.getX()].setText("3L");
+                }else if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==4){
+                    board[e.getY()][e.getX()].setText("2W");
+                }else if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==5){
+                    board[e.getY()][e.getX()].setText("3W");
+                }
+            }
+
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+                if(!hand[i].isEnabled() && hand[i].getText().equals(e.getCurrentLetter().toString())){
+                    hand[i].setEnabled(true);
+                    break;
+                }
+            }
+        }
+
+        if(e.getCommand() == Scrabble.Command.REDO){
+            board[e.getY()][e.getX()].setText(String.valueOf(e.getCurrentLetter()));
+
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+                if(!hand[i].isEnabled() && hand[i].getText().equals(e.getCurrentLetter().toString())){
+                    hand[i].setEnabled(true);
+                    break;
+                }
+            }
         }
     }
     public char getBlankTileInput() {

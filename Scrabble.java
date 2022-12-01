@@ -16,8 +16,12 @@ public class Scrabble {
     private Character currentLetter;
     private ArrayList<String> WordBank;
     private HashMap<ArrayList<Integer>,Character> playerPlacement;
+    private ArrayList<ArrayList<Integer>> playerPlacementOrder;
+    private int first;
+    private int x;
+    private int y;
 
-    public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET}
+    public enum Command {PLACE, DRAW, PASS, SELECT, SUBMIT, RESET, UNDO, REDO, SAVE, LOAD}
     private Command command;
     private List<ScrabbleView> views;
     JFrame frame;
@@ -31,7 +35,10 @@ public class Scrabble {
         this.players = new ArrayList<>();
         this.currentPlayer = 0;
         this.currentLetter = null;
-        this.turn = 1;
+        this.playerPlacementOrder = new ArrayList<>();
+        this.first = -1;
+        this.x = 0;
+        this.y = 0;
         this.playerPlacement = new HashMap<>();
         this.command = Command.RESET;
         this.views = new ArrayList<>();
@@ -217,7 +224,15 @@ public class Scrabble {
             if(currentLetter == ' ') {
                 currentLetter = views.get(0).getBlankTileInput();
             }
+            //clear redo/undo stuff
+            while(playerPlacementOrder.size() > 0  && playerPlacementOrder.size() > first){
+                playerPlacement.remove(playerPlacementOrder.get(playerPlacementOrder.size()-1));
+                playerPlacementOrder.remove(playerPlacementOrder.size()-1);
+            }
+
             playerPlacement.put(new ArrayList<>(Arrays.asList(x, y)), currentLetter);
+            playerPlacementOrder.add(new ArrayList<>(Arrays.asList(x, y)));
+            first++;
         }
         else {
             currentLetter = null;
@@ -311,6 +326,7 @@ public class Scrabble {
                 currentPlayer++;
             }
             playerPlacement.clear();
+            playerPlacementOrder.clear();
             turn++;
             return true;
         }
@@ -318,12 +334,15 @@ public class Scrabble {
             currentLetter = null;
         }
         playerPlacement.clear();
+        playerPlacementOrder.clear();
         return false;
     }
 
     private void reset() {
         currentLetter = null;
         playerPlacement.clear();
+        playerPlacementOrder.clear();
+        first = -1;
     }
 
     private String getWordHorizontal(int x, int y) {
@@ -579,6 +598,24 @@ public class Scrabble {
         return "horizontal"; //1-letter words can be treated as horizontal
     }
 
+    private void undo(){
+        first--;
+        if(first > -1) {
+            currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+        }
+        else {
+            currentLetter = playerPlacement.get(playerPlacementOrder.get(0));
+            first = 0;
+        }
+        System.out.println(currentLetter);
+    }
+
+    private void redo(){
+        currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
+        first++;
+        System.out.println(currentLetter);
+    }
+
     public void play(int x, int y, int index, Command command) {
         this.command = command;
 
@@ -595,7 +632,23 @@ public class Scrabble {
             reset();
         }
         if(command == Command.PLACE){
+            this.x = x;
+            this.y = y;
             place(x, y);
+        }
+        if(command == Command.UNDO){
+            undo();
+            if(first > -1) {
+                this.x = this.playerPlacementOrder.get(first).get(0);
+                this.y = this.playerPlacementOrder.get(first).get(1);
+            }
+        }
+        if(command == Command.REDO){
+            redo();
+            if(first > -1) {
+                this.x = this.playerPlacementOrder.get(first-1).get(0);
+                this.y = this.playerPlacementOrder.get(first-1).get(1);
+            }
         }
         if(command == Command.SUBMIT){
             if(!submit()) {
@@ -605,13 +658,15 @@ public class Scrabble {
         }
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters
         if(command == Command.PLACE){
             currentLetter = null;
         }
+        //update x y
+
 
 
         if(getCurrentPlayer().isAI()){
@@ -624,7 +679,7 @@ public class Scrabble {
             }
             turn++;
             for(ScrabbleView v : views){
-                v.update(new ScrabbleEvent(this, x, y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+                v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }
         }
     }
