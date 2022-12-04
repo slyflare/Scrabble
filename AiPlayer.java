@@ -78,7 +78,7 @@ public class AiPlayer extends Player{
 
             this.board.updateBoard(play);
         }
-        if(highestHorizontalScore < highestVerticalScore){
+        else if(highestHorizontalScore <= highestVerticalScore){
             for(ArrayList<Integer> xy : vertical.keySet()){
                 if(vertical.get(xy).equals(vWord)){
                     verticalPosition = xy;
@@ -92,6 +92,7 @@ public class AiPlayer extends Player{
 
             this.board.updateBoard(play);
         }
+        scrabble.setAiPlacement(play);
 
         return this.board;
     }
@@ -119,9 +120,9 @@ public class AiPlayer extends Player{
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    ArrayList<Integer> placeable = board.checkPlaceable(s, c);
+                    ArrayList<Integer> placeable = board.checkPlaceable(s.toUpperCase(), c);
                     if(placeable != null) {
-                        possibilities.put(placeable, s);
+                        possibilities.put(placeable, s.toUpperCase());
                     }
                 }
             }
@@ -154,9 +155,9 @@ public class AiPlayer extends Player{
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    ArrayList<Integer> placeable = board.checkPlaceable(s, c);
+                    ArrayList<Integer> placeable = board.checkPlaceable(s.toUpperCase(), c);
                     if(placeable != null) {
-                        possibilities.put(placeable, s);
+                        possibilities.put(placeable, s.toUpperCase());
                     }
                 }
             }
@@ -192,6 +193,11 @@ public class AiPlayer extends Player{
                 words.add(s);
             }
         }
+        for(LetterTile t : this.getLetters()) {
+            System.out.print(t.getLetter());
+
+        }
+        System.out.println();
         for(String s : words) {
             System.out.println(s);
         }

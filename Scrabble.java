@@ -598,6 +598,10 @@ public class Scrabble {
         return "horizontal"; //1-letter words can be treated as horizontal
     }
 
+    public void setAiPlacement(HashMap<ArrayList<Integer>,Character> aiPlacement) {
+        this.playerPlacement = aiPlacement;
+    }
+
     private void undo(){
         if(first > -1) {
             currentLetter = playerPlacement.get(playerPlacementOrder.get(first));
@@ -679,12 +683,8 @@ public class Scrabble {
         if(getCurrentPlayer().isAI()){
             AiPlayer temp = (AiPlayer) getCurrentPlayer();
             this.board = temp.makeMove(this.getBoard());
-            this.command = Command.PASS;
-            currentPlayer++;
-            if(currentPlayer == players.size()){
-                currentPlayer = 0;
-            }
-            turn++;
+            submit();
+            this.command = Command.SUBMIT;
             for(ScrabbleView v : views){
                 v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }

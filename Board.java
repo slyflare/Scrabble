@@ -160,8 +160,8 @@ public class Board {
         for (int  row = 0;  row < 15; row++){
             for (int col = 0; col < 15; col ++) {
                 if(board[row][col] == c){
-                    x.add(col);
-                    y.add(row);
+                    x.add(row);
+                    y.add(col);
                 }
             }
         }
@@ -184,7 +184,7 @@ public class Board {
         if(vertical) {
             ArrayList<Integer> a = new ArrayList<>();
             a.add(x.get(0));
-            a.add(y.get(0));
+            a.add(min);
             return a;
         }
 
@@ -203,7 +203,7 @@ public class Board {
         }
         if(horizontal) {
             ArrayList<Integer> a = new ArrayList<>();
-            a.add(x.get(0));
+            a.add(min);
             a.add(y.get(0));
             return a;
         }
