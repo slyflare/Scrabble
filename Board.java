@@ -171,6 +171,9 @@ public class Board {
         //try vertical
         int min = y.get(0) - index;
         int max = y.get(0) + word.length() - index;
+        if(max > 14 || min < 0) {
+            return null;
+        }
         for(int tempY = y.get(0) - 1; tempY >= min; tempY--) { //check up
             if(board[x.get(0)][tempY] != ' ') {
                 vertical = false;
@@ -191,6 +194,9 @@ public class Board {
         //try horizontal
         min = x.get(0) - index;
         max = x.get(0) + word.length() - index;
+        if(max > 14 || min < 0) {
+            return null;
+        }
         for(int tempX = x.get(0) - 1; tempX >= min; tempX--) { //check up
             if(board[tempX][y.get(0)] != ' ') {
                 horizontal = false;

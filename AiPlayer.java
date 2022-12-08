@@ -87,7 +87,7 @@ public class AiPlayer extends Player{
             }
 
             for(int i = 0; i < vWord.length(); i++){
-                play.put(new ArrayList<Integer>(Arrays.asList(verticalPosition.get(0), verticalPosition.get(1) + i)), vWord.toCharArray()[i]);
+                play.put(new ArrayList<Integer>(Arrays.asList(verticalPosition.get(0) + i, verticalPosition.get(1))), vWord.toCharArray()[i]);
             }
 
             this.board.updateBoard(play);
@@ -170,11 +170,12 @@ public class AiPlayer extends Player{
         ArrayList<LetterTile> letterTiles = getLetters(); //existing letters on board
         ArrayList<Character> chars = new ArrayList<>();
         ArrayList<String> words = new ArrayList<>();
-        chars.add(c);
+        //chars.add(c);
         for(LetterTile t : letterTiles) {
             chars.add(t.getLetter());
         }
         boolean wordValid;
+        ArrayList<Character> tempChars;
         for(String s : wordBank) {
             wordValid = true;
             if(!s.toUpperCase().contains(String.valueOf(c))) {
@@ -183,11 +184,19 @@ public class AiPlayer extends Player{
             if(s.length() > 15){
                 wordValid = false;
             }
+            tempChars = (ArrayList<Character>) chars.clone();
+            boolean usedC = false;
             for(int i = 0; i < s.length(); i++){
-                if (chars.contains(s.toUpperCase().charAt(i))) {
+                if (tempChars.contains(s.toUpperCase().charAt(i))) {
+                    tempChars.remove(tempChars.indexOf(s.toUpperCase().charAt(i)));
+                    continue;
+                }
+                else if(s.toUpperCase().charAt(i) == c && !usedC) {
+                    usedC = true;
                     continue;
                 }
                 wordValid = false;
+                break;
             }
             if(wordValid) {
                 words.add(s);
