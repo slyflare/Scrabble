@@ -220,11 +220,27 @@ public class Board {
     public String boardToXML(){
         StringBuilder xml = new StringBuilder();
         for ( int  row = 0;  row < 15; row++){
-            xml.append("<row>\n");
+            xml.append("<board>\n");
+            xml.append("    <row>\n");
             for (int col = 0; col < 15; col ++) {
                 xml.append("    <column> ").append(board[row][col]).append("</column>\n");
             }
-            xml.append("</row>\n");
+            xml.append("    </row>\n");
+            xml.append("</board>\n");
+        }
+        return xml.toString();
+    }
+
+    public String premiumToXML(){
+        StringBuilder xml = new StringBuilder();
+        for ( int  row = 0;  row < 15; row++){
+            xml.append("<premium>\n");
+            xml.append("    <row>\n");
+            for (int col = 0; col < 15; col ++) {
+                xml.append("        <column> ").append(premium.get(new ArrayList<>(Arrays.asList(row,col)))).append("</column>\n");
+            }
+            xml.append("    </row>\n");
+            xml.append("</premium>\n");
         }
         return xml.toString();
     }
