@@ -637,9 +637,9 @@ public class Scrabble implements Serializable {
         System.out.println(currentLetter);
     }
 
-    public void serialize() {
+    public void serialize(String fileName) {
         try {
-            FileOutputStream fileOutputStream = new FileOutputStream("serialize.txt");
+            FileOutputStream fileOutputStream = new FileOutputStream(fileName);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
             objectOutputStream.writeObject(this);
@@ -652,9 +652,9 @@ public class Scrabble implements Serializable {
             e.getStackTrace();
         }
     }
-    public void load() {
+    public void load(String fileName) {
         try {
-            FileInputStream fileInputStream = new FileInputStream("serialize.txt");
+            FileInputStream fileInputStream = new FileInputStream(fileName);
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Scrabble temp = (Scrabble) objectInputStream.readObject();
             this.board = temp.getBoard();
@@ -665,6 +665,10 @@ public class Scrabble implements Serializable {
         }
         catch(Exception e) {
             e.getStackTrace();
+        }
+        this.command = Command.LOAD;
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
     }
 
@@ -703,13 +707,6 @@ public class Scrabble implements Serializable {
                 //reset();
                 this.command = Command.RESET;
             }
-        }
-        if(command == Command.SAVE) {
-            serialize();
-        }
-        if(command == Command.LOAD) {
-            load();
-            //command = Command.SUBMIT;
         }
 
         for(ScrabbleView v : views){

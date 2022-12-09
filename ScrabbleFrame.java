@@ -25,8 +25,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         super("Scrabble");
 
-        int numIRL = 2;
-        int numAI = 0;
+        int numIRL = Integer.parseInt(getUserInput("Enter number of human players"));
+        int numAI = Integer.parseInt(getUserInput("Enter number of AI players"));
         Scrabble scrabble = new Scrabble(numIRL, numAI);
         scrabble.addScrabbleView(this);
         this.numPlayers = numAI + numIRL;
@@ -108,7 +108,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JButton saveButton = new JButton("Save");
         saveButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, saveButton.getMinimumSize().height));
         saveButton.setActionCommand(0 + " " + 0 + " " + 0 + " SAVE");
-        saveButton.addActionListener(controller);
+        saveButton.addActionListener(e->scrabble.serialize(getUserInput("Enter file name(.txt)")));
         Color c2 = new Color(21, 224 ,140);
         saveButton.setBackground(c2);
         saveButton.setOpaque(true);
@@ -118,7 +118,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         JButton loadButton = new JButton("Load");
         loadButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, loadButton.getMinimumSize().height));
         loadButton.setActionCommand(0 + " " + 0 + " " + 0 + " LOAD");
-        loadButton.addActionListener(controller);
+        loadButton.addActionListener(e->scrabble.load(getUserInput("Enter file name(.txt)")));
         loadButton.setBackground(c2);
         loadButton.setOpaque(true);
         loadButton.setBorderPainted(false);
@@ -263,7 +263,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
-                    if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
+                    if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j))) &&
+                            board[j][i].isEnabled()){
                         if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
                             board[j][i].setText("2L");
                         }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
@@ -376,7 +377,9 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
     public char getBlankTileInput() {
         return JOptionPane.showInputDialog("Enter letter").toUpperCase().charAt(0);
     }
-
+    public String getUserInput(String prompt) {
+        return JOptionPane.showInputDialog(prompt);
+    }
     public static void main(String[] args) {
         new ScrabbleFrame();
 
