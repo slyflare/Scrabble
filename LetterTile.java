@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.HashMap;
 
 /**
  * LetterTile Class
  * @author Matthew
  * */
-public class LetterTile {
+public class LetterTile implements Serializable{
     private char letter;
     private int num;
     private static HashMap<Character, Integer> map;

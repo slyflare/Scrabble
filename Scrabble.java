@@ -642,7 +642,7 @@ public class Scrabble implements Serializable {
             FileOutputStream fileOutputStream = new FileOutputStream("serialize.txt");
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
 
-            //objectOutputStream.writeObject(this);
+            objectOutputStream.writeObject(this);
 
             objectOutputStream.flush();
             objectOutputStream.close();
@@ -653,7 +653,21 @@ public class Scrabble implements Serializable {
         }
     }
     public void load() {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("serialize.txt");
+            ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
+            Scrabble temp = (Scrabble) objectInputStream.readObject();
+            temp.board.printBoard();
+            System.out.println(temp.getClass());
 
+
+            objectInputStream.close();
+            fileInputStream.close();
+
+        }
+        catch(Exception e) {
+            e.getStackTrace();
+        }
     }
 
     public void play(int x, int y, int index, Command command) {

@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.*;
 /**
  * Player class
  * @author Ashwitha
  */
-public class Player{
+public class Player implements Serializable {
     int score;
     private String name;
     private ArrayList<LetterTile> letters;

@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -7,7 +8,7 @@ import java.util.HashMap;
  * @author Vimal and Ashwitha
  */
 
-public class AiPlayer extends Player{
+public class AiPlayer extends Player implements Serializable {
 
     private ArrayList<String> wordBank;
     private Board board;

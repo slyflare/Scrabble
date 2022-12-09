@@ -5,7 +5,7 @@ import java.io.*;
  * Board class responsible for keeping board state
  * @author Riya
  * */
-public class Board {
+public class Board implements Serializable{
    private char[][] board;
    private int row;
    private int col;
