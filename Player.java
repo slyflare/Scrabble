@@ -82,4 +82,19 @@ public class Player{
     public boolean isAI(){
         return false;
     }
+
+    public String toXML(){
+        StringBuilder xml = new StringBuilder();
+        xml.append("    <player>\n");
+        xml.append("        <name>").append(this.name).append("</name>\n");
+        xml.append("        <score>").append(this.score).append("</score>\n");
+        xml.append("        <hand>\n");
+        for (LetterTile t: letters) {
+            xml.append("            <lettertile>").append(t.getLetter()).append("</lettertile>\n");
+        }
+        xml.append("        </hand>\n");
+        xml.append("    </player>\n");
+
+        return xml.toString();
+    }
 }
