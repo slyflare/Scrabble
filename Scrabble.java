@@ -657,10 +657,8 @@ public class Scrabble implements Serializable {
             FileInputStream fileInputStream = new FileInputStream("serialize.txt");
             ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
             Scrabble temp = (Scrabble) objectInputStream.readObject();
-            temp.board.printBoard();
-            System.out.println(temp.getClass());
-
-
+            this.board = temp.getBoard();
+            this.players = temp.getPlayers();
             objectInputStream.close();
             fileInputStream.close();
 
@@ -668,6 +666,10 @@ public class Scrabble implements Serializable {
         catch(Exception e) {
             e.getStackTrace();
         }
+    }
+
+    public ArrayList<Player> getPlayers() {
+        return players;
     }
 
     public void play(int x, int y, int index, Command command) {
@@ -707,6 +709,7 @@ public class Scrabble implements Serializable {
         }
         if(command == Command.LOAD) {
             load();
+            //command = Command.SUBMIT;
         }
 
         for(ScrabbleView v : views){

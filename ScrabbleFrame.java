@@ -354,6 +354,24 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                 }
             }
         }
+
+        if(e.getCommand() == Scrabble.Command.LOAD) {
+            //update board gui
+            for(int i = 0; i < boardSizeX; i++) {
+                for(int j = 0; j < boardSizeY; j++) {
+                    if (e.getBoard().getBoard()[i][j] != ' ') {
+                        board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
+                        board[j][i].setBackground(new Color(0,0,0));
+                        board[j][i].setEnabled(false);
+                    }
+                }
+            }
+            //update hand gui
+            for(int i = 0; i < e.getCurrentPlayer().getLetters().size(); i++) {
+                hand[i].setText(String.valueOf(e.getCurrentPlayer().getLetters().get(i).getLetter()));
+                hand[i].setEnabled(true);
+            }
+        }
     }
     public char getBlankTileInput() {
         return JOptionPane.showInputDialog("Enter letter").toUpperCase().charAt(0);
