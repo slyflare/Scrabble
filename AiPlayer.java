@@ -88,7 +88,7 @@ public class AiPlayer extends Player implements Serializable {
             }
 
             for(int i = 0; i < vWord.length(); i++){
-                play.put(new ArrayList<Integer>(Arrays.asList(verticalPosition.get(0) + i, verticalPosition.get(1))), vWord.toCharArray()[i]);
+                play.put(new ArrayList<Integer>(Arrays.asList(verticalPosition.get(0), verticalPosition.get(1) + i)), vWord.toCharArray()[i]);
             }
 
             this.board.updateBoard(play);
@@ -121,8 +121,11 @@ public class AiPlayer extends Player implements Serializable {
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    ArrayList<Integer> placeable = board.checkPlaceable(s.toUpperCase(), c);
-                    if(placeable != null) {
+                    ArrayList<Integer> temp = board.checkPlaceable(s.toUpperCase(), c);
+                    ArrayList<Integer> placeable = new ArrayList<>();
+                    if(temp != null && temp.get(2) == 1) {
+                        placeable.add(temp.get(0));
+                        placeable.add(temp.get(1));
                         possibilities.put(placeable, s.toUpperCase());
                     }
                 }
@@ -156,8 +159,11 @@ public class AiPlayer extends Player implements Serializable {
             ArrayList<Character> charList = board.getLetters(); //existing letters on board
             for(char c : charList) {
                 for(String s : getPossibleWords(c)) {
-                    ArrayList<Integer> placeable = board.checkPlaceable(s.toUpperCase(), c);
-                    if(placeable != null) {
+                    ArrayList<Integer> temp = board.checkPlaceable(s.toUpperCase(), c);
+                    ArrayList<Integer> placeable = new ArrayList<>();
+                    if(temp != null && temp.get(2) == 0) {
+                        placeable.add(temp.get(0));
+                        placeable.add(temp.get(1));
                         possibilities.put(placeable, s.toUpperCase());
                     }
                 }

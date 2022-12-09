@@ -188,6 +188,7 @@ public class Board implements Serializable{
             ArrayList<Integer> a = new ArrayList<>();
             a.add(x.get(0));
             a.add(min);
+            a.add(0); //0 means vertical
             return a;
         }
 
@@ -211,6 +212,7 @@ public class Board implements Serializable{
             ArrayList<Integer> a = new ArrayList<>();
             a.add(min);
             a.add(y.get(0));
+            a.add(1); //1 means horizontal
             return a;
         }
 
