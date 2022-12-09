@@ -1,13 +1,12 @@
 import javax.swing.*;
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 /**
  * Scrabble class creates the game, players, letterBag, Parser, board
  * @author Matthew
  */
-public class Scrabble {
+public class Scrabble implements Serializable {
     private Board board;
     private ArrayList<Player> players;
     private ArrayList<LetterTile> letterBag;
@@ -638,6 +637,25 @@ public class Scrabble {
         System.out.println(currentLetter);
     }
 
+    public void serialize() {
+        try {
+            FileOutputStream fileOutputStream = new FileOutputStream("serialize.txt");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
+
+            //objectOutputStream.writeObject(this);
+
+            objectOutputStream.flush();
+            objectOutputStream.close();
+            fileOutputStream.close();
+        }
+        catch(Exception e) {
+            e.getStackTrace();
+        }
+    }
+    public void load() {
+
+    }
+
     public void play(int x, int y, int index, Command command) {
         this.command = command;
 
@@ -669,6 +687,12 @@ public class Scrabble {
                 //reset();
                 this.command = Command.RESET;
             }
+        }
+        if(command == Command.SAVE) {
+            serialize();
+        }
+        if(command == Command.LOAD) {
+            load();
         }
 
         for(ScrabbleView v : views){

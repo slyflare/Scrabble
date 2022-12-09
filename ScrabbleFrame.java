@@ -104,6 +104,26 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
             b.addActionListener(controller);
 
         }
+        //save button top right
+        JButton saveButton = new JButton("Save");
+        saveButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, saveButton.getMinimumSize().height));
+        saveButton.setActionCommand(0 + " " + 0 + " " + 0 + " SAVE");
+        saveButton.addActionListener(controller);
+        Color c2 = new Color(21, 224 ,140);
+        saveButton.setBackground(c2);
+        saveButton.setOpaque(true);
+        saveButton.setBorderPainted(false);
+        optionPanel.add(saveButton);
+        //load button top right
+        JButton loadButton = new JButton("Load");
+        loadButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, loadButton.getMinimumSize().height));
+        loadButton.setActionCommand(0 + " " + 0 + " " + 0 + " LOAD");
+        loadButton.addActionListener(controller);
+        loadButton.setBackground(c2);
+        loadButton.setOpaque(true);
+        loadButton.setBorderPainted(false);
+        optionPanel.add(loadButton);
+
         optionPanel.add(Box.createVerticalGlue());
         this.add(optionPanel, BorderLayout.EAST);
 
@@ -111,7 +131,6 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         submitButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, submitButton.getMinimumSize().height));
         submitButton.setActionCommand(0 + " " + 0 + " " + 0 + " SUBMIT");
         submitButton.addActionListener(controller);
-        Color c2 = new Color(21, 224 ,140);
         submitButton.setBackground(c2);
         submitButton.setOpaque(true);
         submitButton.setBorderPainted(false);
