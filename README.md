@@ -24,6 +24,8 @@ BUtton commands:
 
 > "LOAD" - *load a previous game*
 
+> "EDITOR" - *create custom board*
+
 ## Changelist v1.00
 This is the final version of the Scrabble Game. In this version, we implemented multiple level undo/redo functions and save/load functions using Java Serialization.
 We created custom boards with alternate premium square placement defined in XML format.
