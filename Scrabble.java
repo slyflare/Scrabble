@@ -326,6 +326,7 @@ public class Scrabble implements Serializable {
             }
             playerPlacement.clear();
             playerPlacementOrder.clear();
+            first = -1;
             turn++;
             return true;
         }
@@ -334,6 +335,7 @@ public class Scrabble implements Serializable {
         }
         playerPlacement.clear();
         playerPlacementOrder.clear();
+        first = -1;
         return false;
     }
 
@@ -607,7 +609,7 @@ public class Scrabble implements Serializable {
             this.x = this.playerPlacementOrder.get(first).get(0);
             this.y = this.playerPlacementOrder.get(first).get(1);
         }
-        else {
+        else if(!playerPlacementOrder.isEmpty()){
             currentLetter = playerPlacement.get(playerPlacementOrder.get(0));
             this.x = this.playerPlacementOrder.get(0).get(0);
             this.y = this.playerPlacementOrder.get(0).get(1);
@@ -627,7 +629,7 @@ public class Scrabble implements Serializable {
             this.x = this.playerPlacementOrder.get(first).get(0);
             this.y = this.playerPlacementOrder.get(first).get(1);
         }
-        else {
+        else if(!playerPlacementOrder.isEmpty()){
             currentLetter = playerPlacement.get(playerPlacementOrder.get(6));
             this.x = this.playerPlacementOrder.get(6).get(0);
             this.y = this.playerPlacementOrder.get(6).get(1);

@@ -325,7 +325,8 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
         if(e.getCommand() == Scrabble.Command.UNDO){
             board[e.getY()][e.getX()].setText(String.valueOf(e.getBoard().getBoard()[e.getX()][e.getY()]));
-            if(premium.containsKey(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))){
+            if(premium.containsKey(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))
+            && !board[e.getX()][e.getY()].isEnabled()){
                 if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==2){
                     board[e.getY()][e.getX()].setText("2L");
                 }else if(premium.get(new ArrayList<>(Arrays.asList(e.getX(),e.getY())))==3){
