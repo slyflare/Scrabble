@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -100,6 +101,10 @@ public class AiPlayer extends Player implements Serializable {
 
     private HashMap<ArrayList<Integer>, String> checkHorizontalPossibilities(){
         ArrayList<LetterTile> hand = getLetters();
+        ArrayList<Character> letters = new ArrayList<>();
+        for(LetterTile t : hand) {
+            letters.add(t.getLetter());
+        }
         boolean wordValid = true;
         HashMap<ArrayList<Integer>, String> possibilities = new HashMap<>();
 
@@ -107,12 +112,12 @@ public class AiPlayer extends Player implements Serializable {
         if(board.isEmpty()){
             for(String s : wordBank){
                 for(int i = 0; i < s.length(); i++){
-                    if(!hand.contains(new LetterTile(s.toCharArray()[i]))){
+                    if(!letters.contains(Character.toUpperCase(s.charAt(i)))){
                         wordValid = false;
                     }
                 }
                 if(wordValid){
-                    possibilities.put(new ArrayList<Integer>(Arrays.asList(7-(s.length()/2),7)),s);
+                    possibilities.put(new ArrayList<Integer>(Arrays.asList(7,7)),s.toUpperCase());
                 }
                 wordValid = true;
             }
@@ -139,18 +144,22 @@ public class AiPlayer extends Player implements Serializable {
 
         ArrayList<LetterTile> hand = getLetters();
         boolean wordValid = true;
+        ArrayList<Character> letters = new ArrayList<>();
+        for(LetterTile t : hand) {
+            letters.add(t.getLetter());
+        }
         HashMap<ArrayList<Integer>, String> possibilities = new HashMap<>();
 
         //If board is empty find a word to start the game.
         if(board.isEmpty()){
             for(String s : wordBank){
                 for(int i = 0; i < s.length(); i++){
-                    if(!hand.contains(new LetterTile(s.toCharArray()[i]))){
+                    if(!letters.contains(Character.toUpperCase(s.charAt(i)))){
                         wordValid = false;
                     }
                 }
                 if(wordValid){
-                    possibilities.put(new ArrayList<Integer>(Arrays.asList(7-(s.length()/2),7)),s);
+                    possibilities.put(new ArrayList<Integer>(Arrays.asList(7,7)),s.toUpperCase());
                 }
                 wordValid = true;
             }
