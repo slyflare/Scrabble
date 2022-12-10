@@ -7,6 +7,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * BoardEditorFrame class responsible editing the premium tile on board and saving them as XMLs.
+ * @author Vimal
+ *
+ * */
 public class BoardEditorFrame extends JFrame {
     private JButton[][] grid;
     private Board board;
@@ -122,15 +127,15 @@ public class BoardEditorFrame extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Saves the state of the premium tiles on the editor into an xml.
+     * @author Vimal
+     * */
     private void save() throws IOException {
         board.setPremium(premium);
         File file = new File("board.xml");
         FileWriter writer = new FileWriter(file);
         writer.write(board.premiumToXML());
         writer.close();
-    }
-
-    public static void main(String[] args) {
-        BoardEditorFrame e = new BoardEditorFrame();
     }
 }
