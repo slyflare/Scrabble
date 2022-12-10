@@ -24,6 +24,8 @@ BUtton commands:
 
 > "LOAD" - *load a previous game*
 
+> "EDITOR" - *create custom board*
+
 ## Changelist v1.00
 This is the final version of the Scrabble Game. In this version, we implemented multiple level undo/redo functions and save/load functions using Java Serialization.
 We created custom boards with alternate premium square placement defined in XML format.
@@ -39,7 +41,7 @@ We created custom boards with alternate premium square placement defined in XML 
   - New attribute playerPlacementOrder is implemented thoughout Scrabble Class; used for multiple level undo/redo
   - place() method now implements multiple level undo/redo
 - Refactored ScrabbleFrame 
-  - ScrabbleFrame method now has buttons and implementation for UNDO, REDO, and LOAD methods
+  - ScrabbleFrame method now has buttons and implementation for UNDO, REDO, LOAD, and EDITOR methods
 - Refactored Board
   - Added boardToXML method, custom board is defined in XML format
   - Added premiumToXML method, alternate placement for premium tiles defined in XML format
