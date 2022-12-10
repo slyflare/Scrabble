@@ -14,7 +14,39 @@ BUtton commands:
 
 > "DRAW" - *get new letter(s) from the bag*
 
-> "SUBMIT" - *confirm your word to be p*
+> "SUBMIT" - *confirm your word to be played*
+
+> "UNDO" - *undo your previous moves*
+
+> "REDO" - *redo your previous moves*
+
+> "SAVE" - *save your game*
+
+> "LOAD" - *load a previous game*
+
+> "EDITOR" - *create custom board*
+
+## Changelist v1.00
+This is the final version of the Scrabble Game. In this version, we implemented multiple level undo/redo functions and save/load functions using Java Serialization.
+We created custom boards with alternate premium square placement defined in XML format.
+
+- AIPlayer, Board, LetterTile, Player, and Scrabble now implements Serializable
+- Refactored Scrabble
+  - Added setAIPlacement() method, setter function for AI placement
+  - Added undo() method, undo previous plays
+  - Added redo() method, redo previous plays
+  - Added serialize() method, makes game serializable
+  - Added load() method, loads previous game
+  - Added getPlayers() method, returns players
+  - New attribute playerPlacementOrder is implemented thoughout Scrabble Class; used for multiple level undo/redo
+  - place() method now implements multiple level undo/redo
+- Refactored ScrabbleFrame 
+  - ScrabbleFrame method now has buttons and implementation for UNDO, REDO, LOAD, and EDITOR methods
+- Refactored Board
+  - Added boardToXML method, custom board is defined in XML format
+  - Added premiumToXML method, alternate placement for premium tiles defined in XML format
+- Refactored Player
+  - Added toXML method, convert into XML format in the form of a string
 
 ## Changelist v0.75
 In this version, we implemented an AI Player and updated the Scrabble Frame GUI
@@ -30,7 +62,7 @@ In this version, we implemented an AI Player and updated the Scrabble Frame GUI
   - Scrabble method now takes in both num of players and num of AI players
   - Added getPreviousPlayer method, returns the previous player
   - Added getBoard method, returns the board
-  - Play method now also checks if current player is AI
+  - Play() method now also checks if current player is AI
 - Refactored Board
   - Added getLetters method, returns an ArrayList of letters
   - Added checkPlaceable method, checks if a letter can be placed in a certain x,y coordinate on the board 
@@ -55,7 +87,7 @@ In this version, we choose to implement the Model View Controller design pattern
     - Added Draw(), draw letters
     - Added Submit(), performs word check then updates job
     - Added Pass(), passes turn
-    - ADded Reset(), resets temporary word placements
+    - Added Reset(), resets temporary word placements
   - Play() now calls the split functions based on command input
   - Added necessary global variables for the functions
 - Added ScrabbleTest class, responsible for the unit tests
@@ -88,7 +120,3 @@ In this version, we choose to implement the Model View Controller design pattern
   - Added handCheck method, checks if player has the Lettertiles to build the word.
   - Added play method, runs the game.
 - Added WordBank.txt, contains all the legal words for the Scrabble game.
-
-## Roadmap:
-In the next v1.00 we plan to completely implement our Scrabble GUI Game. 
-We plan to use Java Serialization to implement save/load and undo/redo features and add custom boards with alternative premium tile placements. 

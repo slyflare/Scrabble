@@ -278,23 +278,24 @@ public class Board extends DefaultHandler implements Serializable{
         if(qName.equals("row")){
             row++;
         }
-        if(qName.equals("col")){
+        if(qName.equals("column")){
             col++;
+            col = col%15;
         }
     }
     public void characters(char[] ch, int start, int length){
         String strip = new String(ch, start, length).strip();
         if(strip.equals("2")){
-            premium.put(new ArrayList<>(Arrays.asList(col, row)), 2);
+            premium.put(new ArrayList<>(Arrays.asList(row, col)), 2);
         }
         if(strip.equals("3")){
-            premium.put(new ArrayList<>(Arrays.asList(col, row)), 3);
+            premium.put(new ArrayList<>(Arrays.asList(row, col)), 3);
         }
         if(strip.equals("4")){
-            premium.put(new ArrayList<>(Arrays.asList(col, row)), 4);
+            premium.put(new ArrayList<>(Arrays.asList(row, col)), 4);
         }
         if(strip.equals("5")){
-            premium.put(new ArrayList<>(Arrays.asList(col, row)), 5);
+            premium.put(new ArrayList<>(Arrays.asList(row, col)), 5);
         }
     }
 }

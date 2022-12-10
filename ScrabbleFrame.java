@@ -401,7 +401,10 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
 
             //update board gui
             premium.clear();
-            premium = e.getBoard().getPremium();
+            for(ArrayList<Integer> xy: e.getBoard().getPremium().keySet()){
+                premium.put(xy,e.getBoard().getPremium().get(xy));
+                System.out.println(e.getBoard().getPremium().get(xy));
+            }
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     if (e.getBoard().getBoard()[i][j] != ' ') {
