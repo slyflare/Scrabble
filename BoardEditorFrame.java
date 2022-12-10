@@ -115,7 +115,7 @@ public class BoardEditorFrame extends JFrame {
         saveButton.setBorderPainted(false);
         saveButton.addActionListener(e -> {
             try {
-                save();
+                save(JOptionPane.showInputDialog(null,"Enter file name(.xml)"));
             } catch (IOException ex) {
                 throw new RuntimeException(ex);
             }
@@ -132,9 +132,9 @@ public class BoardEditorFrame extends JFrame {
      * Saves the state of the premium tiles on the editor into an xml.
      * @author Vimal
      * */
-    private void save() throws IOException {
+    private void save(String fileName) throws IOException {
         board.setPremium(premium);
-        File file = new File("board.xml");
+        File file = new File(fileName+".xml");
         FileWriter writer = new FileWriter(file);
         writer.write(board.premiumToXML());
         writer.close();

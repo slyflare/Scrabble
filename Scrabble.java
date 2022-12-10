@@ -738,9 +738,8 @@ public class Scrabble implements Serializable {
    
     }
     
-    public void importBoardPremium() throws ParserConfigurationException, IOException, SAXException {
-        this.board.premiumLoad();
-        System.out.println(board.getPremium().get(new ArrayList<>(Arrays.asList(0,0))));
+    public void importBoardPremium(String fileName) throws ParserConfigurationException, IOException, SAXException {
+        this.board.premiumLoad(fileName);
         for(ScrabbleView v : views){
             v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, Command.LOAD));
         }

@@ -138,7 +138,7 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         boardButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, loadButton.getMinimumSize().height));
         boardButton.addActionListener(e-> {
             try {
-                scrabble.importBoardPremium();
+                scrabble.importBoardPremium(JOptionPane.showInputDialog(null,"Enter file name(.xml)"));
             } catch (ParserConfigurationException | IOException | SAXException ex) {
                 throw new RuntimeException(ex);
             }
@@ -412,13 +412,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                     else {
                         if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
                             if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
-                                board[e.getY()][e.getX()].setText("2L");
+                                board[j][i].setText("2L");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
-                                board[e.getY()][e.getX()].setText("3L");
+                                board[j][i].setText("3L");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
-                                board[e.getY()][e.getX()].setText("2W");
+                                board[j][i].setText("2W");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
-                                board[e.getY()][e.getX()].setText("3W");
+                                board[j][i].setText("3W");
                             }
                         }
                     }

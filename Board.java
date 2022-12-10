@@ -5,7 +5,6 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.nio.charset.CharsetEncoder;
 import java.util.*;
 import java.io.*;
 /**
@@ -262,8 +261,8 @@ public class Board extends DefaultHandler implements Serializable{
     }
 
     //
-    public void premiumLoad() throws ParserConfigurationException, SAXException, IOException {
-        File file = new File("board.xml");
+    public void premiumLoad(String fileName) throws ParserConfigurationException, SAXException, IOException {
+        File file = new File(fileName+".xml");
         SAXParserFactory spf = SAXParserFactory.newInstance();
         SAXParser s = spf.newSAXParser();
 
@@ -271,7 +270,9 @@ public class Board extends DefaultHandler implements Serializable{
     }
 
     public void startElement(String u, String ln, String qName, Attributes a){
-        curr = qName;
+        if(qName.equals("premium")){
+            premium.clear();
+        }
     }
     public void endElement(String uri, String localName, String qName){
         if(qName.equals("row")){
@@ -284,19 +285,15 @@ public class Board extends DefaultHandler implements Serializable{
     public void characters(char[] ch, int start, int length){
         String strip = new String(ch, start, length).strip();
         if(strip.equals("2")){
-            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
             premium.put(new ArrayList<>(Arrays.asList(col, row)), 2);
         }
         if(strip.equals("3")){
-            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
             premium.put(new ArrayList<>(Arrays.asList(col, row)), 3);
         }
         if(strip.equals("4")){
-            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
             premium.put(new ArrayList<>(Arrays.asList(col, row)), 4);
         }
         if(strip.equals("5")){
-            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
             premium.put(new ArrayList<>(Arrays.asList(col, row)), 5);
         }
     }
