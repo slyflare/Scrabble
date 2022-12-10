@@ -72,28 +72,29 @@ public class BoardEditorFrame extends JFrame {
                     String input = JOptionPane.showInputDialog(null,"Enter premium tile 2L, 3L, 2W, 3W, or clear");
                     if(input.equals("2L") || input.equals("3L") || input.equals("2W") || input.equals("3W")) {
                         b.setText(input);
-                        premium.remove(new ArrayList<>(Arrays.asList(finalI, finalJ)));
+                        this.premium.remove(new ArrayList<>(Arrays.asList(finalI, finalJ)));
                         switch (input) {
                             case "2L" -> {
                                 b.setBackground(new Color(0, 183, 235));
-                                premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),2);
+                                this.premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),2);
                             }
                             case "3L" -> {
                                 b.setBackground(new Color(60, 150, 255));
-                                premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),3);
+                                this.premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),3);
                             }
                             case "2W" -> {
                                 b.setBackground(new Color(255, 105, 180));
-                                premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),4);
+                                this.premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),4);
                             }
                             case "3W" -> {
                                 b.setBackground(new Color(255, 0, 0));
-                                premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),5);
+                                this.premium.put(new ArrayList<>(Arrays.asList(finalI, finalJ)),5);
                             }
                         }
                     }
                     if(input.equals("clear")){
                         b.setText("");
+                        this.premium.remove(new ArrayList<>(Arrays.asList(finalI, finalJ)));
                         if ((finalI + finalJ)%2 == 0){
                             b.setBackground(color1);
                         }
@@ -137,5 +138,7 @@ public class BoardEditorFrame extends JFrame {
         FileWriter writer = new FileWriter(file);
         writer.write(board.premiumToXML());
         writer.close();
+
+        System.out.println(board.premiumToXML());
     }
 }

@@ -1,3 +1,10 @@
+import org.xml.sax.Attributes;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import java.nio.charset.CharsetEncoder;
 import java.util.*;
 import java.io.*;
@@ -5,16 +12,19 @@ import java.io.*;
  * Board class responsible for keeping board state
  * @author Riya
  * */
-public class Board implements Serializable{
+public class Board extends DefaultHandler implements Serializable{
    private char[][] board;
    private int row;
    private int col;
    private char input;
+   private String curr;
 
     private HashMap<ArrayList<Integer>,Integer> premium;
 
     public Board(){
         this.board();
+        row = 0;
+        col = 0;
         premium = new HashMap<>();
         //3LS
         premium.put(new ArrayList<>(Arrays.asList(1,5)),3);
@@ -239,15 +249,55 @@ public class Board implements Serializable{
 
     public String premiumToXML(){
         StringBuilder xml = new StringBuilder();
+        xml.append("<premium>\n");
         for ( int  row = 0;  row < 15; row++){
-            xml.append("    <premium>\n");
-            xml.append("        <row>\n");
+            xml.append("    <row>\n");
             for (int col = 0; col < 15; col ++) {
-                xml.append("            <column>").append(premium.get(new ArrayList<>(Arrays.asList(row,col)))).append("</column>\n");
+                xml.append("        <column>").append(premium.get(new ArrayList<>(Arrays.asList(row,col)))).append("</column>\n");
             }
-            xml.append("        </row>\n");
-            xml.append("    </premium>\n");
+            xml.append("    </row>\n");
         }
+        xml.append("</premium>\n");
         return xml.toString();
+    }
+
+    //
+    public void premiumLoad() throws ParserConfigurationException, SAXException, IOException {
+        File file = new File("board.xml");
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        SAXParser s = spf.newSAXParser();
+
+        s.parse(file, this);
+    }
+
+    public void startElement(String u, String ln, String qName, Attributes a){
+        curr = qName;
+    }
+    public void endElement(String uri, String localName, String qName){
+        if(qName.equals("row")){
+            row++;
+        }
+        if(qName.equals("col")){
+            col++;
+        }
+    }
+    public void characters(char[] ch, int start, int length){
+        String strip = new String(ch, start, length).strip();
+        if(strip.equals("2")){
+            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
+            premium.put(new ArrayList<>(Arrays.asList(col, row)), 2);
+        }
+        if(strip.equals("3")){
+            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
+            premium.put(new ArrayList<>(Arrays.asList(col, row)), 3);
+        }
+        if(strip.equals("4")){
+            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
+            premium.put(new ArrayList<>(Arrays.asList(col, row)), 4);
+        }
+        if(strip.equals("5")){
+            premium.remove(new ArrayList<>(Arrays.asList(col, row)));
+            premium.put(new ArrayList<>(Arrays.asList(col, row)), 5);
+        }
     }
 }

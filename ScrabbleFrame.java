@@ -1,5 +1,9 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -130,6 +134,19 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         editorButton.setOpaque(true);
         editorButton.setBorderPainted(false);
         optionPanel.add(editorButton);
+        JButton boardButton = new JButton("Premium Import");
+        boardButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, loadButton.getMinimumSize().height));
+        boardButton.addActionListener(e-> {
+            try {
+                scrabble.importBoardPremium();
+            } catch (ParserConfigurationException | IOException | SAXException ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        boardButton.setBackground(c2);
+        boardButton.setOpaque(true);
+        boardButton.setBorderPainted(false);
+        optionPanel.add(boardButton);
 
         optionPanel.add(Box.createVerticalGlue());
         this.add(optionPanel, BorderLayout.EAST);
@@ -365,13 +382,45 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         }
 
         if(e.getCommand() == Scrabble.Command.LOAD) {
+            //clear board
+            for(int i = 0; i < boardSizeX; i++) {
+                for(int j = 0; j < boardSizeY; j++) {
+                    board[j][i].setText(" ");
+                    board[j][i].setEnabled(true);
+                    if ((i+j)%2 == 0){
+                        board[j][i].setBackground(new Color(200, 200 ,200));
+                    }
+                    else{
+                        board[j][i].setBackground(new Color(255, 255 ,255));
+                    }
+                    if(i == 7 && j == 7){
+                        board[j][i].setBackground(new Color(255,228,181));
+                    }
+                }
+            }
+
             //update board gui
+            premium.clear();
+            premium = e.getBoard().getPremium();
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     if (e.getBoard().getBoard()[i][j] != ' ') {
                         board[j][i].setText(String.valueOf(e.getBoard().getBoard()[i][j]));
                         board[j][i].setBackground(new Color(0,0,0));
                         board[j][i].setEnabled(false);
+                    }
+                    else {
+                        if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
+                            if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
+                                board[e.getY()][e.getX()].setText("2L");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
+                                board[e.getY()][e.getX()].setText("3L");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
+                                board[e.getY()][e.getX()].setText("2W");
+                            }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
+                                board[e.getY()][e.getX()].setText("3W");
+                            }
+                        }
                     }
                 }
             }

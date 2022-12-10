@@ -1,4 +1,7 @@
+import org.xml.sax.SAXException;
+
 import javax.swing.*;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
 
@@ -735,22 +738,11 @@ public class Scrabble implements Serializable {
    
     }
     
-    public static Board ImportXML(File f) throws Exception {
-        SAXParserFactory spf = SAXParserFactory.newInstance();
-        SAXParser s = spf.newSAXParser();
-
-        Board b = new Board();
-        DefaultHandler dh = new DefaultHandler() {
-            //this.Board = new char[15][15];
-             //for (int i = 0; i < 15; i++) {.
-                //for (int j = 0; j < 15; j++) {
-
-               // }
-           // }
-
-        };
-
-        s.parse(f, dh);
-        return b;
+    public void importBoardPremium() throws ParserConfigurationException, IOException, SAXException {
+        this.board.premiumLoad();
+        System.out.println(board.getPremium().get(new ArrayList<>(Arrays.asList(0,0))));
+        for(ScrabbleView v : views){
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, Command.LOAD));
+        }
     }
 }
