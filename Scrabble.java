@@ -676,7 +676,7 @@ public class Scrabble implements Serializable {
         }
         this.command = Command.LOAD;
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, this.board.getPremium(), getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
     }
 
@@ -718,7 +718,7 @@ public class Scrabble implements Serializable {
         }
 
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, this.board.getPremium(), getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
         }
 
         //prevents copying letters
@@ -732,7 +732,7 @@ public class Scrabble implements Serializable {
             submit();
             this.command = Command.SUBMIT;
             for(ScrabbleView v : views){
-                v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
+                v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, this.board.getPremium(), getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }
         }
    
@@ -741,7 +741,7 @@ public class Scrabble implements Serializable {
     public void importBoardPremium(String fileName) throws ParserConfigurationException, IOException, SAXException {
         this.board.premiumLoad(fileName);
         for(ScrabbleView v : views){
-            v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, Command.LOAD));
+            v.update(new ScrabbleEvent(this, this.x, this.y, turn, this.board, this.board.getPremium(), getCurrentPlayer(), getPreviousPlayer(), currentLetter, Command.LOAD));
         }
     }
 }

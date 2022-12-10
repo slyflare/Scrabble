@@ -16,7 +16,6 @@ public class Board extends DefaultHandler implements Serializable{
    private int row;
    private int col;
    private char input;
-   private String curr;
 
     private HashMap<ArrayList<Integer>,Integer> premium;
 
@@ -270,9 +269,6 @@ public class Board extends DefaultHandler implements Serializable{
     }
 
     public void startElement(String u, String ln, String qName, Attributes a){
-        if(qName.equals("premium")){
-            premium.clear();
-        }
     }
     public void endElement(String uri, String localName, String qName){
         if(qName.equals("row")){
@@ -286,16 +282,23 @@ public class Board extends DefaultHandler implements Serializable{
     public void characters(char[] ch, int start, int length){
         String strip = new String(ch, start, length).strip();
         if(strip.equals("2")){
+            premium.remove(new ArrayList<>(Arrays.asList(row, col)));
             premium.put(new ArrayList<>(Arrays.asList(row, col)), 2);
         }
         if(strip.equals("3")){
+            premium.remove(new ArrayList<>(Arrays.asList(row, col)));
             premium.put(new ArrayList<>(Arrays.asList(row, col)), 3);
         }
         if(strip.equals("4")){
+            premium.remove(new ArrayList<>(Arrays.asList(row, col)));
             premium.put(new ArrayList<>(Arrays.asList(row, col)), 4);
         }
         if(strip.equals("5")){
+            premium.remove(new ArrayList<>(Arrays.asList(row, col)));
             premium.put(new ArrayList<>(Arrays.asList(row, col)), 5);
+        }
+        if(strip.equals("null")){
+            premium.remove(new ArrayList<>(Arrays.asList(row, col)));
         }
     }
 }

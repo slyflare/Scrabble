@@ -384,27 +384,25 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         if(e.getCommand() == Scrabble.Command.LOAD) {
             //clear board
             for(int i = 0; i < boardSizeX; i++) {
-                for(int j = 0; j < boardSizeY; j++) {
+                for (int j = 0; j < boardSizeY; j++) {
                     board[j][i].setText(" ");
                     board[j][i].setEnabled(true);
-                    if ((i+j)%2 == 0){
-                        board[j][i].setBackground(new Color(200, 200 ,200));
+                    if ((i + j) % 2 == 0) {
+                        board[j][i].setBackground(new Color(200, 200, 200));
+                    } else {
+                        board[j][i].setBackground(new Color(255, 255, 255));
                     }
-                    else{
-                        board[j][i].setBackground(new Color(255, 255 ,255));
-                    }
-                    if(i == 7 && j == 7){
-                        board[j][i].setBackground(new Color(255,228,181));
+                    if (i == 7 && j == 7) {
+                        board[j][i].setBackground(new Color(255, 228, 181));
                     }
                 }
             }
 
             //update board gui
-            premium.clear();
-            for(ArrayList<Integer> xy: e.getBoard().getPremium().keySet()){
-                premium.put(xy,e.getBoard().getPremium().get(xy));
-                System.out.println(e.getBoard().getPremium().get(xy));
-            }
+            System.out.println(e.getPremium().toString());
+            premium = e.getPremium();
+            System.out.println(premium.toString());
+
             for(int i = 0; i < boardSizeX; i++) {
                 for(int j = 0; j < boardSizeY; j++) {
                     if (e.getBoard().getBoard()[i][j] != ' ') {
@@ -415,12 +413,16 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
                     else {
                         if(premium.containsKey(new ArrayList<>(Arrays.asList(i,j)))){
                             if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==2){
+                                board[j][i].setBackground(new Color(0,183,235));
                                 board[j][i].setText("2L");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==3){
+                                board[j][i].setBackground(new Color(60,150,255));
                                 board[j][i].setText("3L");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==4){
+                                board[j][i].setBackground(new Color(255,105,180));
                                 board[j][i].setText("2W");
                             }else if(premium.get(new ArrayList<>(Arrays.asList(i,j)))==5){
+                                board[j][i].setBackground(new Color(255,0,0));
                                 board[j][i].setText("3W");
                             }
                         }
