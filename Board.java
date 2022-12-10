@@ -219,6 +219,10 @@ public class Board implements Serializable{
         return null;
     }
 
+    public void setPremium(HashMap<ArrayList<Integer>, Integer> premium) {
+        this.premium = premium;
+    }
+
     public String boardToXML(){
         StringBuilder xml = new StringBuilder();
         for ( int  row = 0;  row < 15; row++){
@@ -239,7 +243,7 @@ public class Board implements Serializable{
             xml.append("    <premium>\n");
             xml.append("        <row>\n");
             for (int col = 0; col < 15; col ++) {
-                xml.append("            <column> ").append(premium.get(new ArrayList<>(Arrays.asList(row,col)))).append("</column>\n");
+                xml.append("            <column>").append(premium.get(new ArrayList<>(Arrays.asList(row,col)))).append("</column>\n");
             }
             xml.append("        </row>\n");
             xml.append("    </premium>\n");

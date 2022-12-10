@@ -123,6 +123,13 @@ public class ScrabbleFrame extends JFrame implements ScrabbleView {
         loadButton.setOpaque(true);
         loadButton.setBorderPainted(false);
         optionPanel.add(loadButton);
+        JButton editorButton = new JButton("Editor");
+        editorButton.setMaximumSize(new Dimension(Integer.MAX_VALUE, loadButton.getMinimumSize().height));
+        editorButton.addActionListener(e->new BoardEditorFrame());
+        editorButton.setBackground(c2);
+        editorButton.setOpaque(true);
+        editorButton.setBorderPainted(false);
+        optionPanel.add(editorButton);
 
         optionPanel.add(Box.createVerticalGlue());
         this.add(optionPanel, BorderLayout.EAST);
