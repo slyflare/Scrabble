@@ -732,5 +732,25 @@ public class Scrabble implements Serializable {
                 v.update(new ScrabbleEvent(this, this.x, this.y, turn, board, getCurrentPlayer(), getPreviousPlayer(), currentLetter, this.command));
             }
         }
+   
+    }
+    
+    public static Board ImportXML(File f) throws Exception {
+        SAXParserFactory spf = SAXParserFactory.newInstance();
+        SAXParser s = spf.newSAXParser();
+
+        Board b = new Board();
+        DefaultHandler dh = new DefaultHandler() {
+            //this.Board = new char[15][15];
+             //for (int i = 0; i < 15; i++) {.
+                //for (int j = 0; j < 15; j++) {
+
+               // }
+           // }
+
+        };
+
+        s.parse(f, dh);
+        return b;
     }
 }
