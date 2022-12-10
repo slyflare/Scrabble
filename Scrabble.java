@@ -386,6 +386,9 @@ public class Scrabble implements Serializable {
         if(board.getBoard()[7][7] == ' ' && playerPlacement.containsKey(new ArrayList<>(Arrays.asList(7, 7)))){
             return true;
         }
+        else if(board.getBoard()[7][7] == ' ' && getCurrentPlayer().isAI()) {
+            return true; //ai will always start in the middle
+        }
         char[][] b = board.getBoard();
         ArrayList<ArrayList<Integer>> temp = new ArrayList<>(playerPlacement.keySet());
         if(getWordDirection().equals("horizontal")) { //horizontal
