@@ -1,4 +1,4 @@
-# SYSC-3110-Scrabble
+# Scrabble
 By Ashwitha Ala, Matthew Gaudet, Riya Rawat, Vimal Gunasegaran
 
 ## Project Description:
